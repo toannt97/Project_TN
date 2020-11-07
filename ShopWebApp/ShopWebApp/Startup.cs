@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ShopWebApp
 {
@@ -17,13 +18,19 @@ namespace ShopWebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
+            services.AddDistributedMemoryCache();
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession(options =>
+            {
+                options.Cookie.Name = ".ShopWebApp.Session";
+                options.IdleTimeout = TimeSpan.FromSeconds(100);
+                options.Cookie.HttpOnly = true;
+            });
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(p => {
             //    p.LoginPath = "/KhachHang/Login";
             //    p.AccessDeniedPath = "/KhachHang/ThongBao";
             //});
             //services.AddHttpClient();
-            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopWebApp.Common;
 using ShopWebApp.Contants;
-using ShopWebApp.Models;
 using ShopWebApp.Models.DataModels;
 
 namespace ShopWebApp.Controllers
@@ -18,6 +17,7 @@ namespace ShopWebApp.Controllers
         private List<Supplier> _suppliers;
         private List<Product> _products;
         private List<Category> _categories;
+        //private User _user;
         public ProductController()
         {
             _suppliers = new List<Supplier>();
@@ -30,7 +30,6 @@ namespace ShopWebApp.Controllers
             {
                 supplierId = 0;
             }
-
             var response = await _client.GetAsync(Constants.apiSupplier);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
             response = await _client.GetAsync(Constants.apiProduct);
@@ -56,6 +55,7 @@ namespace ShopWebApp.Controllers
             ViewBag.Suppliers = _suppliers.ToList();
             ViewBag.Category = _categories;
             ViewBag.domainUrl = Program.domainUrl;
+            //ViewBag.UserLogin = _user;
             return View(productResult);
         }
 

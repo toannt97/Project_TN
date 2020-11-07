@@ -8876,11 +8876,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Project_TN_ThayTru\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
+      "projectUniqueName": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
       "projectName": "ShopAPI",
-      "projectPath": "E:\\Project_TN_ThayTru\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
+      "projectPath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
       "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "E:\\Project_TN_ThayTru\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\obj\\",
+      "outputPath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",

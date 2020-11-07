@@ -24,13 +24,13 @@
 <div class="clearfix"> </div>
 <br />
 <br />
-<nav class="in">
-    Trang hiện tại : @(ViewBag.PageNumber + 1) / @(ViewBag.TotalPage)
+<nav class="pagination">
+    Current page : @(ViewBag.PageNumber + 1) / @(ViewBag.TotalPage)
     <div>
-        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-action="Index" asp-route-pageNo="0" asp-route-mahang="@ViewBag.MaHang">Đầu</a>
-        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber - 1)" asp-route-mahang="@ViewBag.MaHang">Trước</a>
-        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber + 1)" asp-route-mahang="@ViewBag.MaHang">Kế</a>
-        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-action="Index" asp-route-pageNo="@(ViewBag.TotalPage -1)" asp-route-mahang="@ViewBag.MaHang">Cuối</a>
+        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-action="Index" asp-route-pageNo="0" asp-route-mahang="@ViewBag.MaHang">First page</a>
+        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber - 1)" asp-route-mahang="@ViewBag.MaHang">Previous</a>
+        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber + 1)" asp-route-mahang="@ViewBag.MaHang">Next</a>
+        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-action="Index" asp-route-pageNo="@(ViewBag.TotalPage -1)" asp-route-mahang="@ViewBag.MaHang">Last page</a>
     </div>
 </nav>
 

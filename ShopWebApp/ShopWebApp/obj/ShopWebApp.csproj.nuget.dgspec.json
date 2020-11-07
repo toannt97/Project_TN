@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Project_TN_ThayTru\\TTTN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj": {}
+    "E:\\Project_TN_ThayTru\\Projec_TN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj": {}
   },
   "projects": {
-    "E:\\Project_TN_ThayTru\\TTTN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj": {
+    "E:\\Project_TN_ThayTru\\Projec_TN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Project_TN_ThayTru\\TTTN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj",
+        "projectUniqueName": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj",
         "projectName": "ShopWebApp",
-        "projectPath": "E:\\Project_TN_ThayTru\\TTTN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj",
+        "projectPath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopWebApp\\ShopWebApp\\ShopWebApp.csproj",
         "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-        "outputPath": "E:\\Project_TN_ThayTru\\TTTN\\ShopWebApp\\ShopWebApp\\obj\\",
+        "outputPath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopWebApp\\ShopWebApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,6 +45,10 @@
             "Microsoft.AspNetCore.All": {
               "target": "Package",
               "version": "[2.0.8, )"
+            },
+            "Microsoft.AspNetCore.Session": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",

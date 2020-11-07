@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ql2yZ0J5Yvi/0CDARpNY8JPWFaRDI+4r4GyrsWmtB7c9eE4RzaJb3VGIEYT1FPXcjVAQEqRRbZFSnyNEbZn9iQ==",
+  "dgSpecHash": "AhmK+C3eEtDVR9C+01amqXQ9nBqmQfuzi9KOF5FkQi2ayEjgNAZKy+3j5+FUxRqqLqSWyPEn246uTNMGVsP7bg==",
   "success": true,
-  "projectFilePath": "E:\\Project_TN_ThayTru\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
+  "projectFilePath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nguye\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\nguye\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",

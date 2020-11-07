@@ -1,0 +1,44 @@
+﻿@model ShopWebApp.Models.DataModels.User
+<link href='~/css/sign_up.css' rel='stylesheet' type='text/css'>
+
+<div class="register-form">
+
+    <div class="main-div">
+
+        <div class="panel">
+            <h1>Register</h1>
+        </div>
+
+        <form id="RegisterForm" asp-controller="Login" asp-action="SignUp" method="post" onsubmit="return jQueryAxjaxSignUpPost(this)">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="fullname-js" placeholder="Fullname" asp-for="FullName">
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="email" class="form-control" id="email-register-js" placeholder="Email Address">
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" id="password-register-js" placeholder="Password">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Confirm password" asp-for="ConfirmPassword">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Sign up</button>
+
+        </form>
+
+    </div>
+</div>
+
+<!--Script-->
+<script src="~/js/sign_up.js"></script>

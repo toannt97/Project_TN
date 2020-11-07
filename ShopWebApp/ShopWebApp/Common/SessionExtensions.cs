@@ -14,7 +14,7 @@ namespace ShopWebApp.Models.Tool
         {
             var value = session.GetString(key);
 
-            return value == null ? default(T) :
+            return value == null ? default :
                 JsonConvert.DeserializeObject<T>(value);
         }
     }

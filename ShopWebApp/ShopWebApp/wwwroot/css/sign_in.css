@@ -1,0 +1,80 @@
+﻿body#LoginForm {
+    background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
+}
+
+.main-div {
+    background: #ffffff none repeat scroll 0 0;
+    border-radius: 2px;
+    padding: 0px 30px 10px 35px;
+}
+
+.panel p {
+    color: #777777;
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 24px;
+}
+
+.panel h1 {
+    padding-bottom: 30px;
+}
+
+.login-form {
+    text-align: center;
+}
+
+    .login-form .form-group {
+        margin-bottom: 10px;
+    }
+
+    .login-form .form-control {
+        background: #f7f7f7 none repeat scroll 0 0;
+        border: 1px solid #d4d4d4;
+        border-radius: 4px;
+        font-size: 14px;
+        line-height: 50px;
+    }
+
+    .login-form .btn.btn-primary {
+        background: #007bff none repeat scroll 0 0;
+        border-color: #007bff;
+        color: #ffffff;
+        font-size: 14px;
+        width: 70%;
+        height: 50px;
+        line-height: 50px;
+        padding: 0;
+    }
+
+        .login-form .btn.btn-primary.reset {
+            background: #ff9900 none repeat scroll 0 0;
+        }
+
+.forgot {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+    .forgot a {
+        color: #1f8bff;
+        font-size: 14px;
+        text-decoration: underline;
+    }
+
+.modal-content {
+    margin-top: -100%;
+}
+
+.button-close {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    margin-top: 3%;
+    padding-right: 3%;
+    cursor: pointer;
+    align-self: flex-end;
+}

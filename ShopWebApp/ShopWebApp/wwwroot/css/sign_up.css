@@ -1,0 +1,51 @@
+﻿﻿body#RegisterForm {
+    background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10px;
+}
+
+.register-form .form-control {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 50px;
+}
+
+.main-div {
+    background: #ffffff none repeat scroll 0 0;
+    border-radius: 2px;
+    padding: 0px 30px 10px 35px;
+}
+
+.register-form .form-group {
+    margin-bottom: 10px;
+}
+
+.register-form {
+    text-align: center;
+}
+
+    .register-form .btn.btn-primary {
+        background: #007bff none repeat scroll 0 0;
+        border-color: #007bff;
+        color: #ffffff;
+        font-size: 14px;
+        width: 70%;
+        height: 50px;
+        line-height: 50px;
+        margin-top: 30px;
+        padding: 0;
+    }
+
+.button-close {
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+    margin-top: 3%;
+    padding-right: 3%;
+    cursor: pointer;
+    align-self: flex-end;
+}
