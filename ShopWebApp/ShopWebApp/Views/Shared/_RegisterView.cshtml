@@ -9,7 +9,7 @@
             <h1>Register</h1>
         </div>
 
-        <form id="RegisterForm" asp-controller="Login" asp-action="SignUp" method="post" onsubmit="return jQueryAxjaxSignUpPost(this)">
+        <form id="RegisterForm" asp-controller="User" asp-action="SignUp" method="post" onsubmit="return jQueryAxjaxSignUpPost(this)">
             @Html.AntiForgeryToken()
 
             <div class="form-group">

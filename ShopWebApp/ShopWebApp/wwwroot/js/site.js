@@ -1,34 +1,34 @@
-﻿window.onload = function () {
-    var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function () {
-        modal.style.display = "block";
+﻿$(document).ready(function () {
+    function SetOverplay() {
+        let opacity = 0.3;
+        $('.header').css("opacity", opacity);
+        $('.product').css("opacity", opacity);
+        $('.footer').css("opacity", opacity);
     }
+
+    function RemoveOverplay() {
+        let opacity = 1;
+        $('.header').css("opacity", opacity);
+        $('.product').css("opacity", opacity);
+        $('.footer').css("opacity", opacity);
+    }
+    // When the user clicks the button, open the modal 
+    $('#btn-login').click(function () {
+        SetOverplay();
+        $("#login-modal").css("display", "block");
+    });
+
+    $('#btn-register').click(function () {
+        SetOverplay();
+        $("#register-modal").css("display", "block");
+    });
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
+    $('.close-modal').click(function () {
+        RemoveOverplay();
+        $('.text-danger').text('');
+        $("#login-modal").css("display", "none");
+        $("#register-modal").css("display", "none");
+    });
 
-    function onCloseLoginClick() {
-        $(function () {
-            $('body').css('background-color', 'blue !important');
-        });
-        $('#loginModal').modal('hide');
-        $('.modal-backdrop').remove();
-    }
-
-    function onCloseRegisterClick() {
-        $('#registerModal').modal('hide');
-        $('.modal-backdrop').remove();
-    }
-};
-
-
+});

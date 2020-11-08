@@ -15,6 +15,7 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'><!--//fonts-->
     <link href="~/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
+    @RenderSection("Styles", required: false)
     <script type="text/javascript" src="~/js/memenu.js"></script>
     <script>$(document).ready(function () { $(".memenu").memenu(); });</script>
     <script>
@@ -49,20 +50,18 @@
                     </form>
                 </div>
                 <div class="group-btn-account">
-                    <span class="btn-sing-in" data-toggle="modal" data-target="#signInModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                          aria-hidden="true">
+                    <!-- Trigger/Open The Modal -->
+                    <span id="btn-login">
                         Sign in
                     </span>
 
-                    <span class="btn-sing-up" data-toggle="modal" data-target="#signUpModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-                          aria-hidden="true">
+                    <span id="btn-register">
                         Sign up
                     </span>
                 </div>
             </div>
         </div>
-        <!-- Trigger/Open The Modal -->
-        <button id="myBtn">Open Modal</button>
+
         @{
             List<Supplier> suppliers = new List<Supplier>();
             if (ViewBag.Suppliers != null)
@@ -147,31 +146,28 @@
         </div>
     </div>
 
-    <!-- Modal: Sign in form -->
-    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <span class="button-close" onclick="onCloseLoginClick()">X</span>
-                
-            </div>
-        </div>
-    </div>
 
-    
 
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
+    <!-- The Sign In Modal -->
+    <div id="login-modal" class="modal">
         <!-- Modal content -->
-        <div class="modal-content">
+        <div class="modal-content container login-content">
             <div class="modal-body modal-login" id="modal-login">
-                <span class="close">&times;</span>
-                @*<span class="button-close" onclick="onCloseLoginClick()">X</span>*@
                 @await Html.PartialAsync("_LoginView", new UserSignIn())
             </div>
         </div>
-
     </div>
 
+    <!-- The Sign Up Modal -->
+    <div id="register-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content container register-content">
+            <div class="modal-body modal-register" id="modal-register">
+                <span class="close-modal">X</span>
+                @await Html.PartialAsync("_RegisterView", new User())
+            </div>
+        </div>
+    </div>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

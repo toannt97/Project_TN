@@ -68,7 +68,7 @@ namespace ShopWebApp.Controllers
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
 
             response = await _client.GetAsync($"{Constants.apiProduct}/{id}");
-            var product = response.Content.ReadAsAsync<Product>().Result;
+            var product =  response.Content.ReadAsAsync<Product>().Result;
             
             foreach (var item in _suppliers)
             {

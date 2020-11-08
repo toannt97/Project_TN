@@ -143,7 +143,7 @@ a.item_add {
     text-align: end;
 }
 .group-btn-account > span {
-    font-size: 14px;
+    font-size: 17px;
     color: white;
     font-weight: 700;
     margin-left:50px;
@@ -156,9 +156,9 @@ a.item_add {
         cursor:default;
     }
 
-    .group-btn-account > .btn-sing-up {
-        border: 1px solid white;
-    }
+#btn-register {
+    border: 1px solid white;
+}
 
 
     .logo {
@@ -168,6 +168,27 @@ a.item_add {
 .head-top {
     padding: 1em 0;
 }
+
+/* Modal */
+.login-content{
+    margin-top:10%;
+    width: 600px;
+}
+
+.register-content {
+    margin-top: 10%;
+    /*width: 600px;*/
+}
+
+.close-modal {
+    color: black;
+    opacity: 1;
+    font-size: 20px;
+    font-weight: 700;
+    float: right;
+    cursor: default;
+}
+
 /* start menu */
 .h_menu4 {
     margin: 7px 50px 0px;
@@ -209,7 +230,7 @@ a.item_add {
 /*--banner--*/
 
 .banner {
-    background: url(../images/1.jpg) no-repeat;
+    background: url(../images/1.jpg) no-repeat; 
     background-size: cover;
     width: 100%;
     min-height: 560px;
