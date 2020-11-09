@@ -27,11 +27,7 @@ namespace ShopAPI.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=TOANNT\\SERVER_01; Database=OnlineShop;Trusted_Connection=True;");
-            }
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -187,7 +183,7 @@ namespace ShopAPI.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Salt)
+                entity.Property(e => e.Token)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);

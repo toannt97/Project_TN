@@ -17,7 +17,7 @@ namespace ShopAPI.Models
         public string UserName { get; set; }
         public string EmailAddress { get; set; }
         public string Password { get; set; }
-        public string Salt { get; set; }
+        public string Token { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
         public int Role { get; set; }

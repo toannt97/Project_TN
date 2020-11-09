@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopWebApp.Common;
 using ShopWebApp.Models.DataModels;
+using ShopWebApp.Models.DTO;
+using ShopWebApp.Models.Tool;
 
 namespace ShopWebApp.Controllers
 {
@@ -26,8 +28,9 @@ namespace ShopWebApp.Controllers
                 if (!ModelState.IsValid)
                     return PartialView("_LoginView", user);
                 var response = await _client.PostAsJsonAsync(Contants.Constants.apiUser, user);
-                var result = response.Content.ReadAsAsync<User>().Result;
-                return View();
+                var result = response.Content.ReadAsAsync<UserDTO>().Result;
+                HttpContext.Session.Set("_userName", result);
+                return Json(new { status = response.StatusCode}); ;
 
             }catch(Exception)
             {
