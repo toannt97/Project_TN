@@ -7,10 +7,12 @@ namespace ShopWebApp.Contants
 {
     public static class Constants
     {
-        public static string bassAddress = "https://localhost:44366/api/";
-        public static string apiProduct = "products";
-        public static string apiUser = "users";
-        public static string apiSupplier = "suppliers";
-        public static string apiCategory = "categories";
+        public static string BASE_ADDRESS = "https://localhost:44366/api/";
+        public static string API_PRODUCT = "products";
+        public static string API_USER = "users";
+        public static string API_SUPPLIER = "suppliers";
+        public static string API_CATEGORY = "categories";
+        public static int ERROR_CODE_NOT_FOUND = "404";
+
     }
 }

@@ -1,8 +1,8 @@
-﻿using System;
+﻿
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Models;
@@ -33,8 +33,16 @@ namespace ShopAPI.Controllers
         public async Task<ActionResult<UserDTO>> PostUser(UserSignIn userRequest)
         {
             var result = (from a in _context.User
-                          where a.Status == 0
-                          select new UserDTO { Id = a.Id, Token = a.Token, EmailAddress = a.EmailAddress, Role = a.Role, UserName = a.UserName}).SingleOrDefault();
+                          where (a.Status == 0 && a.EmailAddress.Equals(userRequest.EmailAddress) && a.Password.Equals(userRequest.Password))
+                          select ( 
+                            new UserDTO {
+                              Id = a.Id, 
+                              Token = a.Token, 
+                              EmailAddress = a.EmailAddress, 
+                              Role = a.Role,
+                              UserName = a.UserName
+                          })
+                         ).SingleOrDefault();
 
             if (result == null)
             {

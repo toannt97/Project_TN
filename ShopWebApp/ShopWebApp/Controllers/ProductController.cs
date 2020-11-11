@@ -30,11 +30,11 @@ namespace ShopWebApp.Controllers
             {
                 supplierId = 0;
             }
-            var response = await _client.GetAsync(Constants.apiSupplier);
+            var response = await _client.GetAsync(Constants.API_SUPPLIER);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
-            response = await _client.GetAsync(Constants.apiProduct);
+            response = await _client.GetAsync(Constants.API_PRODUCT);
             _products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
-            response = await _client.GetAsync(Constants.apiCategory);
+            response = await _client.GetAsync(Constants.API_CATEGORY);
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
 
             foreach (var product in _products)
@@ -61,13 +61,13 @@ namespace ShopWebApp.Controllers
 
         public async Task<IActionResult> GetDetail(int id)
         {
-            var response = await _client.GetAsync(Constants.apiSupplier);
+            var response = await _client.GetAsync(Constants.API_SUPPLIER);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
 
-            response = await _client.GetAsync(Constants.apiCategory);
+            response = await _client.GetAsync(Constants.API_CATEGORY);
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
 
-            response = await _client.GetAsync($"{Constants.apiProduct}/{id}");
+            response = await _client.GetAsync($"{Constants.API_PRODUCT}/{id}");
             var product =  response.Content.ReadAsAsync<Product>().Result;
             
             foreach (var item in _suppliers)

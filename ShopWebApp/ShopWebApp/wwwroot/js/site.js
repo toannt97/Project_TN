@@ -27,7 +27,8 @@
     });
     
 });
-function jQueryAxjaxSignInPost(form) {
+
+function jQueryAxjaxSignInPost(form, e) {
     $.ajax({
         type: 'Post',
         contentType: false,
@@ -35,13 +36,18 @@ function jQueryAxjaxSignInPost(form) {
         url: form.action,
         data: new FormData(form),
     }).done(function (data) {
-        let regex = RegExp('/\w+/g');
-        if (regex.test(data))
+        if (!data.status)
             $('#modal-login').html(data);
         else {
-            RemoveOverplay();
-            $('.text-danger').text('');
-            $("#login-modal").css("display", "none");
+            if (data.status == '404') {
+                $('.text-danger').text('');
+                $('.login-fail').text('The email address or password is incorrect.');
+            } else {
+                RemoveOverplay();
+                $('.text-danger').text('');
+                $("#login-modal").css("display", "none");
+                $('.group-btn-account').css("display", "none");
+            }
         }
 
     }).fail(function (err) {
@@ -49,6 +55,7 @@ function jQueryAxjaxSignInPost(form) {
         console.log(err);
     })
     return false;
+
 }
 
 function RemoveOverplay() {

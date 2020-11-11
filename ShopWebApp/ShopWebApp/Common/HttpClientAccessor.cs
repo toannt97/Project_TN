@@ -8,7 +8,7 @@ namespace ShopWebApp.Common
     {
         public static Func<HttpClient> ValueFactory = () => {
             var client = new HttpClient();
-            client.BaseAddress = new Uri(Constants.bassAddress);
+            client.BaseAddress = new Uri(Constants.BASE_ADDRESS);
             return client;
         };
 

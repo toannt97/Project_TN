@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -27,12 +28,17 @@ namespace ShopWebApp.Controllers
             {
                 if (!ModelState.IsValid)
                     return PartialView("_LoginView", user);
-                var response = await _client.PostAsJsonAsync(Contants.Constants.apiUser, user);
+                var response = await _client.PostAsJsonAsync(Contants.Constants.API_USER, user);
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return Json(new { status = response.StatusCode});
+                }
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
+                
                 HttpContext.Session.Set("_userName", result);
-                return Json(new { status = response.StatusCode}); ;
+                return Json(new { status = response.StatusCode});
 
-            }catch(Exception)
+            }catch(Exception ex)
             {
                 return View("Error");
             } 
