@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopWebApp.Models.DataModels
+namespace ShopWebApp.Models.ViewModels
 {
-    public class Product
+    public class ProductViewModel
     {
         public int Id { get; set; }
         [Required]
@@ -23,15 +23,11 @@ namespace ShopWebApp.Models.DataModels
         public string Image { get; set; }
         [Required]
         [Display(Name = "Supplier id")]
-        public int SupplierId { get; set; } 
+        public int SupplierId { get; set; }
         [Required]
         [Display(Name = "Supplier name")]
         public string SupplierName { get; set; }
-        [Display(Name = "Create date")]
-        public DateTime CreateDate { get; set; }
-        [Display(Name = "Update date")]
-        public DateTime? UpdateDate { get; set; }
-        [Display(Name = "Status")]
-        public string Status { get; set; }
+
+        public string UserName { get; set; }
     }
 }

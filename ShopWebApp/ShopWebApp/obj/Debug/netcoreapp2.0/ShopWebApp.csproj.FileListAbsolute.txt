@@ -30,6 +30,10 @@ E:\Project_TN_ThayTru\TTTN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWeb
 E:\Project_TN_ThayTru\TTTN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.dll
 E:\Project_TN_ThayTru\TTTN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.pdb
 E:\Project_TN_ThayTru\TTTN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.genruntimeconfig.cache
+E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.csprojAssemblyReference.cache
+E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.AssemblyInfoInputs.cache
+E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.AssemblyInfo.cs
+E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.csproj.CoreCompileInputs.cache
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\appsettings.Development.json
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\appsettings.json
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\bundleconfig.json
@@ -39,10 +43,6 @@ E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\Sh
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\ShopWebApp.runtimeconfig.dev.json
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\ShopWebApp.dll
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\bin\Debug\netcoreapp2.0\ShopWebApp.pdb
-E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.csprojAssemblyReference.cache
-E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.AssemblyInfoInputs.cache
-E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.AssemblyInfo.cs
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.dll
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.pdb
 E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.genruntimeconfig.cache
-E:\Project_TN_ThayTru\Projec_TN\ShopWebApp\ShopWebApp\obj\Debug\netcoreapp2.0\ShopWebApp.csproj.CoreCompileInputs.cache

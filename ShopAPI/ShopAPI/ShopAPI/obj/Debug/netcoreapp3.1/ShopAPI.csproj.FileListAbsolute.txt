@@ -450,6 +450,7 @@ E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\bin\Debug\netcoreapp3.1\
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.csprojAssemblyReference.cache
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.AssemblyInfoInputs.cache
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.AssemblyInfo.cs
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.csproj.CoreCompileInputs.cache
@@ -461,4 +462,3 @@ E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.dll
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.pdb
 E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.genruntimeconfig.cache
-E:\Project_TN_ThayTru\Projec_TN\ShopAPI\ShopAPI\ShopAPI\obj\Debug\netcoreapp3.1\ShopAPI.csprojAssemblyReference.cache

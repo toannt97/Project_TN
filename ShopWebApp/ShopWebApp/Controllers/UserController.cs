@@ -20,6 +20,14 @@ namespace ShopWebApp.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
+        // GET: UserController/GetCurrentUser
+        public ActionResult GetCurrentUser()
+        {
+            var user = HttpContext.Session.Get("_user");
+            return Json(user);
+        }
 
         [HttpPost]
         public async Task<IActionResult> SignIn(UserSignIn user)
@@ -31,12 +39,12 @@ namespace ShopWebApp.Controllers
                 var response = await _client.PostAsJsonAsync(Contants.Constants.API_USER, user);
                 if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    return Json(new { status = response.StatusCode});
+                    return Json(new { statusCode = response.StatusCode, messageError=""});
                 }
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
                 
-                HttpContext.Session.Set("_userName", result);
-                return Json(new { status = response.StatusCode});
+                HttpContext.Session.Set("_user", result);
+                return Json(new { userName = result.UserName, statusCode = response.StatusCode});
 
             }catch(Exception ex)
             {

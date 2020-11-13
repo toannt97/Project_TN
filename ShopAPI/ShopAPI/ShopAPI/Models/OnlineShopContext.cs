@@ -27,7 +27,9 @@ namespace ShopAPI.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            if (!optionsBuilder.IsConfigured)
+            {
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -172,6 +174,10 @@ namespace ShopAPI.Models
             {
                 entity.ToTable("user");
 
+                entity.Property(e => e.Address)
+                    .IsRequired()
+                    .IsUnicode(false);
+
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.EmailAddress)
@@ -181,6 +187,11 @@ namespace ShopAPI.Models
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PhoneNumber)
+                    .IsRequired()
+                    .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Token)

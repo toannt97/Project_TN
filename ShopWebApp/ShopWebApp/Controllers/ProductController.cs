@@ -55,7 +55,7 @@ namespace ShopWebApp.Controllers
             ViewBag.Suppliers = _suppliers.ToList();
             ViewBag.Category = _categories;
             ViewBag.domainUrl = Program.domainUrl;
-            //ViewBag.UserLogin = _user;
+            ViewBag.UserName = HttpContext.Session.Get("_user");
             return View(productResult);
         }
 

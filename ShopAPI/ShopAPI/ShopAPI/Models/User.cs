@@ -22,6 +22,8 @@ namespace ShopAPI.Models
         public DateTime? UpdateDate { get; set; }
         public int Role { get; set; }
         public int Status { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
 
         public virtual Role RoleNavigation { get; set; }
         public virtual ICollection<History> History { get; set; }

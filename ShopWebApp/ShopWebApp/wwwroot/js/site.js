@@ -1,4 +1,17 @@
 ﻿$(document).ready(function () {
+
+    //$.ajax({
+    //    type: 'Get',
+    //    url: '@(Url.Action("GetCurrentUser","User"))',
+    //    contentType: "application/json",
+    //    processData: false,
+        
+    //}).done(function (data) {
+    //    console.log(data);
+    //}).fail(function (err) {
+    //    console.log(err);
+    //})
+
     function SetOverplay() {
         let opacity = 0.3;
         $('.header').css("opacity", opacity);
@@ -6,7 +19,6 @@
         $('.footer').css("opacity", opacity);
     }
 
-   
     // When the user clicks the button, open the modal 
     $('#btn-login').click(function () {
         SetOverplay();
@@ -25,6 +37,8 @@
         $("#login-modal").css("display", "none");
         $("#register-modal").css("display", "none");
     });
+
+
     
 });
 
@@ -36,17 +50,17 @@ function jQueryAxjaxSignInPost(form, e) {
         url: form.action,
         data: new FormData(form),
     }).done(function (data) {
-        if (!data.status)
+        if (!data.statusCode)
             $('#modal-login').html(data);
         else {
-            if (data.status == '404') {
+            if (data.statusCode == '404') {
                 $('.text-danger').text('');
                 $('.login-fail').text('The email address or password is incorrect.');
             } else {
+                UserLogined(data.userName);
                 RemoveOverplay();
                 $('.text-danger').text('');
                 $("#login-modal").css("display", "none");
-                $('.group-btn-account').css("display", "none");
             }
         }
 
@@ -55,7 +69,17 @@ function jQueryAxjaxSignInPost(form, e) {
         console.log(err);
     })
     return false;
+}
 
+function UserLogined(userName) {
+    if (userName) {
+        $('.buttons').removeClass('opened').addClass('closed');
+        $('.account').removeClass('closed').addClass('opened');
+        $('.user-name').text(userName);
+    } else {
+        $('.buttons').removeClass('closed').addClass('opened');
+        $('.account').removeClass('opened').addClass('closed');
+    }
 }
 
 function RemoveOverplay() {

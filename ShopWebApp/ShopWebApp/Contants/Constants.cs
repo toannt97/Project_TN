@@ -12,7 +12,7 @@ namespace ShopWebApp.Contants
         public static string API_USER = "users";
         public static string API_SUPPLIER = "suppliers";
         public static string API_CATEGORY = "categories";
-        public static int ERROR_CODE_NOT_FOUND = "404";
+        public static string ERROR_CODE_NOT_FOUND = "404";
 
     }
 }
