@@ -48,7 +48,7 @@ namespace ShopWebApp.Controllers
                 HttpContext.Session.Set<UserDTO>("_user", result);
                 return Json(new { userName = result.UserName, statusCode = response.StatusCode});
 
-            }catch(Exception ex)
+            }catch(Exception)
             {
                 return View("Error");
             } 
@@ -72,7 +72,7 @@ namespace ShopWebApp.Controllers
 
                 return Json(new { statusCode = Contant.CODE_OK });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View("Error");
             }

@@ -15,7 +15,6 @@ namespace ShopWebApp
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
@@ -23,17 +22,11 @@ namespace ShopWebApp
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".ShopWebApp.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
                 options.Cookie.HttpOnly = true;
             });
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(p => {
-            //    p.LoginPath = "/KhachHang/Login";
-            //    p.AccessDeniedPath = "/KhachHang/ThongBao";
-            //});
-            //services.AddHttpClient();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseSession();

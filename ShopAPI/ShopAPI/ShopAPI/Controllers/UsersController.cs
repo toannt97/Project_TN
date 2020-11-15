@@ -3,8 +3,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,8 +19,10 @@ namespace ShopAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        #region Decalre variable
         private readonly OnlineShopContext _context;
         private readonly IConfiguration _iconfiguration;
+        #endregion
         public UsersController(OnlineShopContext context, IConfiguration iconfiguration)
         {
             _context = context;
@@ -33,90 +35,117 @@ namespace ShopAPI.Controllers
         {
             return await _context.User.ToListAsync();
         }
-        //us.EmailAddress.Equals(userRequest.EmailAddress.Trim()) && us.Password.Equals(userRequest.Password.Trim()) &&
+
+        /// <summary>
+        /// Verify user to allow signing in or not.
+        /// </summary>
+        /// <param name="userRequest"></param>
+        /// <returns>
+        /// </returns>
+        //POST: api/Users
         [HttpPost]
         public async Task<ActionResult<UserDTO>> PostUser(UserSignIn userRequest)
         {
             var result = (from a in _context.User
                           where (a.Status == 0 && a.EmailAddress.Equals(userRequest.EmailAddress) && a.Password.Equals(userRequest.Password))
-                          select ( 
-                            new UserDTO {
-                              Id = a.Id, 
-                              EmailAddress = a.EmailAddress, 
-                              Role = a.Role,
-                              UserName = a.UserName
-                          })
+                          select (
+                            new UserDTO
+                            {
+                                Id = a.Id,
+                                EmailAddress = a.EmailAddress,
+                                Role = a.Role,
+                                UserName = a.UserName,
+                                ItemsInCart = a.ShoppingCart.Count(),
+                            })
                          ).SingleOrDefault();
-
+            // Login information is not correct
             if (result == null)
             {
-                return NotFound();
+                return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
             }
 
             return result;
         }
 
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         // PUT: api/Users/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(int id, User user)
-        {
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutUser(int id, User user)
+        //{
+        //    if (id != user.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(user).State = EntityState.Modified;
+        //    _context.Entry(user).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UserExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
+        /// <summary>
+        /// Create new user and send email to verify user's email
+        /// </summary>
+        /// <param name="user"></param>
+        /// <exception cref="DbUpdateConcurrencyException">Thrown when write down data to table occurs error</exception>
+        /// <exception cref="Exception">Thrown when occuring any exception except DbUpdateConcurrencyException</exception>
+        /// <returns></returns>
         // POST: api/Users/AddUser
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost("{user}")]
         public async Task<ActionResult<User>> AddUser(User user)
         {
             try
             {
-                var existingUser = _context.User.Where(u => u.EmailAddress.Equals(user.EmailAddress)).FirstOrDefault();
-                if (existingUser != null)
+                if (UserExists(user.EmailAddress))
                 {
                     return StatusCode(Constant.DUPLICATE_DATA, Constant.DUPLICATE_DATA_MESSAGE);
                 }
-                var fromEmailPassword = _iconfiguration.GetSection("MailAccount").GetSection("Password").Value;
-                var fromEmailID = _iconfiguration.GetSection("MailAccount").GetSection("Id").Value;
 
-                Common.Email.Send(fromEmailID, fromEmailPassword, user.EmailAddress, "", Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT);
+                var fromEmailID = _iconfiguration.GetSection(Constant.MAIL_SECTION).GetSection("Id").Value;
+                var fromEmailPassword = _iconfiguration.GetSection(Constant.MAIL_SECTION).GetSection("Password").Value;
 
-                return CreatedAtAction("GetUser", new { id = user.Id }, user);
+                var baseUrl = string.Format("{0}://{1}", HttpContext.Request.Scheme, HttpContext.Request.Host);
+
+                // Set status for inactive user
+                user.Status = -1;
+                user.CreateDate = DateTime.Now;
+
+                _context.User.Add(user);
+                await _context.SaveChangesAsync();
+
+                // Get user id to send mail to verify user's email.
+                var newUser = _context.User.Where(us => us.EmailAddress.Equals(user.EmailAddress)).SingleOrDefault();
+
+                Common.Email.Send(fromEmailID, fromEmailPassword, user.EmailAddress, Constant.CONTENT(user.UserName, baseUrl, newUser.Id, user.EmailAddress)
+                                 , Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT_REGISTER_ACCOUNT);
+
+                return StatusCode(Constant.OK, Constant.OK_MESSAGE);
 
             }
-            catch (Exception ex)
+            catch (DbUpdateConcurrencyException)
             {
-                Console.WriteLine(ex.Message);
-                return NotFound();
+                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
             }
-
-            //_context.User.Add(user);
-            //await _context.SaveChangesAsync();
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
+            }
         }
 
         // DELETE: api/Users/5
@@ -135,10 +164,34 @@ namespace ShopAPI.Controllers
             return user;
         }
 
-        private bool UserExists(int id)
+        private bool UserExists(string email)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.User.Any(e => e.EmailAddress.Equals(email));
         }
+        // GET: api/Users/
 
+        [HttpGet]
+        [Route("CreateUser")]
+        public async Task<ActionResult> CreateUser(int id, string email)
+        {
+            try
+            {
+                var user = _context.User.Where(us => us.Id == id && us.EmailAddress.Equals(email)).SingleOrDefault();
+                if (user.Status == -1)
+                    user.Status = 0;
+                else {
+                    
+                }
+                user.CreateDate = DateTime.Now;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                var contentHTML = System.IO.File.ReadAllText("./Template/Success.html");
+                return base.Content(contentHTML, "text/html");
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+            }
+        }
     }
 }

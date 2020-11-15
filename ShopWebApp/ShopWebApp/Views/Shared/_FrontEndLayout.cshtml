@@ -2,40 +2,39 @@
 <html>
 <head>
     <title>PTIT-HCM Store</title>
-    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/site.js"></script>
-    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon.jpg" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="CỬA HÀNG LAPTOP PTITHCM" />
-    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <meta name="keywords" content="PTIT-HCM Store" />
     <!--//fonts-->
+    <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="shortcut icon" type="image/x-icon" href="@(Program.domainUrl+"/logo/favicon.jpg")" />
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link href="~/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
     @RenderSection("Styles", required: false)
-    <script type="text/javascript" src="~/js/memenu.js"></script>
-    <script>$(document).ready(function () { $(".memenu").memenu(); });</script>
-    <script>
-        $(function () {
-            $("#txtSearch").keyup(function () {
-                $.ajax({
-                    url: "/Product/Search",
-                    type: "post",
-                    data: { "Keyword": $(this).val() },
-                    success: function (data) {
-                        $("#results").html(data);
-                    },
-                    errror: function (data) {
-                        alert("Error: " + data);
-                    }
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @*<script>
+            $(function () {
+                $("#txtSearch").keyup(function () {
+                    $.ajax({
+                        url: "/Product/Search",
+                        type: "post",
+                        data: { "Keyword": $(this).val() },
+                        success: function (data) {
+                            $("#results").html(data);
+                        },
+                        errror: function (data) {
+                            alert("Error: " + data);
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>*@
 </head>
 <body>
     <!--header-->
@@ -44,7 +43,7 @@
             <div class="container">
                 <div class="search">
                     <form>
-                        <input type="text" id="txtSearch" value="Search " class="topinput" style="position: relative;"
+                        <input type="text" id="txtSearch" class="topinput" style="position: relative;"
                                placeholder="Search">
                         <input type="submit" value="Go">
                         <ul class="wrap-suggestion" id="results"></ul>
@@ -55,9 +54,9 @@
                         <span id="btn-login">
                             Sign in
                         </span>
-                            <span id="btn-register">
-                                Sign up
-                            </span>
+                        <span id="btn-register">
+                            Sign up
+                        </span>
                     </div>
                     <div class="account @(ViewBag.User == null ? "closed" : "")">
                         <span class="cart">
@@ -104,9 +103,9 @@
         <div class="container">
             <div class="col-md-3 product-price">
                 @await Html.PartialAsync("_SupplierPartialView", suppliers)
-                <!--initiate accordion-->
-                <!---->
-                <div class="product-middle">
+    <!--initiate accordion-->
+    <!---->
+    <div class="product-middle">
                     <div class="fit-top">
                         <h6 class="shop-top">Laptop Apple</h6>
                         <a href="#" class="shop-now">SHOP NOW</a>
@@ -127,7 +126,7 @@
                     <ul class="nav-bottom">
                         <li><p>Address</p></li>
                         <li><p>Seller</p></li>
-                        <li><p>Email</p ></li>
+                        <li><p>Email</p></li>
                         <li><p>Fax</p></li>
                     </ul>
                 </div>
@@ -141,44 +140,43 @@
 
                     </ul>
                 </div>
-                @*<div class="col-md-4 amet-sed">
-                    <h4>THÔNG TIN KHUYẾN MÃI</h4>
-                    <p>
-                        Đăng ký nhận thông tin khuyển mãi
-                    </p>
-                    <form>
-                        <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-                        <input type="submit" value="Sign up">
-                    </form>
-                </div>*@
+
             </div>
         </div>
         <div class="footer-class">
             <p>© 2020 PTIT-HCM All Rights Reserved</p>
         </div>
     </div>
-
-
-
     <!-- The Sign In Modal -->
     <div id="login-modal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content container login-content">
+    <!-- Modal content -->
+    <div class="modal-content container login-content">
             <div class="modal-body modal-login" id="modal-login">
                 @await Html.PartialAsync("_LoginView", new UserSignIn())
             </div>
         </div>
     </div>
-
     <!-- The Sign Up Modal -->
     <div id="register-modal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content container register-content">
+    <!-- Modal content -->
+    <div class="modal-content container register-content">
             <div class="modal-body modal-register" id="modal-register">
                 @await Html.PartialAsync("_RegisterView", new User())
             </div>
         </div>
     </div>
+    @*<div class="backdrop" style="position:absolute;top:0;left:0;background:red;"></div>*@
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+@*<div class="col-md-4 amet-sed">
+        <h4>THÔNG TIN KHUYẾN MÃI</h4>
+        <p>
+            Đăng ký nhận thông tin khuyển mãi
+        </p>
+        <form>
+            <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
+            <input type="submit" value="Sign up">
+        </form>
+    </div>*@

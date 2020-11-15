@@ -32,7 +32,7 @@ namespace ShopAPI.Common
                 _clientDetails.Send(_mailDetails);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
