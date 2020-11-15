@@ -16,14 +16,18 @@ namespace ShopAPI.Models
         }
 
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<District> District { get; set; }
         public virtual DbSet<History> History { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Province> Province { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
         public virtual DbSet<Supplier> Supplier { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Village> Village { get; set; }
+        public virtual DbSet<Ward> Ward { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -49,6 +53,32 @@ namespace ShopAPI.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_category_role");
+            });
+
+            modelBuilder.Entity<District>(entity =>
+            {
+                entity.ToTable("district");
+
+                entity.Property(e => e.Districtid)
+                    .HasColumnName("districtid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Provinceid)
+                    .IsRequired()
+                    .HasColumnName("provinceid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Province)
+                    .WithMany(p => p.District)
+                    .HasForeignKey(d => d.Provinceid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_district_province");
             });
 
             modelBuilder.Entity<History>(entity =>
@@ -123,6 +153,20 @@ namespace ShopAPI.Models
                     .HasConstraintName("FK_product_supplier");
             });
 
+            modelBuilder.Entity<Province>(entity =>
+            {
+                entity.ToTable("province");
+
+                entity.Property(e => e.Provinceid)
+                    .HasColumnName("provinceid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("role");
@@ -186,17 +230,11 @@ namespace ShopAPI.Models
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
                     .HasMaxLength(20)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserName)
@@ -208,6 +246,58 @@ namespace ShopAPI.Models
                     .HasForeignKey(d => d.Role)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_role");
+            });
+
+            modelBuilder.Entity<Village>(entity =>
+            {
+                entity.ToTable("village");
+
+                entity.Property(e => e.Villageid)
+                    .HasColumnName("villageid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Wardid)
+                    .IsRequired()
+                    .HasColumnName("wardid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Ward)
+                    .WithMany(p => p.Village)
+                    .HasForeignKey(d => d.Wardid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_village_ward");
+            });
+
+            modelBuilder.Entity<Ward>(entity =>
+            {
+                entity.ToTable("ward");
+
+                entity.Property(e => e.Wardid)
+                    .HasColumnName("wardid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Districtid)
+                    .IsRequired()
+                    .HasColumnName("districtid")
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name");
+
+                entity.HasOne(d => d.District)
+                    .WithMany(p => p.Ward)
+                    .HasForeignKey(d => d.Districtid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ward_district");
             });
 
             OnModelCreatingPartial(modelBuilder);

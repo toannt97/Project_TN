@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShoppingWebAPI.Common;
 using ShopWebApp.Common;
+using ShopWebApp.Contants;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
@@ -36,14 +37,15 @@ namespace ShopWebApp.Controllers
             {
                 if (!ModelState.IsValid)
                     return PartialView("_LoginView", user);
-                var response = await _client.PostAsJsonAsync(Contants.Constants.API_USER, user);
-                if (response.StatusCode == HttpStatusCode.NotFound)
+                user.Password = Encrypt.SHA256Hash(user.Password);
+                var response = await _client.PostAsJsonAsync(Contant.API_USER, user);
+                if ((Int32)response.StatusCode ==Contant.ERROR_CODE_NOT_FOUND)
                 {
-                    return Json(new { statusCode = response.StatusCode, messageError=""});
+                    return Json(new { statusCode = response.StatusCode, messageError=Contant.NOT_FOUND_MESSAGE});
                 }
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
                 
-                HttpContext.Session.Set("_user", result);
+                HttpContext.Session.Set<UserDTO>("_user", result);
                 return Json(new { userName = result.UserName, statusCode = response.StatusCode});
 
             }catch(Exception ex)
@@ -52,6 +54,29 @@ namespace ShopWebApp.Controllers
             } 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SignUp(User user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return PartialView("_RegisterView", user);
+                user.Password = Encrypt.SHA256Hash(user.Password);
+                user.PhoneNumber = Contants.Contant.PREFIX_PHONE + user.PhoneNumber;
+                var response = await _client.PostAsJsonAsync(Contant.API_ADD_USER, user);
+
+                if ((Int32)response.StatusCode == Contant.ERROR_CODE_DUPLICATE_DATA)
+                {
+                    return Json(new { statusCode = response.StatusCode, messageError = Contant.DUPLICATE_DATA_MESSAGE });
+                }
+
+                return Json(new { statusCode = Contant.CODE_OK });
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
+        }
         // GET: UserController/Details/5
         public ActionResult Details(int id)
         {

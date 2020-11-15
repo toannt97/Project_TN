@@ -11,7 +11,7 @@ namespace ShopWebApp.Models.DataModels
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "The fullname is required")]
-        public string FullName { get; set; }
+        public string UserName { get; set; }
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string EmailAddress { get; set; }
@@ -23,7 +23,12 @@ namespace ShopWebApp.Models.DataModels
         [Compare("Password")]
         [NotMapped]
         public string ConfirmPassword { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "The phone number is required")]
+        public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "The adress is required")]
+        public string Address { get; set; }
+        
         public int RoleGroup { get; set; } = 0;
         public int Status { get; set; } = 0;
     }

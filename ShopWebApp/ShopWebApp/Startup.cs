@@ -23,7 +23,7 @@ namespace ShopWebApp
             services.AddSession(options =>
             {
                 options.Cookie.Name = ".ShopWebApp.Session";
-                options.IdleTimeout = TimeSpan.FromSeconds(100);
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
                 options.Cookie.HttpOnly = true;
             });
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(p => {

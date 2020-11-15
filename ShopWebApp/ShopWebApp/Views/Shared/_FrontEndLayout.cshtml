@@ -1,11 +1,12 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>CỬA HÀNG LAPTOP PTITHCM</title>
+    <title>PTIT-HCM Store</title>
     <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
     <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/favicon.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="CỬA HÀNG LAPTOP PTITHCM" />
@@ -50,16 +51,15 @@
                     </form>
                 </div>
                 <div class="group-btn-account">
-                    <div class="buttons @(ViewBag.userName == null ? null : "closed")">
+                    <div class="buttons @(ViewBag.User == null ? "" : "closed")">
                         <span id="btn-login">
                             Sign in
                         </span>
-
-                        <span id="btn-register">
-                            Sign up
-                        </span>
+                            <span id="btn-register">
+                                Sign up
+                            </span>
                     </div>
-                    <div class="account @(ViewBag.userName == null ? "closed" : null)">
+                    <div class="account @(ViewBag.User == null ? "closed" : "")">
                         <span class="cart">
                             <i class="fal fa-shopping-cart"></i>
                         </span>
@@ -67,12 +67,12 @@
                             <p class="user__text-fixed">Hello</p>
                             <div class="user__info" style="display:inline-block;">
                                 <i class="far fa-user-circle"></i>
-                                <p class="user-name"></p>
+                                <p class="user-name">@(ViewBag.User == null ? "" : ViewBag.User.UserName)</p>
                             </div>
                         </div>
                     </div>
                 </div>
-             
+
             </div>
         </div>
 
@@ -122,18 +122,17 @@
         <div class="container">
             <div class="footer-top-at">
 
-                <div class="col-md-4 amet-sed">
-                    <h4>THÔNG TIN THÊM</h4>
+                <div class="col-md-6 amet-sed">
+                    <h4>GET TO KNOW US</h4>
                     <ul class="nav-bottom">
-                        <li><a href="#">Hướng dẫn mua hàng</a></li>
-                        <li><a asp-controller="LienHe" asp-action="Index">Địa chỉ</a></li>
-                        <li><a href="#">Chuyển hàng</a></li>
-                        <li><a href="#">Thành viên</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><p>Address</p></li>
+                        <li><p>Seller</p></li>
+                        <li><p>Email</p ></li>
+                        <li><p>Fax</p></li>
                     </ul>
                 </div>
-                <div class="col-md-4 amet-sed ">
-                    <h4>LIÊN HỆ VỚI CHÚNG TÔI</h4>
+                <div class="col-md-6 amet-sed ">
+                    <h4>CONTACT US</h4>
                     <ul class="social">
                         <li><a href="#"><i> </i></a></li>
                         <li><a href="#"><i class="twitter"> </i></a></li>
@@ -142,7 +141,7 @@
 
                     </ul>
                 </div>
-                <div class="col-md-4 amet-sed">
+                @*<div class="col-md-4 amet-sed">
                     <h4>THÔNG TIN KHUYẾN MÃI</h4>
                     <p>
                         Đăng ký nhận thông tin khuyển mãi
@@ -151,11 +150,11 @@
                         <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
                         <input type="submit" value="Sign up">
                     </form>
-                </div>
+                </div>*@
             </div>
         </div>
         <div class="footer-class">
-            <p>© 2020 PTITHCM All Rights Reserved</p>
+            <p>© 2020 PTIT-HCM All Rights Reserved</p>
         </div>
     </div>
 
@@ -176,7 +175,6 @@
         <!-- Modal content -->
         <div class="modal-content container register-content">
             <div class="modal-body modal-register" id="modal-register">
-                <span class="close-modal">X</span>
                 @await Html.PartialAsync("_RegisterView", new User())
             </div>
         </div>

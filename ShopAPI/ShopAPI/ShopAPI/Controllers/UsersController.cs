@@ -1,10 +1,14 @@
 ﻿
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using ShopAPI.Constants;
 using ShopAPI.Models;
 using ShopAPI.Models.Requests;
 using ShopAPI.Models.Responses;
@@ -16,10 +20,11 @@ namespace ShopAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly OnlineShopContext _context;
-
-        public UsersController(OnlineShopContext context)
+        private readonly IConfiguration _iconfiguration;
+        public UsersController(OnlineShopContext context, IConfiguration iconfiguration)
         {
             _context = context;
+            _iconfiguration = iconfiguration;
         }
 
         // GET: api/Users
@@ -37,7 +42,6 @@ namespace ShopAPI.Controllers
                           select ( 
                             new UserDTO {
                               Id = a.Id, 
-                              Token = a.Token, 
                               EmailAddress = a.EmailAddress, 
                               Role = a.Role,
                               UserName = a.UserName
@@ -84,16 +88,36 @@ namespace ShopAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
+        // POST: api/Users/AddUser
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<User>> PostUser(User user)
-        //{
-        //    _context.User.Add(user);
-        //    await _context.SaveChangesAsync();
-        //    return CreatedAtAction("GetUser", new { id = user.Id }, user);
-        //}
+        [HttpPost("{user}")]
+        public async Task<ActionResult<User>> AddUser(User user)
+        {
+            try
+            {
+                var existingUser = _context.User.Where(u => u.EmailAddress.Equals(user.EmailAddress)).FirstOrDefault();
+                if (existingUser != null)
+                {
+                    return StatusCode(Constant.DUPLICATE_DATA, Constant.DUPLICATE_DATA_MESSAGE);
+                }
+                var fromEmailPassword = _iconfiguration.GetSection("MailAccount").GetSection("Password").Value;
+                var fromEmailID = _iconfiguration.GetSection("MailAccount").GetSection("Id").Value;
+
+                Common.Email.Send(fromEmailID, fromEmailPassword, user.EmailAddress, "", Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT);
+
+                return CreatedAtAction("GetUser", new { id = user.Id }, user);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return NotFound();
+            }
+
+            //_context.User.Add(user);
+            //await _context.SaveChangesAsync();
+        }
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
@@ -115,5 +139,6 @@ namespace ShopAPI.Controllers
         {
             return _context.User.Any(e => e.Id == id);
         }
+
     }
 }

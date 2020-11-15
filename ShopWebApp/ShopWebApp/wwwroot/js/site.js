@@ -1,17 +1,5 @@
 ﻿$(document).ready(function () {
 
-    //$.ajax({
-    //    type: 'Get',
-    //    url: '@(Url.Action("GetCurrentUser","User"))',
-    //    contentType: "application/json",
-    //    processData: false,
-        
-    //}).done(function (data) {
-    //    console.log(data);
-    //}).fail(function (err) {
-    //    console.log(err);
-    //})
-
     function SetOverplay() {
         let opacity = 0.3;
         $('.header').css("opacity", opacity);
@@ -38,7 +26,7 @@
         $("#register-modal").css("display", "none");
     });
 
-
+    $()
     
 });
 
@@ -55,7 +43,7 @@ function jQueryAxjaxSignInPost(form, e) {
         else {
             if (data.statusCode == '404') {
                 $('.text-danger').text('');
-                $('.login-fail').text('The email address or password is incorrect.');
+                $('.login-fail').text(data.messageError);
             } else {
                 UserLogined(data.userName);
                 RemoveOverplay();

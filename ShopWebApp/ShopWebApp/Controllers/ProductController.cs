@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using ShopWebApp.Common;
 using ShopWebApp.Contants;
 using ShopWebApp.Models.DataModels;
+using ShopWebApp.Models.DTO;
+using ShopWebApp.Models.Tool;
 
 namespace ShopWebApp.Controllers
 {
@@ -30,11 +32,11 @@ namespace ShopWebApp.Controllers
             {
                 supplierId = 0;
             }
-            var response = await _client.GetAsync(Constants.API_SUPPLIER);
+            var response = await _client.GetAsync(Contants.Contant.API_SUPPLIER);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
-            response = await _client.GetAsync(Constants.API_PRODUCT);
+            response = await _client.GetAsync(Contants.Contant.API_PRODUCT);
             _products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
-            response = await _client.GetAsync(Constants.API_CATEGORY);
+            response = await _client.GetAsync(Contants.Contant.API_CATEGORY);
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
 
             foreach (var product in _products)
@@ -55,19 +57,19 @@ namespace ShopWebApp.Controllers
             ViewBag.Suppliers = _suppliers.ToList();
             ViewBag.Category = _categories;
             ViewBag.domainUrl = Program.domainUrl;
-            ViewBag.UserName = HttpContext.Session.Get("_user");
+            ViewBag.User = HttpContext.Session.Get<UserDTO>("_user");
             return View(productResult);
         }
 
         public async Task<IActionResult> GetDetail(int id)
         {
-            var response = await _client.GetAsync(Constants.API_SUPPLIER);
+            var response = await _client.GetAsync(Contants.Contant.API_SUPPLIER);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
 
-            response = await _client.GetAsync(Constants.API_CATEGORY);
+            response = await _client.GetAsync(Contants.Contant.API_CATEGORY);
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
 
-            response = await _client.GetAsync($"{Constants.API_PRODUCT}/{id}");
+            response = await _client.GetAsync($"{Contants.Contant.API_PRODUCT}/{id}");
             var product =  response.Content.ReadAsAsync<Product>().Result;
             
             foreach (var item in _suppliers)
