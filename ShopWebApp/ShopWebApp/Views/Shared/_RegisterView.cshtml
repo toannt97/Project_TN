@@ -7,7 +7,14 @@
         <div class="panel">
             <h1 id="test">Register</h1>
         </div>
-
+        <div class="success-notification" style="display:none;">
+            <figure class="success-notification__image">
+                <img src="https://onlineshop.blob.core.windows.net/image/checkmark.jpg"  />
+            </figure>
+            <p class="success-notification__title">
+                Your account has been successfully registered. Please check your email to activate your account.
+            </p>
+        </div>
         <form id="RegisterForm" asp-controller="User" asp-action="SignUp" method="post" onsubmit="return jQueryAxjaxSignUpPost(this)">
             @Html.AntiForgeryToken()
 
@@ -43,8 +50,9 @@
                 <input type="text" class="form-control" placeholder="Address" asp-for="Address">
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-
-            <button type="submit" class="btn btn-primary">Sign up</button>
+            <p class="text-danger register-fail"></p>
+            <button type="submit" class="btn btn-primary button-submit">Sign up</button>
+            <button type="button" class="btn btn-primary button-ok" style="display:none;">OK</button>
 
         </form>
 

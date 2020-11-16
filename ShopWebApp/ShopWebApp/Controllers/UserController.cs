@@ -41,12 +41,12 @@ namespace ShopWebApp.Controllers
                 var response = await _client.PostAsJsonAsync(Contant.API_USER, user);
                 if ((Int32)response.StatusCode ==Contant.ERROR_CODE_NOT_FOUND)
                 {
-                    return Json(new { statusCode = response.StatusCode, messageError=Contant.NOT_FOUND_MESSAGE});
+                    return Json(new { statusCode = Contant.ERROR_CODE_NOT_FOUND, messageError=Contant.NOT_FOUND_MESSAGE});
                 }
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
                 
                 HttpContext.Session.Set<UserDTO>("_user", result);
-                return Json(new { userName = result.UserName, statusCode = response.StatusCode});
+                return Json(new { userName = result.UserName, statusCode = Contant.CODE_OK});
 
             }catch(Exception)
             {
@@ -67,7 +67,7 @@ namespace ShopWebApp.Controllers
 
                 if ((Int32)response.StatusCode == Contant.ERROR_CODE_DUPLICATE_DATA)
                 {
-                    return Json(new { statusCode = response.StatusCode, messageError = Contant.DUPLICATE_DATA_MESSAGE });
+                    return Json(new { statusCode = Contant.ERROR_CODE_DUPLICATE_DATA, messageError = Contant.DUPLICATE_DATA_MESSAGE });
                 }
 
                 return Json(new { statusCode = Contant.CODE_OK });

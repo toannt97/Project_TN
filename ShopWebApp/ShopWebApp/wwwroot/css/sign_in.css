@@ -65,3 +65,8 @@
         text-decoration: underline;
     }
 
+.login-fail {
+    display: block;
+    margin-bottom: 10px;
+}
+

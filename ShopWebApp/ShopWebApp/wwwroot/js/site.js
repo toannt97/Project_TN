@@ -27,7 +27,7 @@
     });
 
     $()
-    
+
 });
 
 function jQueryAxjaxSignInPost(form, e) {
@@ -41,17 +41,18 @@ function jQueryAxjaxSignInPost(form, e) {
         if (!data.statusCode)
             $('#modal-login').html(data);
         else {
-            if (data.statusCode == '404') {
-                $('.text-danger').text('');
-                $('.login-fail').text(data.messageError);
-            } else {
-                UserLogined(data.userName);
-                RemoveOverplay();
-                $('.text-danger').text('');
-                $("#login-modal").css("display", "none");
+            $('.text-danger').text('');
+            switch (data.statusCode) {
+                case 404:
+                    $('.login-fail').text(data.messageError);
+                    break;
+                case 200:
+                    UserLogined(data.userName);
+                    RemoveOverplay();
+                    $("#login-modal").css("display", "none");
+                    break;
             }
         }
-
     }).fail(function (err) {
         alert(err);
         console.log(err);

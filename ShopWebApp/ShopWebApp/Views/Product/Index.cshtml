@@ -14,7 +14,7 @@
                 </div>
                 <div class="home-product-bottom">
                     <h6><a style="text-decoration:none" asp-action="GetDetail" asp-route-id="@product.Id">@product.Name</a></h6>
-                    <span>Giá sản phẩm: @product.UnitPrice.ToString("#,##0") VNĐ</span>
+                    <h5 class="prodcut__price-label" style="display:inline-block">Price:</h5> <h4 class="product__pricet-number" style="display:inline-block; color: #ED0000"> @product.UnitPrice.ToString("#,##0") VNĐ</h4>
                 </div>
             </div>
             <br />

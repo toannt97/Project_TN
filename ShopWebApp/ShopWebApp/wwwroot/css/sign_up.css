@@ -69,3 +69,19 @@
     border: 1px solid #cccc;
     border-radius: 15%;
 }
+
+.success-notification{
+    margin: 10px 0 20px;
+}
+.success-notification__image > img {
+    width: 50px;
+}
+
+.success-notification__title{
+    font-size: 14px;
+    color: green;
+}
+
+.button-ok {
+    margin: 30px auto 0;
+}
