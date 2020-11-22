@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,88 +18,85 @@ namespace ShopWebApp.Controllers
     {
         private readonly HttpClient _client = HttpClientAccessor.HttpClient;
         private List<Supplier> _suppliers;
-        private List<Product> _products;
         private List<Category> _categories;
-        //private User _user;
         public ProductController()
         {
             _suppliers = new List<Supplier>();
             _products = new List<Product>();
             _categories = new List<Category>();
         }
-        public async Task<IActionResult> Index(int? supplierId, int pageNo = 0)
+
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <param name="pageNo">Current page</param>
+        /// <returns>All products</returns>
+        public async Task<IActionResult> Index(int pageNo = 0)
         {
-            if (!supplierId.HasValue)
+            try
             {
-                supplierId = 0;
-            }
-            var response = await _client.GetAsync(Contants.Contant.API_SUPPLIER);
-            _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
-            response = await _client.GetAsync(Contants.Contant.API_PRODUCT);
-            _products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
-            response = await _client.GetAsync(Contants.Contant.API_CATEGORY);
-            _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
+                await Load();
 
-            foreach (var product in _products)
+                var response = await _client.GetAsync($"{Contant.API_PRODUCT}/{pageNo} /{Contant.PAGE_SIZE}");
+                var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
+
+                ViewBag.TotalPage = Math.Ceiling(1.0 * products[0].TotalPage / Contant.PAGE_SIZE);
+                ViewBag.PageNumber = pageNo;
+                ViewBag.Suppliers = _suppliers.ToList();
+                ViewBag.Category = _categories;
+                ViewBag.User = HttpContext.Session.Get<UserDTO>("_user");
+
+                return View(products);
+            }
+            catch (SqlException)
+            { 
+                return View("Error");
+            }
+            catch (Exception)
             {
-                foreach (var supplier in _suppliers)
-                {
-                    if (supplier.Id == product.SupplierId)
-                        product.SupplierName = supplier.Name;
-                }
+                return View("Error");
             }
-
-            var productResult = _products.Where(p => (supplierId == 0) || (p.SupplierId == supplierId))
-                .Skip(pageNo * Program.PAGE_SIZE)
-                .Take(Program.PAGE_SIZE);
-            var totals = productResult.Count();
-            ViewBag.TotalPage = Math.Ceiling(1.0 * totals / Program.PAGE_SIZE);
-            ViewBag.PageNumber = pageNo;
-            ViewBag.Suppliers = _suppliers.ToList();
-            ViewBag.Category = _categories;
-            ViewBag.domainUrl = Program.domainUrl;
-            ViewBag.User = HttpContext.Session.Get<UserDTO>("_user");
-            return View(productResult);
         }
 
         public async Task<IActionResult> GetDetail(int id)
         {
-            var response = await _client.GetAsync(Contants.Contant.API_SUPPLIER);
-            _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
+            //await Load();
 
-            response = await _client.GetAsync(Contants.Contant.API_CATEGORY);
-            _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
+            //var response = await _client.GetAsync($"{Contant.API_PRODUCT}/{id}");
+            //var product = response.Content.ReadAsAsync<Product>().Result;
 
-            response = await _client.GetAsync($"{Contants.Contant.API_PRODUCT}/{id}");
-            var product =  response.Content.ReadAsAsync<Product>().Result;
-            
-            foreach (var item in _suppliers)
-            {
-                if (item.Id == product.SupplierId)
-                    product.SupplierName = item.Name;
-            }
-            if (product == null)
-            {
-                return NotFound();
-            }
-            response = await _client.GetAsync("Products");
-            var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-            foreach (var itemProduct in products)
-            {
-                foreach (var brand in _suppliers)
-                {
-                    if (brand.Id == itemProduct.SupplierId)
-                        itemProduct.SupplierName = brand.Name;
-                }
-            }
-            var productsRelated = products.Where(p => p.SupplierId == product.SupplierId).SingleOrDefault();
-            ViewBag.productsRelated = productsRelated;
-            ViewBag.Suppliers = _suppliers.ToList();
-            ViewBag.Category = _categories;
-            ViewBag.domainUrl = Program.domainUrl;
-            return View("Detail",product);
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //foreach (var item in _suppliers)
+            //{
+            //    if (item.Id == product.SupplierId)
+            //        product.SupplierName = item.Name;
+            //}
+
+            //response = await _client.GetAsync("Products");
+            //var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+
+            //foreach (var itemProduct in products)
+            //{
+            //    foreach (var brand in _suppliers)
+            //    {
+            //        if (brand.Id == itemProduct.SupplierId)
+            //            itemProduct.SupplierName = brand.Name;
+            //    }
+            //}
+
+            //var productsRelated = products.Where(p => p.SupplierId == product.SupplierId && p.Id != id).ToList();
+
+            //ViewBag.productsRelated = productsRelated;
+            //ViewBag.Suppliers = _suppliers.ToList();
+            //ViewBag.Category = _categories;
+            //return View("Detail", product);
+            return View("Detail", null);
         }
-        
+
         //public IActionResult Search(string Keyword)
         //{
         //    // HTTP GET
@@ -122,5 +120,13 @@ namespace ShopWebApp.Controllers
         //    //ViewBag.domainUrl = Program.domainUrl;
         //    return PartialView("SearchPartial", dsSanPham);
         //}
+
+        private async Task Load()
+        {
+            var response = await _client.GetAsync(Contant.API_SUPPLIER);
+            _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
+             response = await _client.GetAsync(Contant.API_CATEGORY);
+            _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
+        }
     }
 }

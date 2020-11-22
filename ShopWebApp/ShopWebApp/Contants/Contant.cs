@@ -22,8 +22,17 @@ namespace ShopWebApp.Contants
         public static int CODE_OK = 200;
         public static int ERROR_CODE_DUPLICATE_DATA = 452;
         public static string DUPLICATE_DATA_MESSAGE = "Email address is already used.";
-        
+        public static int ERROR_CODE_INTERNAL = 500;
+        public static string INTERNAL_MESSAGE = "something went wrong please try again or contact to administrator to get more information.";
+        public static int ERROR_CODE_SQL_CONNECTION = 503;
+        public static string SQL_CONNECTION_MESSAGE = "Can not connect to database.";
 
         public static string PREFIX_PHONE = "+84";
+        public static int PAGE_SIZE = 9;
+
+        public static string urlImage = "https://onlineshop.blob.core.windows.net/sanpham";
+        public static string urlLogo = "https://onlineshop.blob.core.windows.net/logo";
+
+
     }
 }

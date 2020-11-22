@@ -62,5 +62,6 @@ namespace ShopAPI.Constants
         public static string DOMAIN_IMAGE = "https://onlineshop.blob.core.windows.net";
         public static string DOMAIN_IMAGE_LOGO = "https://onlineshop.blob.core.windows.net/logo/logo.png";
 
+        public static int IS_ACTIVE = 0;
     }
 }

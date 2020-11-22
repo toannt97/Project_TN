@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShopWebApp.Models.DataModels
 {
@@ -21,17 +18,14 @@ namespace ShopWebApp.Models.DataModels
         public string Description { get; set; }
         [Display(Name = "Image")]
         public string Image { get; set; }
-        [Required]
-        [Display(Name = "Supplier id")]
-        public int SupplierId { get; set; } 
-        [Required]
-        [Display(Name = "Supplier name")]
-        public string SupplierName { get; set; }
         [Display(Name = "Create date")]
         public DateTime CreateDate { get; set; }
         [Display(Name = "Update date")]
         public DateTime? UpdateDate { get; set; }
         [Display(Name = "Status")]
         public string Status { get; set; }
+        public int SupplierID { get; set; }
+        public int TotalPage { get; set; }
+        public int CategoryID { get; set; }
     }
 }

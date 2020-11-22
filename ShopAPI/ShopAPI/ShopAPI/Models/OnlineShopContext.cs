@@ -146,6 +146,12 @@ namespace ShopAPI.Models
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(13, 3)");
 
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_product_category");
+
                 entity.HasOne(d => d.Supplier)
                     .WithMany(p => p.Product)
                     .HasForeignKey(d => d.SupplierId)

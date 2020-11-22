@@ -5,8 +5,6 @@ namespace ShopWebApp
 {
     public class Program
     {
-        public static int PAGE_SIZE = 9;
-        public static string domainUrl = "https://onlineshop.blob.core.windows.net";
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();

@@ -1,114 +1,52 @@
 ﻿@model ShopWebApp.Models.DataModels.Product
+@using ShopWebApp.Contants
+
 @{
-    ViewData["Title"] = $"{Model.Name} - {Model.UnitPrice.ToString("#,##0")} VNĐ";
     Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
 }
+
+<link href="~/css/detail.css" rel="stylesheet" type="text/css" media="all" />
+
 <div class="col-md-9 product-price1">
     <div class="col-md-4 single-top">
-        <img height="200" src="@ViewBag.domainUrl/sanpham/@Model.Image" alt="@Model.Name" />
+        <img height="200" src="@Contant.urlImage/@Model.Image" alt="@Model.Name" />
     </div>
-    <div class="col-md-4 single-top-in simpleCart_shelfItem">
+    <div class="col-md-5 single-top-in simpleCart_shelfItem">
         <div class="single-para ">
             <h4>@Model.Name</h4>
 
-            <h5 class="item_price">@Model.UnitPrice.ToString("#,##0") VNĐ</h5>
-            @Html.Raw(Model.Description)
-            <ul class="tag-men">
-                <li>
-                    <span>Hãng</span>
-                    <span class="women1">: @Model.SupplierName</span>
+            <h5 class="item-price">@Model.UnitPrice.ToString("#.#0") USD</h5>
+            <ul class="product-detail">
+                <li class="product-detail__item">
+                    @*<span>@Html.DisplayNameFor(model => model.SupplierName)</span>
+                    <span class="women1">@Model.SupplierName</span>*@
                 </li>
             </ul>
             <a asp-controller="GioHang" asp-action="AddToCart" asp-route-Id="@Model.Id" class="add-cart item_add">Buy</a>
         </div>
     </div>
-    <div class="col-md-4 single-top-in">
+
+    <div class="col-md-3 single-top-in">
         <label style="display:block">Description</label>
-
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-        The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
+        @Model.Description
     </div>
 
     <div class="clearfix"> </div>
 
     <div class=" bottom-product" style="margin-top:50px;">
         <label style="display:block;">Products related to this item</label>
-        @*@foreach (var item in ViewBag.productsRelated)
-            {*@
-
-        <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-
-
-            <div class="product-at ">
-                <a asp-action="ChiTiet" asp-route-id="@ViewBag.productsRelated.Id">
-                    <img height="100" src="@ViewBag.domainUrl/sanpham/@ViewBag.productsRelated.Image" alt="@ViewBag.productsRelated.Name">
-                </a>
+        @foreach (var item in ViewBag.productsRelated)
+        {
+            <div class="col-md-3 bottom-cd simpleCart_shelfItem">
+                <div class="product-at ">
+                    <a asp-action="GetDetail" asp-route-id="@item.Id">
+                        <img height="100" src="@Contant.urlImage/@item.Image" alt="@item.Name">
+                    </a>
+                </div>
+                <p class="tun">@item.Name</p>
+                <a href="#" class="item_add"><p class="number item_price">@item.UnitPrice.ToString("#.#0") USD</p></a>
             </div>
-            <p class="tun">@ViewBag.productsRelated.Name</p>
-            <a href="#" class="item_add"><p class="number item_price">@ViewBag.productsRelated.UnitPrice.ToString("#,##0") VNĐ</p></a>
-        </div>
-
-        <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-
-
-            <div class="product-at ">
-                <a asp-action="ChiTiet" asp-route-id="@ViewBag.productsRelated.Id">
-                    <img height="100" src="@ViewBag.domainUrl/sanpham/@ViewBag.productsRelated.Image" alt="@ViewBag.productsRelated.Name">
-                </a>
-            </div>
-            <p class="tun">@ViewBag.productsRelated.Name</p>
-            <a href="#" class="item_add"><p class="number item_price">@ViewBag.productsRelated.UnitPrice.ToString("#,##0") VNĐ</p></a>
-        </div>
-
-        <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-
-
-            <div class="product-at ">
-                <a asp-action="ChiTiet" asp-route-id="@ViewBag.productsRelated.Id">
-                    <img height="100" src="@ViewBag.domainUrl/sanpham/@ViewBag.productsRelated.Image" alt="@ViewBag.productsRelated.Name">
-                </a>
-            </div>
-            <p class="tun">@ViewBag.productsRelated.Name</p>
-            <a href="#" class="item_add"><p class="number item_price">@ViewBag.productsRelated.UnitPrice.ToString("#,##0") VNĐ</p></a>
-        </div>
-
-        <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-
-
-            <div class="product-at ">
-                <a asp-action="ChiTiet" asp-route-id="@ViewBag.productsRelated.Id">
-                    <img height="100" src="@ViewBag.domainUrl/sanpham/@ViewBag.productsRelated.Image" alt="@ViewBag.productsRelated.Name">
-                </a>
-            </div>
-            <p class="tun">@ViewBag.productsRelated.Name</p>
-            <a href="#" class="item_add"><p class="number item_price">@ViewBag.productsRelated.UnitPrice.ToString("#,##0") VNĐ</p></a>
-        </div>
-
-        <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-
-
-            <div class="product-at ">
-                <a asp-action="ChiTiet" asp-route-id="@ViewBag.productsRelated.Id">
-                    <img height="100" src="@ViewBag.domainUrl/sanpham/@ViewBag.productsRelated.Image" alt="@ViewBag.productsRelated.Name">
-                </a>
-            </div>
-            <p class="tun">@ViewBag.productsRelated.Name</p>
-            <a href="#" class="item_add"><p class="number item_price">@ViewBag.productsRelated.UnitPrice.ToString("#,##0") VNĐ</p></a>
-        </div>
-
-        <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-
-
-            <div class="product-at ">
-                <a asp-action="ChiTiet" asp-route-id="@ViewBag.productsRelated.Id">
-                    <img height="100" src="@ViewBag.domainUrl/sanpham/@ViewBag.productsRelated.Image" alt="@ViewBag.productsRelated.Name">
-                </a>
-            </div>
-            <p class="tun">@ViewBag.productsRelated.Name</p>
-            <a href="#" class="item_add"><p class="number item_price">@ViewBag.productsRelated.UnitPrice.ToString("#,##0") VNĐ </p></a>
-        </div>
-        @* } *@
+        }
         <div class="clearfix"> </div>
     </div>
 </div>

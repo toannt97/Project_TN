@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShopAPI.Models
 {
@@ -12,6 +13,7 @@ namespace ShopAPI.Models
         }
 
         public int Id { get; set; }
+        public int CategoryId { get; set; }
         public int SupplierId { get; set; }
         public string Name { get; set; }
         public decimal UnitPrice { get; set; }
@@ -21,7 +23,9 @@ namespace ShopAPI.Models
         public DateTime? UpdateDate { get; set; }
         public int Quantity { get; set; }
         public int Status { get; set; }
-
+        [NotMapped]
+        public int TotalPage { get; set; }
+        public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }

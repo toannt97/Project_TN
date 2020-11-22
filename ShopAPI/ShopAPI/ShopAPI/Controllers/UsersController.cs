@@ -46,25 +46,24 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDTO>> PostUser(UserSignIn userRequest)
         {
-            var result = (from a in _context.User
-                          where (a.Status == 0 && a.EmailAddress.Equals(userRequest.EmailAddress) && a.Password.Equals(userRequest.Password))
-                          select (
-                            new UserDTO
-                            {
-                                Id = a.Id,
-                                EmailAddress = a.EmailAddress,
-                                Role = a.Role,
-                                UserName = a.UserName,
-                                ItemsInCart = a.ShoppingCart.Count(),
-                            })
-                         ).SingleOrDefault();
+            var user = await _context.User.Where(u => u.Status == Constant.IS_ACTIVE && u.EmailAddress.Equals(userRequest.EmailAddress)
+                                            && u.Password.Equals(userRequest.Password))
+                                    .Select(u => new UserDTO
+                                    {
+                                        Id = u.Id,
+                                        EmailAddress = u.EmailAddress,
+                                        Role = u.Role,
+                                        UserName = u.UserName,
+                                        ItemsInCart = u.ShoppingCart.Count(),
+                                    }).FirstOrDefaultAsync();
+
             // Login information is not correct
-            if (result == null)
+            if (user == null)
             {
                 return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
             }
 
-            return result;
+            return user;
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
@@ -179,8 +178,9 @@ namespace ShopAPI.Controllers
                 var user = _context.User.Where(us => us.Id == id && us.EmailAddress.Equals(email)).SingleOrDefault();
                 if (user.Status == -1)
                     user.Status = 0;
-                else {
-                    
+                else
+                {
+
                 }
                 user.CreateDate = DateTime.Now;
                 _context.Entry(user).State = EntityState.Modified;

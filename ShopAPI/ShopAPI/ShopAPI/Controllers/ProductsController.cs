@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ShopAPI.Constants;
 using ShopAPI.Models;
 
 namespace ShopAPI.Controllers
@@ -20,18 +19,42 @@ namespace ShopAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Products
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            return await _context.Product.Where(p => p.Status == Constant.IS_ACTIVE)
+                         .ToListAsync();
+        }
+
+        // GET: api/Products
+        [HttpGet("{pageNo}/{pageSize}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProduct(int pageNo, int pageSize)
+        {
+            var query = await _context.Product.Where(p => p.Status == Constant.IS_ACTIVE).ToListAsync();
+            var result = query.OrderBy(p => p.UnitPrice)
+                        .Skip(pageNo * pageSize)
+                        .Take(pageSize)
+                        .Select(p => new Product
+                        {
+                            Id = p.Id,
+                            CategoryId = p.CategoryId,
+                            Description = p.Description,
+                            Image = p.Image,
+                            Name = p.Name,
+                            TotalPage = _context.Product.Count(),
+                            Quantity = p.Quantity,
+                            UnitPrice = p.UnitPrice,
+                            SupplierId = p.SupplierId
+                        }).ToList();
+            
+            return result;
         }
 
         // GET: api/Products/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        [HttpGet("{idProduct}")]
+        public async Task<ActionResult<Product>> GetProduct(int idProduct)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Product.FindAsync(idProduct);
 
             if (product == null)
             {

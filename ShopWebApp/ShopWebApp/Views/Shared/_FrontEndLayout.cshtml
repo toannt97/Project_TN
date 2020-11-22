@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ShopWebApp.Contants
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>PTIT-HCM Store</title>
@@ -9,7 +11,7 @@
     <!--//fonts-->
     <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link rel="shortcut icon" type="image/x-icon" href="@(Program.domainUrl+"/logo/favicon.jpg")" />
+    <link rel="shortcut icon" type="image/x-icon" href="@(Contant.urlLogo+"/favicon.jpg")" />
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -103,9 +105,9 @@
         <div class="container">
             <div class="col-md-3 product-price">
                 @await Html.PartialAsync("_SupplierPartialView", suppliers)
-    <!--initiate accordion-->
-    <!---->
-    <div class="product-middle">
+                <!--initiate accordion-->
+                <!---->
+                <div class="product-middle">
                     <div class="fit-top">
                         <h6 class="shop-top">Laptop Apple</h6>
                         <a href="#" class="shop-now">SHOP NOW</a>
@@ -149,8 +151,8 @@
     </div>
     <!-- The Sign In Modal -->
     <div id="login-modal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content container login-content">
+        <!-- Modal content -->
+        <div class="modal-content container login-content">
             <div class="modal-body modal-login" id="modal-login">
                 @await Html.PartialAsync("_LoginView", new UserSignIn())
             </div>
@@ -158,8 +160,8 @@
     </div>
     <!-- The Sign Up Modal -->
     <div id="register-modal" class="modal">
-    <!-- Modal content -->
-    <div class="modal-content container register-content">
+        <!-- Modal content -->
+        <div class="modal-content container register-content">
             <div class="modal-body modal-register" id="modal-register">
                 @await Html.PartialAsync("_RegisterView", new User())
             </div>

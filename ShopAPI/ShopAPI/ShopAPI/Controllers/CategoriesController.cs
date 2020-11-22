@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ShopAPI.Constants;
 using ShopAPI.Models;
 
 namespace ShopAPI.Controllers
@@ -24,7 +25,10 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
         {
-            return await _context.Category.Where(p=>p.Status==0).ToListAsync();
+            return await _context.Category
+                        .Where(c=> c.Status == Constant.IS_ACTIVE)
+                        .OrderBy(c=> c.Name)
+                        .ToListAsync();
         }
 
         // GET: api/Categories/5
