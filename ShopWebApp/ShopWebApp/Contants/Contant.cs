@@ -15,6 +15,8 @@ namespace ShopWebApp.Contants
         public static string API_CATEGORY = "categories";
         /*Method*/
         public static string API_ADD_USER = API_USER + "/AddUser";
+        public static string API_GET_PRODUCTS_RELATED = API_PRODUCT + "/GetProductsRelated";
+
 
         /*Status code*/
         public static int ERROR_CODE_NOT_FOUND = 404;
@@ -27,12 +29,15 @@ namespace ShopWebApp.Contants
         public static int ERROR_CODE_SQL_CONNECTION = 503;
         public static string SQL_CONNECTION_MESSAGE = "Can not connect to database.";
 
-        public static string PREFIX_PHONE = "+84";
-        public static int PAGE_SIZE = 9;
+        public static string PREFIX_PHONE = "+84"; 
+        public static int PAGE_SIZE = 10;
 
         public static string urlImage = "https://onlineshop.blob.core.windows.net/sanpham";
         public static string urlLogo = "https://onlineshop.blob.core.windows.net/logo";
 
+        public static string SESSION_USER = "_user";
+
+        public static int DETAILED_PRODUCT_QUANTITY = 4;
 
     }
 }

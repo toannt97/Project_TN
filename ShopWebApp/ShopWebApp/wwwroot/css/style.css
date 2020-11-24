@@ -1180,7 +1180,7 @@ h3.tag {
 /*Product detail*/
 .single-para h4 {
     color: #000;
-    font-size: 3em;
+    font-size: 2em;
     font-family: 'Lato', serif;
 }
 
@@ -1199,12 +1199,21 @@ h3.tag {
     padding: 0.3em 0;
 }
 
+.single-top > img{
+    height:200px;
+    
+}
+
+    .single-top > img:hover {
+        transform: scale(2);
+    }
+
 .add-cart {
     text-decoration: none;
     color: #fff;
     background: #EF5F21;
-    padding: 0.4em 0.8em;
-    font-size: 0.9em;
+    padding: 0.8em 2em;
+    font-size: 1em;
     text-transform: uppercase;
     margin-top: 2em;
     display: inline-block;

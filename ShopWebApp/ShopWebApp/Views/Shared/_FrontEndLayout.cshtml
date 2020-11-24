@@ -105,15 +105,6 @@
         <div class="container">
             <div class="col-md-3 product-price">
                 @await Html.PartialAsync("_SupplierPartialView", suppliers)
-                <!--initiate accordion-->
-                <!---->
-                <div class="product-middle">
-                    <div class="fit-top">
-                        <h6 class="shop-top">Laptop Apple</h6>
-                        <a href="#" class="shop-now">SHOP NOW</a>
-                        <div class="clearfix"> </div>
-                    </div>
-                </div>
                 @await Html.PartialAsync("_TagsPartialView", suppliers)
             </div>
             @RenderBody()

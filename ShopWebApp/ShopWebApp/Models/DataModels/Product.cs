@@ -16,16 +16,13 @@ namespace ShopWebApp.Models.DataModels
         [MaxLength(150)]
         [Display(Name = "Description")]
         public string Description { get; set; }
+        [MaxLength(150)]
+        [Display(Name = "Information")]
+        public string Information { get; set; }
         [Display(Name = "Image")]
         public string Image { get; set; }
-        [Display(Name = "Create date")]
-        public DateTime CreateDate { get; set; }
-        [Display(Name = "Update date")]
-        public DateTime? UpdateDate { get; set; }
-        [Display(Name = "Status")]
-        public string Status { get; set; }
         public int SupplierID { get; set; }
+        public string SupplierName { get; set; }
         public int TotalPage { get; set; }
-        public int CategoryID { get; set; }
     }
 }

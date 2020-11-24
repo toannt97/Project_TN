@@ -18,6 +18,7 @@ namespace ShopAPI.Models
         public string Name { get; set; }
         public decimal UnitPrice { get; set; }
         public string Image { get; set; }
+        public string Information { get; set; }
         public string Description { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
@@ -25,6 +26,8 @@ namespace ShopAPI.Models
         public int Status { get; set; }
         [NotMapped]
         public int TotalPage { get; set; }
+        [NotMapped]
+        public string SupplierName { get; set; }
         public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }

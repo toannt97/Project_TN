@@ -26,7 +26,7 @@ namespace ShopWebApp.Controllers
         // GET: UserController/GetCurrentUser
         public ActionResult GetCurrentUser()
         {
-            var user = HttpContext.Session.Get("_user");
+            var user = HttpContext.Session.Get(Contant.SESSION_USER);
             return Json(user);
         }
 
@@ -37,15 +37,18 @@ namespace ShopWebApp.Controllers
             {
                 if (!ModelState.IsValid)
                     return PartialView("_LoginView", user);
+                
                 user.Password = Encrypt.SHA256Hash(user.Password);
                 var response = await _client.PostAsJsonAsync(Contant.API_USER, user);
+                
                 if ((Int32)response.StatusCode ==Contant.ERROR_CODE_NOT_FOUND)
                 {
                     return Json(new { statusCode = Contant.ERROR_CODE_NOT_FOUND, messageError=Contant.NOT_FOUND_MESSAGE});
                 }
+
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
                 
-                HttpContext.Session.Set<UserDTO>("_user", result);
+                HttpContext.Session.Set<UserDTO>(Contant.SESSION_USER, result);
                 return Json(new { userName = result.UserName, statusCode = Contant.CODE_OK});
 
             }catch(Exception)

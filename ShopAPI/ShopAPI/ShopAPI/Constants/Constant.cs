@@ -21,6 +21,7 @@ namespace ShopAPI.Constants
         // Mail's subject
         public static string SUBJECT_REGISTER_ACCOUNT = "Register New-store's account";
         public static string MAIL_SECTION = "MailAccount";
+
         public static string CONTENT(string userName, string baseUrl, int id, string email)
         {
             return $@"<div style='font-family: Arial; background:#F8F8F8;'>

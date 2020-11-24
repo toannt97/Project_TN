@@ -2,8 +2,9 @@ namespace ShopWebApp.Models
 {
     public class ErrorViewModel
     {
-        public string RequestId { get; set; }
+        public int ErrorId { get; set; }
+        public string RequestId { get; internal set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public string ErrorMessage;
     }
 }

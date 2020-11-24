@@ -138,11 +138,18 @@ namespace ShopAPI.Models
 
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Image).HasMaxLength(50);
+                entity.Property(e => e.Description).IsUnicode(false);
+
+                entity.Property(e => e.Image)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Information).IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(50);
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(13, 3)");
 

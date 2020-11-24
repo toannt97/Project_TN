@@ -7,7 +7,7 @@
 <div class="col-md-9 product1">
     @foreach (var product in Model)
     {
-        <div class="col-md-4 home-grid" style="position:relative">
+        <div class="col-md-6 home-grid" style="position:relative">
             <div class="home-product-main">
                 <div class="home-product-top">
                     <a style="text-decoration:none" asp-action="GetDetail" asp-route-id="@product.Id"><img src="@Contant.urlImage/@product.Image" style="width:60%" ;></a>
@@ -22,8 +22,6 @@
     }
 </div>
 <div class="clearfix"> </div>
-<br />
-<br />
 <nav class="pagination">
     Current page : @(ViewBag.PageNumber + 1) / @(ViewBag.TotalPage)
     <div>

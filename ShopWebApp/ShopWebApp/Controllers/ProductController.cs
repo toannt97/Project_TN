@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopWebApp.Common;
 using ShopWebApp.Contants;
+using ShopWebApp.Models;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
@@ -16,16 +17,24 @@ namespace ShopWebApp.Controllers
 {
     public class ProductController : Controller
     {
+        #region Private fields
         private readonly HttpClient _client = HttpClientAccessor.HttpClient;
         private List<Supplier> _suppliers;
         private List<Category> _categories;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ProductController()
         {
             _suppliers = new List<Supplier>();
-            _products = new List<Product>();
             _categories = new List<Category>();
         }
+        #endregion
 
+        #region Public Method
         /// <summary>
         /// Get all products
         /// </summary>
@@ -42,59 +51,38 @@ namespace ShopWebApp.Controllers
 
                 ViewBag.TotalPage = Math.Ceiling(1.0 * products[0].TotalPage / Contant.PAGE_SIZE);
                 ViewBag.PageNumber = pageNo;
-                ViewBag.Suppliers = _suppliers.ToList();
-                ViewBag.Category = _categories;
-                ViewBag.User = HttpContext.Session.Get<UserDTO>("_user");
+                
 
                 return View(products);
             }
             catch (SqlException)
             { 
-                return View("Error");
+                return View("Error", new ErrorViewModel {ErrorId=Contant.ERROR_CODE_SQL_CONNECTION, ErrorMessage=Contant.SQL_CONNECTION_MESSAGE});
             }
             catch (Exception)
             {
-                return View("Error");
+                return View("Error", new ErrorViewModel { ErrorId = Contant.ERROR_CODE_INTERNAL, ErrorMessage = Contant.INTERNAL_MESSAGE });
             }
         }
 
         public async Task<IActionResult> GetDetail(int id)
         {
-            //await Load();
+            await Load();
 
-            //var response = await _client.GetAsync($"{Contant.API_PRODUCT}/{id}");
-            //var product = response.Content.ReadAsAsync<Product>().Result;
+            var response = await _client.GetAsync($"{Contant.API_PRODUCT}/{id}");
+            var product = response.Content.ReadAsAsync<Product>().Result;
 
-            //if (product == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //foreach (var item in _suppliers)
-            //{
-            //    if (item.Id == product.SupplierId)
-            //        product.SupplierName = item.Name;
-            //}
-
-            //response = await _client.GetAsync("Products");
-            //var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-
-            //foreach (var itemProduct in products)
-            //{
-            //    foreach (var brand in _suppliers)
-            //    {
-            //        if (brand.Id == itemProduct.SupplierId)
-            //            itemProduct.SupplierName = brand.Name;
-            //    }
-            //}
-
-            //var productsRelated = products.Where(p => p.SupplierId == product.SupplierId && p.Id != id).ToList();
-
-            //ViewBag.productsRelated = productsRelated;
-            //ViewBag.Suppliers = _suppliers.ToList();
-            //ViewBag.Category = _categories;
-            //return View("Detail", product);
-            return View("Detail", null);
+            if (product != null)
+            {
+                response = await _client.GetAsync($"{Contant.API_GET_PRODUCTS_RELATED}/{product.Id}/{product.SupplierID}/{Contant.DETAILED_PRODUCT_QUANTITY}");
+                if((Int32)response.StatusCode == Contant.CODE_OK)
+                {
+                    var productsRelated = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+                    ViewBag.productsRelated = productsRelated;
+                }
+            }
+            
+            return View("Detail", product);
         }
 
         //public IActionResult Search(string Keyword)
@@ -120,13 +108,23 @@ namespace ShopWebApp.Controllers
         //    //ViewBag.domainUrl = Program.domainUrl;
         //    return PartialView("SearchPartial", dsSanPham);
         //}
+        #endregion
 
+        #region Private Method
+        /// <summary>
+        /// Get necessary datas and pass to view: Navigation menu, Suppliers part, Tags part
+        /// </summary>
+        /// <returns></returns>
         private async Task Load()
         {
             var response = await _client.GetAsync(Contant.API_SUPPLIER);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
              response = await _client.GetAsync(Contant.API_CATEGORY);
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
+            ViewBag.Suppliers = _suppliers.ToList();
+            ViewBag.Category = _categories;
+            ViewBag.User = HttpContext.Session.Get<UserDTO>(Contant.SESSION_USER);
         }
+        #endregion
     }
 }
