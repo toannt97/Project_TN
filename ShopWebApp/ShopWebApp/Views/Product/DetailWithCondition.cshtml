@@ -32,9 +32,9 @@
 <nav class="pagination">
     Current page : @(ViewBag.PageNumber + 1) / @(ViewBag.TotalPage)
     <div>
-        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="0" >First page</a>
-        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber - 1)">Previous</a>
-        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber + 1)">Next</a>
-        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.TotalPage -1)">Last page</a>
+        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="GetDetail" asp-route-pageNo="0" asp-route-categoryId="@ViewBag.categoryCurrentId" asp-route-supplierId="@ViewBag.supplierCurrenId">First page</a>
+        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="GetDetail" asp-route-pageNo="@(ViewBag.PageNumber - 1)" asp-route-categoryId="@ViewBag.categoryCurrentId" asp-route-supplierId="@ViewBag.supplierCurrenId">Previous</a>
+        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="GetDetail" asp-route-pageNo="@(ViewBag.PageNumber + 1)" asp-route-categoryId="@ViewBag.categoryCurrentId" asp-route-supplierId="@ViewBag.supplierCurrenId">Next</a>
+        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="GetDetail" asp-route-pageNo="@(ViewBag.TotalPage -1)" asp-route-categoryId="@ViewBag.categoryCurrentId" asp-route-supplierId="@ViewBag.supplierCurrenId">Last page</a>
     </div>
 </nav>

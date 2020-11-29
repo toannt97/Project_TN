@@ -33,26 +33,23 @@ namespace ShopAPI.Controllers
 
         // GET: api/Products
         [HttpGet("{pageNo}/{pageSize}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProduct(int pageNo, int pageSize)
+        public async Task<ActionResult<IEnumerable<Product>>> GetProduct(int pageNo, int pageSize = 10)
         {
-            var query = await _context.Product.Where(p =>p.Quantity > 0 && p.Status == Constant.IS_ACTIVE).ToListAsync();
-            var result = query.OrderBy(p => p.UnitPrice)
-                        .Skip(pageNo * pageSize)
-                        .Take(pageSize)
-                        .Select(p => new Product
-                        {
-                            Id = p.Id,
-                            
-                            CategoryId = p.CategoryId,
-                            Image = p.Image,
-                            Name = p.Name,
-                            Description = p.Description,
-                            Information = p.Information,
-                            TotalPage = _context.Product.Count(),
-                            Quantity = p.Quantity,
-                            UnitPrice = p.UnitPrice,
-                            SupplierId = p.SupplierId
-                        }).ToList();
+            var result = await _context.Product.Where(p => p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
+                               .OrderBy(p => p.UnitPrice)
+                               .Skip(pageNo * pageSize)
+                               .Take(pageSize)
+                               .Select(p => new Product {
+                                   Id = p.Id,
+                                   CategoryId = p.CategoryId,
+                                   Image = p.Image,
+                                   Name = p.Name,
+                                   Description = p.Description,
+                                   Information = p.Information,
+                                   Quantity = p.Quantity,
+                                   UnitPrice = p.UnitPrice,
+                                   SupplierId = p.SupplierId
+                        }).ToListAsync();
 
             return result;
         }
@@ -74,6 +71,7 @@ namespace ShopAPI.Controllers
                                     UnitPrice =r.UnitPrice,
                                     SupplierId = r.SupplierId,
                                     SupplierName = r.Supplier.Name,
+                                    CategoryId = r.CategoryId,
                                 })
                                 .FirstOrDefaultAsync();
 
@@ -85,11 +83,48 @@ namespace ShopAPI.Controllers
             return product;
         }
 
-        //[Route("GetProductsRelated")]
-        [HttpGet("GetProductsRelated/{idProduct}/{idSupplier}/{quantity}")]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProductsRelated(int idProduct, int idSupplier, int quantity = 4)
+        [HttpGet("{idSupplier}/{idCategory}/{pageNo}/{pageSize}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProduct(int idSupplier, int idCategory, int pageNo,int pageSize = 10)
+        {
+            //var query = await _context.Product
+            //                 .Where(p => p.SupplierId == (idSupplier == 0 ? p.SupplierId : idSupplier)
+            //                        && p.CategoryId == (idCategory == 0 ? p.CategoryId : idCategory)
+            //                        && p.Quantity > 0
+            //                        && p.Status == Constant.IS_ACTIVE)
+            //                 .ToListAsync();
+
+            var result = await _context.Product
+                             .Where(p => p.SupplierId == (idSupplier == 0 ? p.SupplierId : idSupplier)
+                                    && p.CategoryId == (idCategory == 0 ? p.CategoryId : idCategory)
+                                    && p.Quantity > 0
+                                    && p.Status == Constant.IS_ACTIVE).OrderBy(p => p.UnitPrice)
+                              .Skip(pageNo * pageSize)
+                              .Take(pageSize)
+                              .Select(p => new Product
+                                  {
+                                      Id = p.Id,
+                                      CategoryId = p.CategoryId,
+                                      Image = p.Image,
+                                      Name = p.Name,
+                                      Description = p.Description,
+                                      Information = p.Information,
+                                      Quantity = p.Quantity,
+                                      UnitPrice = p.UnitPrice,
+                                      SupplierId = p.SupplierId
+                                  })
+                              .ToListAsync();
+
+            if (result == null || result.Count == 0)
+                return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
+
+            return result;
+        }
+
+        [HttpGet("GetProductsRelated/{idProduct}/{idSupplier}/{idCategory}/{quantity}")]
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductsRelated(int idProduct, int idSupplier, int idCategory, int quantity = 4)
         {
             var productsRelated = await _context.Product.Where(p => p.SupplierId == idSupplier
+                                                                && p.CategoryId == idCategory
                                                                 && p.Id != idProduct
                                                                 && p.Quantity > 0
                                                                 && p.Status == Constant.IS_ACTIVE)
@@ -102,6 +137,17 @@ namespace ShopAPI.Controllers
 
             return productsRelated;
         }
+
+        [HttpGet("GetTotalProduct/{categoryId}/{supplierId}")]
+        public async Task<ActionResult<int>> GetTotalProduct(int categoryId = 0, int supplierId = 0)
+        {
+            return await _context.Product.Where(p=> p.CategoryId ==  (categoryId == 0 ? p.CategoryId: categoryId)
+                                                && p.SupplierId == (supplierId == 0 ? p.SupplierId : supplierId)
+                                                && p.Status == Constant.IS_ACTIVE
+                                                && p.Quantity > 0)
+                                         .CountAsync();
+        }
+
         // PUT: api/Products/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

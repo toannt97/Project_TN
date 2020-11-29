@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<ShopWebApp.Models.DataModels.Supplier>
-<div class=" rsidebar span_1_of_left">
-    <div class="of-left">
-        <h3>Brands</h3>
-    </div>
-    <ul class="menu">
-        @foreach (var item in Model)
-        {
-            <li class="item1">
-                <a asp-controller="Product" asp-action="Index" asp-route-supplierId="@item.Id">@item.Name</a>
-            </li>
-        }
-    </ul>
+
+<link type="text/css" href="~/css/left_side_menu.css" rel="stylesheet">
+
+<div class="of-left">
+    <h3>Brands</h3>
 </div>
+<ul class="supplier-items">
+    @foreach (var item in Model) {
+        <li >
+            <a class="@(ViewBag.supplierCurrenId ==  item.Id ? "supplier-item supplier-item--selected" : "supplier-item")"  asp-controller="Product" asp-action="GetDetail" asp-route-supplierId="@item.Id" asp-route-categoryId=@ViewBag.categoryCurrentId>@item.Name</a>
+        </li>
+    }
+</ul>

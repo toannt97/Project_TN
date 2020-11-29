@@ -1,32 +1,21 @@
 ﻿@model List<ShopWebApp.Models.DataModels.Category>
-@using ShopWebApp.Contants
+@using ShopWebApp.Constants
+
+<link type="text/css" href="~/css/navigation_menu.css" rel="stylesheet">
 
 <div class="container">
     <div class="head-top">
         <div class="logo">
-            <a asp-controller="Product" asp-action="Index"><img src="@(Contant.urlLogo+"/logo.png")" alt="logo"></a>
+            <a asp-controller="Product" asp-action="Index"><img src="@(Constant.urlLogo)" alt="logo"></a>
         </div>
-        <div class="h_menu4">
+        <div class="main_menu">
             <ul class="memenu skyblue">
-                @{
-                    string[] color = { "color1", "color2", "color3", "color4" };
-                    int i = 0;
-                }
                 @foreach (var item in Model)
                 {
-                    i++;
-                    if (i == 4)
-                    {
-                        i = 0;
-                    }
-                    <li>
-                        <a class="@color[i]" asp-controller="Product" asp-action="Index" asp-route-supplierId="@item.Id">@item.Name</a>
+                    <li id="@item.Id">
+                        <a class="@(ViewBag.categoryCurrentId ==  item.Id ? "category-item--selected" : "category-item")" asp-controller="Product" asp-action="GetDetail" asp-route-categoryId="@item.Id">@item.Name</a>
                     </li>
-
                 }
-                <li>
-                    <a class="color6" href="#">Contact</a>
-                </li>
             </ul>
         </div>
     </div>

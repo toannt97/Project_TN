@@ -1,0 +1,14 @@
+﻿.category-item:hover {
+    background-color: #01b5d0 !important;
+    color: white !important;
+}
+
+.category-item--selected {
+    background: orange;
+    color: black;
+}
+
+    .category-item--selected:hover {
+        background: orange !important;
+        color: black !important;
+    }

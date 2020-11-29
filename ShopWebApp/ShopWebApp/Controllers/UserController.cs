@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShoppingWebAPI.Common;
 using ShopWebApp.Common;
-using ShopWebApp.Contants;
+using ShopWebApp.Constants;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
@@ -26,7 +26,7 @@ namespace ShopWebApp.Controllers
         // GET: UserController/GetCurrentUser
         public ActionResult GetCurrentUser()
         {
-            var user = HttpContext.Session.Get(Contant.SESSION_USER);
+            var user = HttpContext.Session.Get(Constant.SESSION_USER);
             return Json(user);
         }
 
@@ -39,17 +39,17 @@ namespace ShopWebApp.Controllers
                     return PartialView("_LoginView", user);
                 
                 user.Password = Encrypt.SHA256Hash(user.Password);
-                var response = await _client.PostAsJsonAsync(Contant.API_USER, user);
+                var response = await _client.PostAsJsonAsync(Constant.API_USER, user);
                 
-                if ((Int32)response.StatusCode ==Contant.ERROR_CODE_NOT_FOUND)
+                if ((Int32)response.StatusCode == Constant.ERROR_CODE_NOT_FOUND)
                 {
-                    return Json(new { statusCode = Contant.ERROR_CODE_NOT_FOUND, messageError=Contant.NOT_FOUND_MESSAGE});
+                    return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError=Constant.NOT_FOUND_MESSAGE});
                 }
 
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
                 
-                HttpContext.Session.Set<UserDTO>(Contant.SESSION_USER, result);
-                return Json(new { userName = result.UserName, statusCode = Contant.CODE_OK});
+                HttpContext.Session.Set<UserDTO>(Constant.SESSION_USER, result);
+                return Json(new { userName = result.UserName, statusCode = Constant.CODE_OK});
 
             }catch(Exception)
             {
@@ -65,15 +65,15 @@ namespace ShopWebApp.Controllers
                 if (!ModelState.IsValid)
                     return PartialView("_RegisterView", user);
                 user.Password = Encrypt.SHA256Hash(user.Password);
-                user.PhoneNumber = Contants.Contant.PREFIX_PHONE + user.PhoneNumber;
-                var response = await _client.PostAsJsonAsync(Contant.API_ADD_USER, user);
+                user.PhoneNumber = Constant.PREFIX_PHONE + user.PhoneNumber;
+                var response = await _client.PostAsJsonAsync(Constant.API_ADD_USER, user);
 
-                if ((Int32)response.StatusCode == Contant.ERROR_CODE_DUPLICATE_DATA)
+                if ((Int32)response.StatusCode == Constant.ERROR_CODE_DUPLICATE_DATA)
                 {
-                    return Json(new { statusCode = Contant.ERROR_CODE_DUPLICATE_DATA, messageError = Contant.DUPLICATE_DATA_MESSAGE });
+                    return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA, messageError = Constant.DUPLICATE_DATA_MESSAGE });
                 }
 
-                return Json(new { statusCode = Contant.CODE_OK });
+                return Json(new { statusCode = Constant.CODE_OK });
             }
             catch (Exception)
             {

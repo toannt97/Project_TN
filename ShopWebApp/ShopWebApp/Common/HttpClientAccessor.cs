@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net.Http;
-using ShopWebApp.Contants;
+using ShopWebApp.Constants;
 
 namespace ShopWebApp.Common
 {
@@ -8,7 +8,7 @@ namespace ShopWebApp.Common
     {
         public static Func<HttpClient> ValueFactory = () => {
             var client = new HttpClient();
-            client.BaseAddress = new Uri(Contant.BASE_ADDRESS);
+            client.BaseAddress = new Uri(Constant.BASE_ADDRESS);
             return client;
         };
 

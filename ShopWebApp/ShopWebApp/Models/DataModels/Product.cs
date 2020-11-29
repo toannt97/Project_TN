@@ -22,7 +22,8 @@ namespace ShopWebApp.Models.DataModels
         [Display(Name = "Image")]
         public string Image { get; set; }
         public int SupplierID { get; set; }
+        [Display(Name = "Supplier: ")]
         public string SupplierName { get; set; }
-        public int TotalPage { get; set; }
+        public int CategoryID { get; set; }
     }
 }

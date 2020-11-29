@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopWebApp.Common;
-using ShopWebApp.Contants;
+using ShopWebApp.Constants;
 using ShopWebApp.Models;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
@@ -19,6 +19,7 @@ namespace ShopWebApp.Controllers
     {
         #region Private fields
         private readonly HttpClient _client = HttpClientAccessor.HttpClient;
+        private double _totalPage = 0;
         private List<Supplier> _suppliers;
         private List<Category> _categories;
         #endregion
@@ -46,43 +47,74 @@ namespace ShopWebApp.Controllers
             {
                 await Load();
 
-                var response = await _client.GetAsync($"{Contant.API_PRODUCT}/{pageNo} /{Contant.PAGE_SIZE}");
+                var response = await _client.GetAsync($"{Constant.API_PRODUCT}/{pageNo} /{Constant.PAGE_SIZE}");
                 var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
-
-                ViewBag.TotalPage = Math.Ceiling(1.0 * products[0].TotalPage / Contant.PAGE_SIZE);
+                await GetTotalPage();
+                ViewBag.TotalPage = _totalPage;
                 ViewBag.PageNumber = pageNo;
-                
 
                 return View(products);
             }
             catch (SqlException)
-            { 
-                return View("Error", new ErrorViewModel {ErrorId=Contant.ERROR_CODE_SQL_CONNECTION, ErrorMessage=Contant.SQL_CONNECTION_MESSAGE});
+            {
+                return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_SQL_CONNECTION, ErrorMessage = Constant.SQL_CONNECTION_MESSAGE });
             }
             catch (Exception)
             {
-                return View("Error", new ErrorViewModel { ErrorId = Contant.ERROR_CODE_INTERNAL, ErrorMessage = Contant.INTERNAL_MESSAGE });
+                return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_INTERNAL, ErrorMessage = Constant.INTERNAL_MESSAGE });
             }
         }
 
-        public async Task<IActionResult> GetDetail(int id)
+        public async Task<IActionResult> GetDetail(int? productId, int pageNo = 0, int categoryId = 0, int supplierId = 0)
         {
             await Load();
-
-            var response = await _client.GetAsync($"{Contant.API_PRODUCT}/{id}");
-            var product = response.Content.ReadAsAsync<Product>().Result;
-
-            if (product != null)
-            {
-                response = await _client.GetAsync($"{Contant.API_GET_PRODUCTS_RELATED}/{product.Id}/{product.SupplierID}/{Contant.DETAILED_PRODUCT_QUANTITY}");
-                if((Int32)response.StatusCode == Contant.CODE_OK)
-                {
-                    var productsRelated = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
-                    ViewBag.productsRelated = productsRelated;
+            try {
+                if (productId != null) {
+                    var response = await _client.GetAsync($"{Constant.API_PRODUCT}/{productId}");
+                    switch ((Int32)response.StatusCode)
+                    {
+                        case Constant.ERROR_CODE_NOT_FOUND:
+                            return View("Detail", null);
+                        case Constant.ERROR_CODE_INTERNAL:
+                            return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_INTERNAL, ErrorMessage = Constant.INTERNAL_MESSAGE });
+                        default :
+                            {
+                                var product = response.Content.ReadAsAsync<Product>().Result;
+                                if (product != null)
+                                {
+                                    var productsRelated = await GetRelatedProducts(product);
+                                    ViewBag.productsRelated = productsRelated;
+                                }
+                                return View("Detail", product);
+                            }
+                    }
                 }
+                else {
+                    var response = await _client.GetAsync($"{Constant.API_PRODUCT}/{supplierId}/{categoryId}/{pageNo}/{Constant.PAGE_SIZE}");
+                    ViewBag.categoryCurrentId = categoryId;
+                    ViewBag.supplierCurrenId = supplierId;
+                    switch ((Int32)response.StatusCode)
+                    {
+                        case Constant.ERROR_CODE_NOT_FOUND:
+                            return View("DetailWithCondition", null);
+                        case Constant.ERROR_CODE_INTERNAL:
+                            return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_INTERNAL, ErrorMessage = Constant.INTERNAL_MESSAGE });
+                        default:
+                            {
+                                var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
+                                await GetTotalPage(categoryId, supplierId);
+                                ViewBag.TotalPage = _totalPage;
+                                ViewBag.PageNumber = pageNo;
+                                return View("DetailWithCondition", products);
+                            }
+                    }
+                }
+            } catch (SqlException) {
+                return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_SQL_CONNECTION, ErrorMessage = Constant.SQL_CONNECTION_MESSAGE });
             }
-            
-            return View("Detail", product);
+            catch (Exception) {
+                return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_INTERNAL, ErrorMessage = Constant.INTERNAL_MESSAGE });
+            }
         }
 
         //public IActionResult Search(string Keyword)
@@ -117,13 +149,32 @@ namespace ShopWebApp.Controllers
         /// <returns></returns>
         private async Task Load()
         {
-            var response = await _client.GetAsync(Contant.API_SUPPLIER);
+            var response = await _client.GetAsync(Constant.API_SUPPLIER);
             _suppliers = response.Content.ReadAsAsync<IEnumerable<Supplier>>().Result.ToList();
-             response = await _client.GetAsync(Contant.API_CATEGORY);
+            response = await _client.GetAsync(Constant.API_CATEGORY);
             _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
             ViewBag.Suppliers = _suppliers.ToList();
             ViewBag.Category = _categories;
-            ViewBag.User = HttpContext.Session.Get<UserDTO>(Contant.SESSION_USER);
+            ViewBag.User = HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER);
+        }
+
+        private async Task GetTotalPage(int categoryId = 0, int supllierId = 0)
+        {
+                var response = await _client.GetAsync($"{ Constant.API_TOTAL_PRODUCT}/{categoryId}/{supllierId}");
+                var totalRecords = response.Content.ReadAsAsync<int>().Result;
+                _totalPage =  Math.Ceiling(1.0 * totalRecords / Constant.PAGE_SIZE);
+            
+        }
+
+        private async Task<IEnumerable<Product>> GetRelatedProducts(Product product)
+        {
+            var response = await _client.GetAsync($"{Constant.API_GET_PRODUCTS_RELATED}/{product.Id}/{product.SupplierID}/{product.CategoryID}/{Constant.DETAILED_PRODUCT_QUANTITY}");
+            if ((Int32)response.StatusCode == Constant.CODE_OK)
+            {
+                var productsRelated = response.Content.ReadAsAsync<IEnumerable<Product>>().Result;
+                return productsRelated;
+            }
+            return new List<Product>();
         }
         #endregion
     }

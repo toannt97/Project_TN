@@ -21,4 +21,6 @@
     <Folder Include="wwwroot\images\icons\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4css_4bootstrap-theme_1css_1map__JsonSchema="https://json.schemastore.org/sprite" /></VisualStudio></ProjectExtensions>
+
 </Project>
