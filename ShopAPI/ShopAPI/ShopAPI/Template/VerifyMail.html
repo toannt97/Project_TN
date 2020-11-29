@@ -1,0 +1,61 @@
+﻿<style>
+    .verify-email {
+        font-family: Arial;
+        background: #F8F8F8;
+    }
+
+    .verify-email__image-box {
+        width: 200px;
+        padding: 0 10px 10px 0;
+        border-bottom: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+    }
+
+        .verify-email__image-box > img {
+            width: 100%
+        }
+
+    .verify-email__content {
+        background: #fff;
+        border: 1px solid #ddd
+    }
+
+    .verify-email__message {
+        font-size: 14px;
+        margin: 35px 0 35px 0;
+    }
+
+    .verify-email__verify-link {
+        cursor: default;
+        display: block;
+        margin: 20px auto;
+        color: white;
+        background: #4B985E;
+        text-decoration: none;
+        padding: 10px;
+        width: 120px;
+        font-weight: 600;
+        text-align: center;
+    }
+</style>
+
+<div class="verify-email">
+    <figure class="verify-email__image-box">
+        <!--TODO: Need to complete-->
+        <img src=" " alt="Logo New-store">
+    </figure>
+    <div class="container verify-email__content">
+        <p class="container verify-email__message">
+            <!--TODO: Need to complete-->
+            Hi "+ userName +
+            @",<br>
+            <br>
+            Thanks for creating your New-store account. To coninue, please verify your email address by clicking the button below.
+            <!--TODO: Need to complete-->
+            <a class="verify-email__verify-link" href='" + baseUrl+ $"/api/users/CreateUser?id={id}&email={email}' " + @">
+                <span>Verify email</span>
+            </a>
+            If you don't create this account, please ignore this mail.
+            </ p>
+    </div>
+</div>

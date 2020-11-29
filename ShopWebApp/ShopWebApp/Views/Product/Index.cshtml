@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
 }
 
-<div class="col-md-9 product1">
+<link href="~/css/product.css" rel="stylesheet" type="text/css" media="all" />
+
+<div class="col-md-9 product">
     @if (Model != null)
     {
         foreach (var product in Model)

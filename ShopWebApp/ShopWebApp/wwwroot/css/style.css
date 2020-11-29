@@ -33,15 +33,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     --color-base-orange: orange;
     --color-base-orange2: #ff9900;
     --color-base-orange-primary: #ef5f21;
+    --color-base-gray: #777777;
     --color-base-light-gray4: #c7c7c7;
     --color-base-nero: #141414;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
+    --z-index-back-drop: 100;
+    --z-index-dialog: 200;
 }
 
 body {
     background: var(--color-base-white);
     font-family: 'Roboto', sans-serif;
+    position: relative;
 }
 
 a {
@@ -245,6 +249,7 @@ a.item_add {
         font-weight: var(--font-weight-bold);
         margin-left: 50px;
         padding: 5px;
+        cursor: pointer !important;
         outline: none;
     }
 
@@ -268,6 +273,10 @@ a.item_add {
 }
 
 /* Modal */
+.modal {
+    z-index: var(--z-index-dialog);
+    overflow: hidden;
+}
 .modal-content {
     margin-top: 10%;
     width: 600px;
@@ -278,6 +287,8 @@ a.item_add {
 }
 
 .close-modal {
+    cursor:pointer !important;
+    padding: 6px;
     color: black;
     opacity: 1;
     font-size: 20px;
@@ -469,7 +480,7 @@ ul.social {
     }
 
         ul.social li i {
-            background: url(../images/img-sprite.png)no-repeat -9px -14px;
+            background: url(../images/img-sprite.png) no-repeat -9px -14px;
             width: 24px;
             height: 24px;
             display: inline-block;
@@ -500,171 +511,6 @@ ul.social {
                 -moz-transition: 0.5s all ease;
                 -o-transition: 0.5s all ease;
             }
-/*--//footer--*/
-/*--contact--*/
-/*.contact {
-    padding: 3em 0;
-}
-
-    .contact h1 {
-        font-size: 3em;
-        font-family: 'Lato', sans-serif;
-        color: #000;
-        text-align: center;
-        font-weight: 600;
-    }
-
-.map iframe {
-    width: 100%;
-    height: 150px;
-    border: none;
-    padding: 0 15px;
-}
-
-.contact-grid input[type="text"], .contact-grid textarea {
-    width: 100%;
-    padding: 1em;
-    margin: 0.5em 0;
-    background: none;
-    outline: none;
-    border: 1px solid #A09F9F;
-    font-size: 1em;
-    color: #A09F9F;
-    -webkit-appearance: none;
-}
-
-.contact-grid textarea {
-    resize: none;
-}
-
-.send input[type="submit"] {
-    width: 14%;
-    font-size: 1.1em;
-    background: var(--color-base-orange-primary);
-    padding: 0.4em 0.8em;
-    text-align: center;
-    color: #fff;
-    border: none;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-    .send input[type="submit"]:hover {
-        background: #2d2d2d;
-    }
-
-.contact-form {
-    padding: 3em 0;
-}
-
-.address-more {
-    padding: 0 0 2em;
-}
-
-.contact-in p {
-    font-size: 1em;
-    color: #626262;
-    width: 72%;
-    line-height: 1.7em;
-}
-
-.address-more h4 {
-    color: #000;
-    font-size: 1.4em;
-    font-family: 'Lato', sans-serif;
-    margin: 0 0 0.3em;
-    font-weight: 600;
-}
-
-.address-more p a {
-    text-decoration: none;
-    color: #626262;
-}
-
-    .address-more p a:hover {
-        color: var(--color-text-orange-primary);
-    }*/
-/*--//contact--*/
-/*--blog--*/
-/*.grid_3 {
-    position: relative;
-}
-
-.blog-poast-admin {
-    position: absolute;
-    bottom: 8.6em;
-    left: 1.2em;
-}*/
-
-/*.blog-poast-info {
-    padding: 0.8em 0em;
-}
-
-    .blog-poast-info ul li {
-        display: inline-block;
-        padding: 0 0.3em;
-    }
-
-        .blog-poast-info ul li span {
-            color: #000;
-            font-size: 1em;
-        }
-
-        .blog-poast-info ul li a {
-            color: #000;
-            font-size: 1em;
-        }
-
-            .blog-poast-info ul li a:hover {
-                text-decoration: none;
-            }
-
-            .blog-poast-info ul li a:hover {
-                text-decoration: none;
-                color: var(--color-text-orange-primary);
-            }
-
-        .blog-poast-info ul li i {
-            width: 20px;
-            height: 20px;
-            background: url(../images/img-sprite.png) no-repeat -150px -104px;
-            display: inline-block;
-            vertical-align: sub;
-            margin: 0 3px 0 0;
-        }
-
-            .blog-poast-info ul li i.date {
-                background-position: -186px -104px;
-            }
-
-            .blog-poast-info ul li i.comment {
-                background-position: -226px -101px;
-            }
-
-.blog {
-    padding: 4em 0;
-}
-
-.grid_3 p {
-    color: #626262;
-    font-size: 1em;
-    line-height: 1.5em;
-}
-
-.grid_3 h3 {
-    text-transform: uppercase;
-    font-size: 1.2em;
-    margin-bottom: 1em;
-}
-
-    .grid_3 h3 a {
-        color: #000;
-        text-decoration: none;
-    }
-
-        .grid_3 h3 a:hover {
-            color: var(--color-text-orange-primary);
-        }*/
 
 .button {
     margin-top: 20px;
@@ -684,33 +530,11 @@ ul.social {
             color: #fff;
             background: #000
         }
-
-.grid_3 {
-    margin-bottom: 3em;
-}
-
-p.m_10 {
-    font-size: 0.85em;
-    color: #555;
-    line-height: 1.8em;
-    padding: 2% 0;
-}
-
-p.m_11 {
-    font-size: 0.85em;
-    color: #555;
-    line-height: 1.8em;
-}
-
-.blog h1 {
-    font-size: 3em;
-    font-family: 'Lato', sans-serif;
-    color: #000;
-    text-align: center;
-    font-weight: 600;
-    margin: 0 0 1em;
-}
 /*--product--*/
+.tags {
+    padding: 1.5em 0 0;
+}
+
 .tags ul li {
     display: inline-block;
     float: left;
@@ -823,13 +647,9 @@ ul.kid-menu {
         list-style: none;
     }
 
-.sellers {
+/*.sellers {
     padding: 2em 0;
-}
-
-.tags {
-    padding: 1.5em 0 0;
-}
+}*/
 
 h3.best {
     color: var(--color-text-black);
@@ -966,10 +786,24 @@ a.item_add p.number {
     display: block;
     text-align: center;
 }
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: var(--z-index-back-drop);
+    background: var(--color-base-gray);
+    opacity: 0.7;
+    display: none;
+    width: 100%;
+    height: 100%;
+}
 
-/*--responsive--*/
-@media(max-width:1024px) {
-    .banner-text {
+.backdrop--open {
+    display: block;
+}
+    /*--responsive--*/
+    @media(max-width:1024px) {
+        .banner-text {
         width: 70%;
         margin: 0 0 0 3em;
     }
@@ -1009,6 +843,7 @@ a.item_add p.number {
     .top-in2 {
         min-height: 157px;
     }
+
     /*--banner--*/
     h6.shop-top {
         font-size: 1em;
@@ -1031,6 +866,7 @@ a.item_add p.number {
     .six1 {
         padding: 2em 1em 0;
     }
+
     /*--single--*/
     .single-top {
         width: 48%;
@@ -1435,9 +1271,7 @@ a.item_add p.number {
         width: 41%;
     }
 
-    .main_menu {
-        margin: 1px 0 0px;
-    }
+    
 
     .logo img {
         width: 100%;

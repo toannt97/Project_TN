@@ -38,7 +38,7 @@
             });
         </script>*@
 </head>
-<body>
+<body style="position:relative;">
     <!--header-->
     <div class="header">
         <div class="header-top">
@@ -110,6 +110,7 @@
             @RenderBody()
         </div>
     </div>
+    <!--content-->
     <div class="footer">
         <div class="container">
             <div class="footer-top-at">
@@ -158,18 +159,8 @@
             </div>
         </div>
     </div>
-    @*<div class="backdrop" style="position:absolute;top:0;left:0;background:red;"></div>*@
-
+    <div class="backdrop"/>
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>
-@*<div class="col-md-4 amet-sed">
-        <h4>THÔNG TIN KHUYẾN MÃI</h4>
-        <p>
-            Đăng ký nhận thông tin khuyển mãi
-        </p>
-        <form>
-            <input type="text" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-            <input type="submit" value="Sign up">
-        </form>
-    </div>*@

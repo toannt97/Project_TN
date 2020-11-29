@@ -1,10 +1,7 @@
 ﻿$(document).ready(function () {
 
     function SetOverplay() {
-        let opacity = 0.3;
-        $('.header').css("opacity", opacity);
-        $('.product').css("opacity", opacity);
-        $('.footer').css("opacity", opacity);
+        $('.backdrop').addClass("backdrop--open");
     }
 
     // When the user clicks the button, open the modal 
@@ -21,13 +18,10 @@
     // When the user clicks on <span> (x), close the modal
     $('.close-modal').click(function () {
         RemoveOverplay();
-        $('.text-danger').text('');
+        $('.validation').text('');
         $("#login-modal").css("display", "none");
         $("#register-modal").css("display", "none");
     });
-
-    $()
-
 });
 
 function jQueryAxjaxSignInPost(form, e) {
@@ -72,8 +66,5 @@ function UserLogined(userName) {
 }
 
 function RemoveOverplay() {
-    let opacity = 1;
-    $('.header').css("opacity", opacity);
-    $('.product').css("opacity", opacity);
-    $('.footer').css("opacity", opacity);
+    $(".backdrop").removeClass("backdrop--open");
 }

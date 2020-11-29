@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_FrontEndLayout.cshtml";
 }
 
+<link href="~/css/product.css" rel="stylesheet" type="text/css" media="all" />
+
 <div class="col-md-9 product1">
     @if (Model != null)
     {
@@ -37,7 +39,7 @@
     }
     else
     {
-        <p style="margin-left:20px;">No product found</p>
+        <h3 class="empty-list-product">No product found</h3>
     }
 </div>
 
