@@ -7,13 +7,13 @@
 }
 
 .main-div {
-    background: #ffffff none repeat scroll 0 0;
+    background: var(--color-base-white) none repeat scroll 0 0;
     border-radius: 24px;
     padding: 0px 30px 10px 35px;
 }
 
 .panel p {
-    color: #777777;
+    color: var(--color-line-gray);
     font-size: 14px;
     margin-bottom: 30px;
     line-height: 24px;
@@ -32,17 +32,17 @@
     }
 
     .login-form .form-control {
-        background: #f7f7f7 none repeat scroll 0 0;
-        border: 1px solid #d4d4d4;
+        background: var(--color-base-white-smoke) none repeat scroll 0 0;
+        border: 1px solid var(--color-line-light-gray);
         border-radius: 4px;
         font-size: 14px;
         line-height: 50px;
     }
 
     .login-form .btn.btn-primary {
-        background: #007bff none repeat scroll 0 0;
-        border-color: #007bff;
-        color: #ffffff;
+        background: var(--color-base-primary-blue) none repeat scroll 0 0;
+        border-color: var(--color-line-primary-blue);
+        color: var(--color-text-white);
         font-size: 14px;
         width: 70%;
         height: 50px;
@@ -51,7 +51,7 @@
     }
 
         .login-form .btn.btn-primary.reset {
-            background: #ff9900 none repeat scroll 0 0;
+            background: var(--color-base-orange2) none repeat scroll 0 0;
         }
 
 .forgot {
@@ -60,7 +60,7 @@
 }
 
     .forgot a {
-        color: #1f8bff;
+        color: var(--color-text-primary-blue);
         font-size: 14px;
         text-decoration: underline;
     }

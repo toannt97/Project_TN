@@ -7,7 +7,7 @@
 }
 
 .register-form .form-control {
-    background: #f7f7f7 none repeat scroll 0 0;
+    background: var(--color-base-white-smoke) none repeat scroll 0 0;
     border: 1px solid #d4d4d4;
     border-radius: 4px;
     font-size: 14px;
@@ -15,7 +15,7 @@
 }
 
 .main-div {
-    background: #ffffff none repeat scroll 0 0;
+    background: var(--color-base-white) none repeat scroll 0 0;
     border-radius: 24px;
     padding: 0px 30px 10px 35px;
 }
@@ -29,9 +29,9 @@
 }
 
     .register-form .btn.btn-primary {
-        background: #007bff none repeat scroll 0 0;
-        border-color: #007bff;
-        color: #ffffff;
+        background: var(--color-base-primary-blue) none repeat scroll 0 0;
+        border-color: var(--color-base-primary-blue);
+        color: var(--color-text-white);
         font-size: 14px;
         width: 70%;
         height: 50px;
@@ -65,8 +65,8 @@
     margin: 0;
     display: inline-block;
     padding: 5px;
-    background: #d1d1d1;
-    border: 1px solid #cccc;
+    background: var(--color-line-light-gray2);
+    border: 1px solid var(--color-line-light-gray3);
     border-radius: 15%;
 }
 
@@ -77,9 +77,9 @@
     width: 50px;
 }
 
-.success-notification__title{
+.success-notification__title {
     font-size: 14px;
-    color: green;
+    color: var(--color-text-green);
 }
 
 .button-ok {

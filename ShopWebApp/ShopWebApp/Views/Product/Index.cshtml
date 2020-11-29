@@ -22,19 +22,19 @@
                 <br />
             </div>
         }
+        <div class="clearfix"> </div>
+        <nav class="pagination">
+            Current page : @(ViewBag.PageNumber + 1) / @(ViewBag.TotalPage)
+            <div>
+                <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="0">First page</a>
+                <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber - 1)">Previous</a>
+                <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber + 1)">Next</a>
+                <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.TotalPage -1)">Last page</a>
+            </div>
+        </nav>
     }
     else
     {
         <p style="margin-left:20px;">No product found</p>
     }
 </div>
-<div class="clearfix"> </div>
-<nav class="pagination">
-    Current page : @(ViewBag.PageNumber + 1) / @(ViewBag.TotalPage)
-    <div>
-        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="0" >First page</a>
-        <a class="btn btn-default @(ViewBag.PageNumber == 0 ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber - 1)">Previous</a>
-        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.PageNumber + 1)">Next</a>
-        <a class="btn btn-default @((ViewBag.PageNumber == ViewBag.TotalPage -1) ? "disabled" : "")" asp-controller="Product" asp-action="Index" asp-route-pageNo="@(ViewBag.TotalPage -1)">Last page</a>
-    </div>
-</nav>
