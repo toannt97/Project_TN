@@ -1,4 +1,6 @@
 ﻿function jQueryAxjaxSignUpPost(form) {
+    $('.register-fail').text('');
+    $('.validation').text('');
     $.ajax({
         type: 'Post',
         contentType: false,
@@ -14,16 +16,16 @@
             $('#modal-register').html(data);
         } else {
             switch (data.statusCode) {
+                // Email is already existed
                 case 452:
                     $('.register-fail').text(data.messageError);
+                    EnableTextField();
                     break;
                 case 200:
                     $('.success-notification').css("display", "block");
                     $('.button-submit').css('display', 'none');
                     $('.button-ok').css('display', 'block');
                     break;
-                default:
-                // code block
             }
         }
     }).fail(function (err) {
@@ -41,10 +43,6 @@ function onlyNumberKey(evt) {
 
     return true;
 }
-
-
-
-
 
 $(function () {
     $("input[name=PhoneNumber]")[0].oninvalid = function () {

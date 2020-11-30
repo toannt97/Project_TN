@@ -128,7 +128,6 @@ namespace ShopAPI.Controllers
 
                 // Get user id to send mail to verify user's email.
                 var newUser = _context.User.Where(us => us.EmailAddress.Equals(user.EmailAddress)).SingleOrDefault();
-
                 Common.Email.Send(fromEmailID, fromEmailPassword, user.EmailAddress, Constant.CONTENT(user.UserName, baseUrl, newUser.Id, user.EmailAddress)
                                  , Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT_REGISTER_ACCOUNT);
 

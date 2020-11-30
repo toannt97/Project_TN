@@ -36,6 +36,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     --color-base-gray: #777777;
     --color-base-light-gray4: #c7c7c7;
     --color-base-nero: #141414;
+    --color-base-whisper: #eeeeee;
     --font-weight-medium: 500;
     --font-weight-bold: 700;
     --z-index-back-drop: 100;
@@ -144,6 +145,7 @@ a.item_add {
 .user {
     margin-left: 5%;
     display: inline-block;
+    position: relative;
     color: var(--color-text-white);
 }
 
@@ -161,8 +163,9 @@ a.item_add {
 
 .user__info {
     font-size: 23px;
-    cursor: default;
+    cursor: pointer;
     padding: 0 10px;
+    display: inline-block;
 }
 
     .user__info:hover {
@@ -173,7 +176,42 @@ a.item_add {
     font-size: 14px;
     margin: 0;
     font-weight: var(--font-weight-medium);
-    display: inline-block
+    display: inline-block;
+}
+
+.user__menu {
+    position: absolute;
+    display: none;
+    right: -70px;
+    top: 55px;
+    text-align: left;
+    font-weight: var(--font-weight-medium);
+    background: var(--color-base-black);
+}
+
+.user__menu--opened {
+    display: block;
+}
+
+.user__items {
+    list-style: none;
+    text-decoration: none;
+}
+
+.user__item {
+    color: var(--color-text-white) !important;
+    padding: 10px;
+    text-decoration: none !important;
+    display: block;
+}
+
+.dropdown-divider {
+    border-top: 2px solid var(--color-base-whisper);
+}
+
+.user__item:hover {
+    opacity:0.3;
+    text-decoration: none !important;
 }
 
 .account {
@@ -277,6 +315,7 @@ a.item_add {
     z-index: var(--z-index-dialog);
     overflow: hidden;
 }
+
 .modal-content {
     margin-top: 10%;
     width: 600px;
@@ -287,7 +326,7 @@ a.item_add {
 }
 
 .close-modal {
-    cursor:pointer !important;
+    cursor: pointer !important;
     padding: 6px;
     color: black;
     opacity: 1;
@@ -535,33 +574,33 @@ ul.social {
     padding: 1.5em 0 0;
 }
 
-.tags ul li {
-    display: inline-block;
-    float: left;
-    width: 22.8%;
-    margin: 0.5em 2% 0 0;
-    text-align: center;
-}
-
-.tags li a {
-    font-size: 1em;
-    display: block;
-    padding: 0.3em 0.4em;
-    text-decoration: none;
-    color: var(--color-text-black);
-    border: 1px solid var(--color-line-black);
-    height: 50px;
-}
-
-    .tags li a:hover {
-        color: var(--color-text-white);
-        background: var(--color-base-orange-primary);
-        border: 1px solid var(--color-line-orange-primary);
+    .tags ul li {
+        display: inline-block;
+        float: left;
+        width: 22.8%;
+        margin: 0.5em 2% 0 0;
+        text-align: center;
     }
 
-.tags ul li:nth-child(4), .tags ul li:nth-child(8), .tags ul li:nth-child(12) {
-    margin: 0.5em 0 0;
-}
+    .tags li a {
+        font-size: 1em;
+        display: block;
+        padding: 0.3em 0.4em;
+        text-decoration: none;
+        color: var(--color-text-black);
+        border: 1px solid var(--color-line-black);
+        height: 50px;
+    }
+
+        .tags li a:hover {
+            color: var(--color-text-white);
+            background: var(--color-base-orange-primary);
+            border: 1px solid var(--color-line-orange-primary);
+        }
+
+    .tags ul li:nth-child(4), .tags ul li:nth-child(8), .tags ul li:nth-child(12) {
+        margin: 0.5em 0 0;
+    }
 /*----*/
 h3.cate {
     color: var(--color-text-black);
@@ -786,6 +825,7 @@ a.item_add p.number {
     display: block;
     text-align: center;
 }
+
 .backdrop {
     position: absolute;
     top: 0;
@@ -801,9 +841,9 @@ a.item_add p.number {
 .backdrop--open {
     display: block;
 }
-    /*--responsive--*/
-    @media(max-width:1024px) {
-        .banner-text {
+/*--responsive--*/
+@media(max-width:1024px) {
+    .banner-text {
         width: 70%;
         margin: 0 0 0 3em;
     }
@@ -1271,11 +1311,11 @@ a.item_add p.number {
         width: 41%;
     }
 
-    
 
-    .logo img {
-        width: 100%;
-    }
+
+        .logo img {
+            width: 100%;
+        }
 
     .head-top {
         padding: 0.6em 0;
