@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ShopAPI.Constants;
@@ -44,16 +45,18 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDTO>> PostUser(UserSignIn userRequest)
         {
+
             var user = await _context.User.Where(u => u.Status == Constant.IS_ACTIVE && u.EmailAddress.Equals(userRequest.EmailAddress)
                                             && u.Password.Equals(userRequest.Password))
-                                    .Select(u => new UserDTO
-                                    {
-                                        Id = u.Id,
-                                        EmailAddress = u.EmailAddress,
-                                        Role = u.Role,
-                                        UserName = u.UserName,
-                                        ItemsInCart = u.ShoppingCart.Count(),
-                                    }).FirstOrDefaultAsync();
+                                          .Include(c => c.ShoppingCart)
+                                          .Select(u => new UserDTO
+                                          {
+                                              Id = u.Id,
+                                              EmailAddress = u.EmailAddress,
+                                              Role = u.Role,
+                                              UserName = u.UserName,
+                                              ItemsInCart = u.ShoppingCart.Count()
+                                          }).FirstOrDefaultAsync();
 
             // Login information is not correct
             if (user == null)
@@ -177,17 +180,22 @@ namespace ShopAPI.Controllers
                     user.Status = 0;
                 else
                 {
-
+                    var contentHTMLDeny = System.IO.File.ReadAllText("./Template/Deny.html");
+                    return base.Content(contentHTMLDeny, "text/html");
                 }
                 user.CreateDate = DateTime.Now;
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-                var contentHTML = System.IO.File.ReadAllText("./Template/Success.html");
-                return base.Content(contentHTML, "text/html");
+                var contentHTMLSuccess = System.IO.File.ReadAllText("./Template/Success.html");
+                return base.Content(contentHTMLSuccess, "text/html");
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
             }
             catch (Exception)
             {
-                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
             }
         }
     }

@@ -23,13 +23,9 @@ namespace ShopWebApp.Models.DataModels
         [Compare("Password")]
         [NotMapped]
         public string ConfirmPassword { get; set; }
-
         [Required(ErrorMessage = "The phone number is required")]
         public string PhoneNumber { get; set; }
         [Required(ErrorMessage = "The adress is required")]
         public string Address { get; set; }
-        
-        public int RoleGroup { get; set; } = 0;
-        public int Status { get; set; } = 0;
     }
 }

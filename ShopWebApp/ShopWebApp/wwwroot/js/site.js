@@ -3,12 +3,13 @@
         $('.backdrop').addClass("backdrop--open");
     }
 
-    // When the user clicks the button, open the modal 
+    // When the user clicks the button, open the modal
     $('#btn-login').click(function () {
         SetOverplay();
         $("#login-modal").css("display", "block");
     });
 
+    // When the user clicks the button, open the modal
     $('#btn-register').click(function () {
         SetOverplay();
         $("#register-modal").css("display", "block");
@@ -51,7 +52,7 @@ function jQueryAxjaxSignInPost(form, e) {
                     $('.login-fail').text(data.messageError);
                     break;
                 case 200:
-                    UserLogined(data.userName);
+                    UserLogined(data);
                     RemoveOverplay();
                     $("#login-modal").css("display", "none");
                     break;
@@ -64,11 +65,13 @@ function jQueryAxjaxSignInPost(form, e) {
     return false;
 }
 
-function UserLogined(userName) {
-    if (userName) {
+// TODO: Consider remove else case
+function UserLogined(user) {
+    if (user.userName) {
         $('.buttons').removeClass('opened').addClass('closed');
         $('.account').removeClass('closed').addClass('opened');
-        $('.user-name').text(userName);
+        $('.user-name').text(user.userName);
+        $('.cart-count').text(user.itemsInCart);
     } else {
         $('.buttons').removeClass('closed').addClass('opened');
         $('.account').removeClass('opened').addClass('closed');

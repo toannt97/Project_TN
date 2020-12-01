@@ -61,9 +61,10 @@
                         </span>
                     </div>
                     <div class="account @(ViewBag.User == null ? "closed" : "")">
-                        <span class="cart">
+                        <a asp-controller="Cart" asp-action="Index" class="cart">
                             <i class="fal fa-shopping-cart"></i>
-                        </span>
+                            <em class="cart-count">@(ViewBag.User == null ? "0" : ViewBag.User.ItemsInCart)</em>
+                        </a>
                         <div class="user">
                             <p class="user__text-fixed">Hello</p>
                             <div class="user__info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">

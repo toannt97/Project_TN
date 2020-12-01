@@ -122,14 +122,33 @@ a.item_add {
 
 .cart {
     display: inline-block;
-    margin-left: 5%;
+    position: relative;
     color: var(--color-text-white);
+    cursor: pointer;
 }
 
     .cart > i {
         font-size: 23px;
     }
 
+.cart-count {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: var(--color-base-orange-primary);
+    color: var(--color-text-white);
+    border: 1px solid var(--color-line-orange-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    right: -20px;
+    top: -10px;
+    font-style: normal;
+}
 .group-btn-account {
     text-align: end;
 }

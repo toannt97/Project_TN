@@ -49,7 +49,7 @@ namespace ShopWebApp.Controllers
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
                 
                 HttpContext.Session.Set<UserDTO>(Constant.SESSION_USER, result);
-                return Json(new { userName = result.UserName, statusCode = Constant.CODE_OK});
+                return Json(new { userName = result.UserName, itemsInCart = result.ItemsInCart, statusCode = Constant.CODE_OK});
 
             }catch(Exception)
             {
