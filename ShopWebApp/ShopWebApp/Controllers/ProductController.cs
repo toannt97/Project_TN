@@ -117,29 +117,29 @@ namespace ShopWebApp.Controllers
             }
         }
 
-        //public IActionResult Search(string Keyword)
-        //{
-        //    // HTTP GET
-        //    HttpClient client = new HttpClient();
-        //    //client.BaseAddress = new Uri(Program.localhost);
-        //    HttpResponseMessage response = client.GetAsync("api/TechnologyFirms").Result;
-        //    var hangs = response.Content.ReadAsAsync<IEnumerable<Hang>>().Result;
-        //    response = client.GetAsync("api/Products").Result;
-        //    var sanPhams = response.Content.ReadAsAsync<IEnumerable<SanPham>>().Result;
-        //    foreach (var item_Sanpham in sanPhams)
-        //    {
-        //        foreach (var item_Hang in hangs)
-        //        {
-        //            if (item_Hang.Id == item_Sanpham.FirmId)
-        //                item_Sanpham.FirmName = item_Hang.FirmName;
-        //        }
-        //    }
-        //    if (Keyword == null)
-        //        Keyword = "";
-        //    var dsSanPham = sanPhams.Where(p => p.product.Contains(Keyword)).Take(5).ToList();
-        //    //ViewBag.domainUrl = Program.domainUrl;
-        //    return PartialView("SearchPartial", dsSanPham);
-        //}
+        public IActionResult Search(string Keyword)
+        {
+            // HTTP GET
+            HttpClient client = new HttpClient();
+            //client.BaseAddress = new Uri(Program.localhost);
+            //HttpResponseMessage response = client.GetAsync("api/TechnologyFirms").Result;
+            //var hangs = response.Content.ReadAsAsync<IEnumerable<Hang>>().Result;
+            //response = client.GetAsync("api/Products").Result;
+            //var sanPhams = response.Content.ReadAsAsync<IEnumerable<SanPham>>().Result;
+            //foreach (var item_Sanpham in sanPhams)
+            //{
+            //    foreach (var item_Hang in hangs)
+            //    {
+            //        if (item_Hang.Id == item_Sanpham.FirmId)
+            //            item_Sanpham.FirmName = item_Hang.FirmName;
+            //    }
+            //}
+            //if (Keyword == null)
+            //    Keyword = "";
+            //var dsSanPham = sanPhams.Where(p => p.product.Contains(Keyword)).Take(5).ToList();
+            //ViewBag.domainUrl = Program.domainUrl;
+            return PartialView("SearchPartial", null);
+        }
         #endregion
 
         #region Private Method

@@ -33,6 +33,20 @@
             $('.user__menu').removeClass('user__menu--opened');
         }
     });
+
+    $("#txtSearch").keyup(function () {
+        $.ajax({
+            url: "/Product/Search",
+            type: "post",
+            data: { "Keyword": $(this).val() },
+            success: function (data) {
+                $("#results").html(data);
+            },
+            errror: function (data) {
+                alert("Error: " + data);
+            }
+        });
+    });
 });
 
 function jQueryAxjaxSignInPost(form, e) {

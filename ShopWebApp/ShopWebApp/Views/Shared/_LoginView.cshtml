@@ -12,13 +12,13 @@
             @Html.AntiForgeryToken()
 
             <div class="form-group">
-                <input type="email" class="form-control" id="email-login-js" placeholder="Email Address" asp-for="EmailAddress">
+                <input type="email" class="form-control" id="email-login-js" placeholder="Email Address" asp-for="EmailAddress" value="nguyenthaitoan1997@gmail.com">
                 <span asp-validation-for="EmailAddress" class="text-danger validation"></span>
             </div>
 
             <div class="form-group">
 
-                <input type="password" class="form-control" id="password-login-js" placeholder="Password" asp-for="Password">
+                <input type="password" class="form-control" id="password-login-js" placeholder="Password" asp-for="Password" value="P@ssword@123">
                 <span asp-validation-for="Password" class="text-danger validation"></span>
             </div>
             <div class="forgot">

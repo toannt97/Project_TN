@@ -21,7 +21,7 @@ namespace ShopWebApp.Controllers
         {
             return View();
         }
-        
+
         [HttpGet]
         // GET: UserController/GetCurrentUser
         public ActionResult GetCurrentUser()
@@ -37,24 +37,25 @@ namespace ShopWebApp.Controllers
             {
                 if (!ModelState.IsValid)
                     return PartialView("_LoginView", user);
-                
+
                 user.Password = Encrypt.SHA256Hash(user.Password);
                 var response = await _client.PostAsJsonAsync(Constant.API_USER, user);
-                
+
                 if ((Int32)response.StatusCode == Constant.ERROR_CODE_NOT_FOUND)
                 {
-                    return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError=Constant.NOT_FOUND_MESSAGE});
+                    return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
                 }
 
                 var result = response.Content.ReadAsAsync<UserDTO>().Result;
-                
-                HttpContext.Session.Set<UserDTO>(Constant.SESSION_USER, result);
-                return Json(new { userName = result.UserName, itemsInCart = result.ItemsInCart, statusCode = Constant.CODE_OK});
 
-            }catch(Exception)
+                HttpContext.Session.Set<UserDTO>(Constant.SESSION_USER, result);
+                return Json(new { userName = result.UserName, itemsInCart = result.ItemsInCart, statusCode = Constant.CODE_OK });
+
+            }
+            catch (Exception)
             {
                 return View("Error");
-            } 
+            }
         }
 
         [HttpPost]
@@ -78,6 +79,20 @@ namespace ShopWebApp.Controllers
             catch (Exception)
             {
                 return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult SignOut()
+        {
+            try
+            {
+                HttpContext.Session.Remove(Constant.SESSION_USER);
+                return Json(new { statusCode = Constant.CODE_OK });
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
             }
         }
         // GET: UserController/Details/5

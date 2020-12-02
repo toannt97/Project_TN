@@ -1,10 +1,9 @@
 ﻿@using ShopWebApp.Constants
 
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>PTIT-HCM Store</title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="PTIT-HCM Store" />
@@ -18,14 +17,12 @@
     <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link href="~/css/memenu.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="~/css/constant.css" rel="stylesheet" type="text/css" media="all" />
     @RenderSection("Styles", required: false)
     <!-- JS libs-->
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <script src="~/js/jquery.min.js"></script>
     <script src="~/js/site.js"></script>
 </head>
-
 <body>
     <!--header-->
     <header class="header">
@@ -54,17 +51,9 @@
             @await Html.PartialAsync(Constant.NAVIGATION_MENU_VIEW_NAME, categories)
         </nav>
     </header>
-    <!--content-->
-    <main class="product">
-        <aside class="container">
-            <div class="col-md-3 product-price">
-                @await Html.PartialAsync(Constant.SUPPLIER_PARTIAL_VIEW_NAME, suppliers)
-                @await Html.PartialAsync(Constant.TAG_PARTIAL_VIEW_NAME, suppliers)
-            </div>
-            @RenderBody()
-        </aside>
+    <main>
+        @RenderBody()
     </main>
-    <!--content-->
     <footer class="footer">
         @await Html.PartialAsync(Constant.FOOTER_PARTIAL_VIEW_NAME)
     </footer>
@@ -86,7 +75,6 @@
             </div>
         </div>
     </div>
-    <div class="backdrop"/>
-    @RenderSection("Scripts", required: false)
+    <div class="backdrop" />
 </body>
 </html>

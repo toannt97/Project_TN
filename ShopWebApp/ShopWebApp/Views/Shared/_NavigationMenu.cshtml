@@ -3,20 +3,16 @@
 
 <link type="text/css" href="~/css/navigation_menu.css" rel="stylesheet">
 
-<div class="container">
-    <div class="head-top">
-        <div class="logo">
-            <a asp-controller="Product" asp-action="Index"><img src="@(Constant.urlLogo)" alt="logo"></a>
-        </div>
-        <div class="main_menu">
-            <ul class="memenu skyblue">
-                @foreach (var item in Model)
-                {
-                    <li id="@item.Id">
-                        <a class="@(ViewBag.categoryCurrentId ==  item.Id ? "category-item--selected" : "category-item")" asp-controller="Product" asp-action="GetDetail" asp-route-categoryId="@item.Id">@item.Name</a>
-                    </li>
-                }
-            </ul>
-        </div>
-    </div>
+<div class="logo">
+    <a asp-controller="Product" asp-action="Index"><img src="@(Constant.URL_LOGO)" alt="logo"></a>
+</div>
+<div class="main_menu">
+    <ul class="memenu skyblue">
+        @foreach (var item in Model)
+        {
+            <li id="@item.Id">
+                <a class="@(ViewBag.categoryCurrentId ==  item.Id ? "category-item--selected" : "category-item")" asp-controller="Product" asp-action="GetDetail" asp-route-categoryId="@item.Id">@item.Name</a>
+            </li>
+        }
+    </ul>
 </div>

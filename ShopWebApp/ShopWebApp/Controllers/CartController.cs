@@ -1,17 +1,30 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using ShopWebApp.Common;
+using ShopWebApp.Constants;
+using ShopWebApp.Models.DataModels;
+using ShopWebApp.Models.DTO;
+using ShopWebApp.Models.Tool;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ShopWebApp.Controllers
 {
     public class CartController : Controller
     {
+        private readonly HttpClient _client = HttpClientAccessor.HttpClient;
+        private List<Category> _categories;
+        public CartController() {
+        }
+
         // GET: CartController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            await Load();
+            //var response = await _client.GetAsync($"{Constant.API_PRODUCT}/{pageNo} /{Constant.PAGE_SIZE}");
+            //var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
             return View();
         }
 
@@ -82,6 +95,14 @@ namespace ShopWebApp.Controllers
             {
                 return View();
             }
+        }
+
+        private async Task Load()
+        {
+            var response = await _client.GetAsync(Constant.API_CATEGORY);
+            _categories = response.Content.ReadAsAsync<IEnumerable<Category>>().Result.ToList();
+            ViewBag.Category = _categories;
+            ViewBag.User = HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER);
         }
     }
 }

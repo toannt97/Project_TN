@@ -13,7 +13,7 @@
         public const string API_GET_PRODUCTS_RELATED = API_PRODUCT + "/GetProductsRelated";
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
 
-        /*Status code*/
+        /* Status code*/
         public const int ERROR_CODE_NOT_FOUND = 404;
         public const string NOT_FOUND_MESSAGE = "The email address or password is incorrect.";
         public const int CODE_OK = 200;
@@ -27,15 +27,24 @@
         public const string PREFIX_PHONE = "+84"; 
         public const int PAGE_SIZE = 10;
 
-        /*Url resource image*/
-        public const string url = "https://onlineshop.blob.core.windows.net/";
-        public const string urlImage = url + "sanpham";
-        public const string urlLogo = url + "logo/logo.png";
-        public const string urlFavicon = url + "logo/favicon.jpg";
+        /* Url resource image*/
+        public const string URL = "https://onlineshop.blob.core.windows.net/";
+        public const string URL_IMAGE = URL + "sanpham";
+        public const string URL_LOGO = URL + "logo/logo.png";
+        public const string URL_FAVICON = URL + "logo/favicon.jpg";
 
         public const string SESSION_USER = "_user";
 
         public const int DETAILED_PRODUCT_QUANTITY = 4;
+
+        // View and partial view name
+        public const string FOOTER_PARTIAL_VIEW_NAME= "_FooterPartialView";
+        public const string HEADER_PARTIAL_VIEW_NAME = "_HeaderPartialView";
+        public const string LOGIN_VIEW_NAME = "_LoginView";
+        public const string NAVIGATION_MENU_VIEW_NAME = "_NavigationMenu";
+        public const string REGISTER_VIEW_NAME = "_RegisterView";
+        public const string SUPPLIER_PARTIAL_VIEW_NAME = "_SupplierPartialView";
+        public const string TAG_PARTIAL_VIEW_NAME = "_TagsPartialView";
 
     }
 }

@@ -9,7 +9,7 @@
 
 <div class="col-md-9 product-price1">
     <div class="col-md-4 single-top">
-        <img class="image-product" src="@Constant.urlImage/@Model.Image" alt="@Model.Name" />
+        <img class="image-product" src="@Constant.URL_IMAGE/@Model.Image" alt="@Model.Name" />
     </div>
     <div class="col-md-5 single-top-in simpleCart_shelfItem">
         <div class="single-para">
@@ -43,7 +43,7 @@
                 <div class="col-md-3 bottom-cd simpleCart_shelfItem">
                     <div class="product-at ">
                         <a asp-action="GetDetail" asp-route-productId="@item.Id">
-                            <img height="100" src="@Constant.urlImage/@item.Image" alt="@item.Name">
+                            <img height="100" src="@Constant.URL_IMAGE/@item.Image" alt="@item.Name">
                         </a>
                     </div>
                     <p class="tun">@item.Name</p>

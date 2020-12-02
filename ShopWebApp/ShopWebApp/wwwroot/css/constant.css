@@ -1,1 +1,69 @@
-﻿
+﻿:root {
+    /* Color */
+    --color-text-white: #ffffff;
+    --color-text-black: #000000;
+    --color-text-green: green;
+    --color-text-primary-blue: #007bff;
+    --color-text-davy-gray: #555555;
+    --color-text-gray1: #777777;
+    --color-text-gray2: #888888;
+    --color-text-light-gray4: #c7c7c7;
+    --color-text-whisper: #eeeeee;
+    --color-text-white-smoke2: #f1f1f1;
+    --color-text-nero: #141414;
+    --color-text-orange-primary: #ef5f21;
+    --color-text-very-light-red: #6d6a6a;
+    --color-text-very-light-charcoal: #4a4848;
+    --color-text-cyan: #09a798;
+    --color-text-light-gray5: #f5f4f4;
+    --color-line-black: #000000;
+    --color-line-white: #ffffff;
+    --color-line-white-smoke: #f7f7f7;
+    --color-line-white-smoke2: #f1f1f1;
+    --color-line-gray1: #777777;
+    --color-line-gray2: #888888;
+    --color-line-davy-gray: #555555;
+    --color-line-light-gray: #d4d4d4;
+    --color-line-light-gray2: #d1d1d1;
+    --color-line-light-gray3: #cccccc;
+    --color-line-light-gray4: #c7c7c7;
+    --color-line-light-gray5: #f5f4f4;
+    --color-line-primary-blue: #007bff;
+    --color-line-whisper: #eeeeee;
+    --color-line-nero: #141414;
+    --color-line-orange-primary: #ef5f21;
+    --color-line-very-light-red: #6d6a6a;
+    --color-line-very-light-charcoal: #4a4848;
+    --color-line-cyan: #09a798;
+    --color-base-black: #000000;
+    --color-base-white: #ffffff;
+    --color-base-davy-gray: #555555;
+    --color-base-gray1: #777777;
+    --color-base-gray2: #888888;
+    --color-base-light-gray3: #cccccc;
+    --color-base-white-smoke: #f7f7f7;
+    --color-base-white-smoke2: #f1f1f1;
+    --color-base-iris-blue: #01b5d0;
+    --color-base-primary-blue: #007bff;
+    --color-base-orange: orange;
+    --color-base-orange2: #ff9900;
+    --color-base-orange-primary: #ef5f21;
+    --color-base-gray: #777777;
+    --color-base-light-gray4: #c7c7c7;
+    --color-base-light-gray5: #f5f4f4;
+    --color-base-nero: #141414;
+    --color-base-whisper: #eeeeee;
+    --color-base-very-light-red: #6d6a6a;
+    --color-base-very-light-charcoal: #4a4848;
+    --color-base-cyan: #09a798;
+    /* Font family */
+    --font-family-button-payment: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /* Font weight */
+    --font-weight-light: 200;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    /* z-index */
+    --z-index-back-drop: 100;
+    --z-index-dialog: 200;
+}

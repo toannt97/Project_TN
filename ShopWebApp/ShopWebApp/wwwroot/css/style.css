@@ -4,44 +4,7 @@ Author URL: http://w3layouts.com
 License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
-:root {
-    --color-text-white: #ffffff;
-    --color-text-black: #000000;
-    --color-text-green: green;
-    --color-text-primary-blue: #007bff;
-    --color-text-light-gray4: #c7c7c7;
-    --color-text-whisper: #eeeeee;
-    --color-text-nero: #141414;
-    --color-text-orange-primary: #ef5f21;
-    --color-line-black: #000000;
-    --color-line-white: #ffffff;
-    --color-line-white-smoke: #f7f7f7;
-    --color-line-gray: #777777;
-    --color-line-light-gray: #d4d4d4;
-    --color-line-light-gray2: #d1d1d1;
-    --color-line-light-gray3: #cccccc;
-    --color-line-light-gray4: #c7c7c7;
-    --color-line-primary-blue: #007bff;
-    --color-line-whisper: #eeeeee;
-    --color-line-nero: #141414;
-    --color-line-orange-primary: #ef5f21;
-    --color-base-black: #000000;
-    --color-base-white: #ffffff;
-    --color-base-white-smoke: #f7f7f7;
-    --color-base-iris-blue: #01b5d0;
-    --color-base-primary-blue: #007bff;
-    --color-base-orange: orange;
-    --color-base-orange2: #ff9900;
-    --color-base-orange-primary: #ef5f21;
-    --color-base-gray: #777777;
-    --color-base-light-gray4: #c7c7c7;
-    --color-base-nero: #141414;
-    --color-base-whisper: #eeeeee;
-    --font-weight-medium: 500;
-    --font-weight-bold: 700;
-    --z-index-back-drop: 100;
-    --z-index-dialog: 200;
-}
+
 
 body {
     background: var(--color-base-white);
@@ -149,6 +112,11 @@ a.item_add {
     top: -10px;
     font-style: normal;
 }
+
+.cart-container{
+    margin-top: 30px;
+}
+
 .group-btn-account {
     text-align: end;
 }
@@ -201,11 +169,12 @@ a.item_add {
 .user__menu {
     position: absolute;
     display: none;
-    right: -70px;
+    right: -105px;
     top: 55px;
     text-align: left;
     font-weight: var(--font-weight-medium);
     background: var(--color-base-black);
+    z-index: var(--z-index-dialog);
 }
 
 .user__menu--opened {
@@ -222,6 +191,7 @@ a.item_add {
     padding: 10px;
     text-decoration: none !important;
     display: block;
+    cursor: default;
 }
 
 .dropdown-divider {
@@ -229,7 +199,7 @@ a.item_add {
 }
 
 .user__item:hover {
-    opacity:0.3;
+    opacity: 0.5;
     text-decoration: none !important;
 }
 
@@ -238,16 +208,16 @@ a.item_add {
     display: contents;
 }
 /*----*/
+
 .header {
+    
     border-bottom: 1px solid var(--color-line-black);
-    padding-bottom: 15px;
 }
 
 .header-top {
     background: var(--color-base-black);
     padding: 15px 0;
 }
-
 .search {
     position: relative;
     float: left;
@@ -263,7 +233,7 @@ a.item_add {
         width: 91%;
         border: none;
         font-size: 1.2em;
-        color: var(--color-text-white);
+        color: var(--color-text-black);
         font-weight: var(--font-weight-bold);
     }
 
@@ -289,6 +259,10 @@ a.item_add {
             -o-transition: 0.5s all;
             -moz-transition: 0.5s all;
         }
+
+.nav-bar {
+    padding: 1em 0;
+}
 
 .group-button-account {
     display: flex;

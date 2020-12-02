@@ -6,27 +6,20 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--color-base-white-smoke2);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #888;
+    background: var(--color-text-gray2);
 }
 
     /* Handle on hover */
     ::-webkit-scrollbar-thumb:hover {
-        background: #555;
+        background: var(--color-base-davy-gray);
     }
 
 /* End style for scroll bar */
-
-/*.wrapper-dialog {
-    position: absolute;
-    top: 50%;
-    left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
-/*}*/
 
 /* Header of dialog */
 .top-level-header {
@@ -36,7 +29,7 @@
     align-items: center;
     text-transform: uppercase;
     padding-bottom: 20px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--color-line-gray);
 }
 /* End header of dialog */
 
@@ -50,7 +43,7 @@
 
 .wrapper-content {
     padding: 20px 18px;
-    background: #ccc;
+    background: var(--color-base-light-gray5);
     border-radius: 24px;
 }
 
@@ -63,7 +56,7 @@ li.item {
     display: flex;
     justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid #9c9a9a75;
+    border-bottom: 1px solid var(--color-line-light-gray3);
 }
 
 .left {
@@ -79,16 +72,16 @@ li.item {
 
 .item-name {
     padding-bottom: 8px;
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
 }
 
 .item-describe {
-    color: gray;
+    color: var(--color-line-gray);
     font-size: 14px;
 }
 
 .price {
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
 }
 
 ul {
@@ -110,7 +103,7 @@ ul {
 input[type="number"] {
     max-width: 35px;
     margin: 0 12px;
-    border: 1px solid lightgray;
+    border: 1px solid var(--color-line-light-gray);
     outline: none;
 }
 /* Chrome, Safari, Edge, Opera */
@@ -130,7 +123,7 @@ input[type="number"] {
 }
 
 .title-order {
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
 }
 
 .action-order {
@@ -151,7 +144,7 @@ input[type="number"] {
 }
 
     .form-group button:last-child {
-        color: #09a798;
+        color: var(--color-line-cyan);
     }
 
 /* End container cart items */
@@ -165,40 +158,46 @@ input[type="number"] {
 }
     .pay-item .title {
         font-size: 16px;
-        color: #6d6a6a;
+        color: var(--color-text-very-light-red);
     }
 
 .total .title {
-    font-weight: bold;
-    color: #4a4848;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-very-light-charcoal);
 }
 
 .total .amount {
     font-size: 19px;
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
 }
 
 .pay-information {
     margin: 10px 0 0 5px;
 }
 
-button.checkout {
-    background: #09a798;
-    border: none;
-    outline: none;
-    color: #fff;
-    padding: 16px 0;
-    width: 60%;
-    font-size: 21px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-top: 22px;
-    cursor: pointer;
+/* End Payment */
+
+#group-button-payment{
+    display: flex;
+    justify-content: center;
 }
 
-    button.checkout:hover {
-        transition: all 0.5s ease-in-out;
-        background-color: #10b1a2bd;
-    }
+#paypal-button-container {
+    text-align: center;
+    margin: 0 10px;
+    flex: 0 0 30%
+}
 
-/* End Payment */
+#cod-button-container {
+    margin: 0 10px;
+    font-family: var(--font-family-button-payment);
+    font-weight: var(--font-weight-bold);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    flex: 0 0 30%;
+    height: 45px;
+    background: var(--color-base-orange-primary);
+    cursor: pointer;
+}

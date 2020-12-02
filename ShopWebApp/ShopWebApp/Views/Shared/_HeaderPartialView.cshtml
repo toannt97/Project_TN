@@ -1,0 +1,56 @@
+﻿<div class="header-top">
+    <div class="container">
+        <div class="search">
+            <form autocomplete="off">
+                <input type="text" id="txtSearch" style="position: relative;"
+                       placeholder="Search">
+                <input type="submit" value="Go">
+                <ul class="wrap-suggestion" id="results"></ul>
+            </form>
+        </div>
+        <div class="group-btn-account">
+            <div class="buttons @(ViewBag.User == null ? "" : "closed")">
+                <span id="btn-login">
+                    Sign in
+                </span>
+                <span id="btn-register">
+                    Sign up
+                </span>
+            </div>
+            <div class="account @(ViewBag.User == null ? "closed" : "")">
+                <a asp-controller="Cart" asp-action="Index" class="cart">
+                    <i class="fal fa-shopping-cart"></i>
+                    <em class="cart-count">@(ViewBag.User == null ? "0" : ViewBag.User.ItemsInCart)</em>
+                </a>
+                <div class="user">
+                    <p class="user__text-fixed">Hello</p>
+                    <div class="user__info" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenuLink">
+                        <i class="far fa-user-circle"></i>
+                        <p class="user-name">@(ViewBag.User == null ? "" : ViewBag.User.UserName)</p>
+                    </div>
+                    <div class="user__menu" aria-labelledby="dropdownMenuLink" style="position:absolute; ">
+                        <ul class="user__items">
+                            <li class="user__item user__item--change-password">
+                                <span class="user__item">Change password</span>
+                            </li>
+                            <li class="user__item user__item--update-profile">
+                                <span class="user__item ">Update profile</span>
+                            </li>
+                            <li class="user__item user__item--view-history">
+                                <span class="user__item ">View your history</span>
+                            </li>
+                            <li>
+                                <div class="dropdown-divider"></div>
+                            </li>
+                            <li class="user__item user__item--sign-out">
+                                <span class="user__item">Sign out</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/header.js"></script>
