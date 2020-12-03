@@ -10,6 +10,7 @@
         public const string API_CATEGORY = "categories";
         /*Method*/
         public const string API_ADD_USER = API_USER + "/AddUser";
+        public const string API_RESET_PASSWORD = API_USER + "/RestoreAccount";
         public const string API_GET_PRODUCTS_RELATED = API_PRODUCT + "/GetProductsRelated";
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
 
@@ -29,7 +30,7 @@
 
         /* Url resource image*/
         public const string URL = "https://onlineshop.blob.core.windows.net/";
-        public const string URL_IMAGE = URL + "sanpham";
+        public const string URL_IMAGE = URL + "products";
         public const string URL_LOGO = URL + "logo/logo.png";
         public const string URL_FAVICON = URL + "logo/favicon.jpg";
 

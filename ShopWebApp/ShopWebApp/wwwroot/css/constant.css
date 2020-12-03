@@ -4,6 +4,7 @@
     --color-text-black: #000000;
     --color-text-green: green;
     --color-text-primary-blue: #007bff;
+    --color-text-dodger-blue: #1e90ff;
     --color-text-davy-gray: #555555;
     --color-text-gray1: #777777;
     --color-text-gray2: #888888;
@@ -35,6 +36,7 @@
     --color-line-very-light-red: #6d6a6a;
     --color-line-very-light-charcoal: #4a4848;
     --color-line-cyan: #09a798;
+    --color-line-dodger-blue: #1e90ff;
     --color-base-black: #000000;
     --color-base-white: #ffffff;
     --color-base-davy-gray: #555555;
@@ -56,6 +58,7 @@
     --color-base-very-light-red: #6d6a6a;
     --color-base-very-light-charcoal: #4a4848;
     --color-base-cyan: #09a798;
+    --color-base-dodger-blue: #1e90ff;
     /* Font family */
     --font-family-button-payment: "Helvetica Neue", Helvetica, Arial, sans-serif;
     /* Font weight */

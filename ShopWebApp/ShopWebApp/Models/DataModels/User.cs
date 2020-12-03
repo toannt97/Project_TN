@@ -10,7 +10,7 @@ namespace ShopWebApp.Models.DataModels
     public class User
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = "The fullname is required")]
+        [Required(ErrorMessage = "The user name is required")]
         public string UserName { get; set; }
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]

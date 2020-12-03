@@ -70,3 +70,11 @@
     margin-bottom: 10px;
 }
 
+.user-sign-in__forgot {
+    color: var(--color-base-dodger-blue);
+    cursor: pointer;
+}
+
+.user-sign-in__forgot:hover{
+    text-decoration: underline;
+}

@@ -72,6 +72,8 @@ namespace ShopAPI.Controllers
                                     SupplierId = r.SupplierId,
                                     SupplierName = r.Supplier.Name,
                                     CategoryId = r.CategoryId,
+                                    CreateDate = r.CreateDate,
+                                    Quantity = r.Quantity,
                                 })
                                 .FirstOrDefaultAsync();
 

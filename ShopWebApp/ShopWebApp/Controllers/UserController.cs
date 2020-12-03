@@ -9,6 +9,7 @@ using ShopWebApp.Constants;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
+using ShopWebApp.Models.ViewModels;
 
 namespace ShopWebApp.Controllers
 {
@@ -101,6 +102,43 @@ namespace ShopWebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult ResetPasswordIndex()
+        {
+            try
+            {
+                return View("Reset", null);
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> ResetPasswordHandle([FromBody] UserRestore userRestore)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Reset", userRestore);
+            }
+            var response = await _client.PostAsJsonAsync(Constant.API_RESET_PASSWORD, userRestore);
+            switch ((Int32)response.StatusCode)
+            {
+                case Constant.CODE_OK:
+                    {
+                        return Json(new { statusCode = Constant.CODE_OK });
+                    }
+                case Constant.ERROR_CODE_NOT_FOUND:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
+                    }
+                default:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+                    }
+            }
+        }
         // GET: UserController/Create
         public ActionResult Create()
         {
