@@ -29,7 +29,6 @@ namespace ShopWebApp.Controllers
             return View();
         }
 
-
         [HttpGet]
         // GET: UserController/GetCurrentUser
         public ActionResult GetCurrentUser()

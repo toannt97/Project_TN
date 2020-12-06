@@ -10,8 +10,7 @@ namespace ShopAPI.Models
         public User()
         {
             Histories = new HashSet<History>();
-            OrderCustomers = new HashSet<Order>();
-            OrderSalemen = new HashSet<Order>();
+            Orders = new HashSet<Order>();
             ShoppingCarts = new HashSet<ShoppingCart>();
         }
 
@@ -28,8 +27,7 @@ namespace ShopAPI.Models
 
         public virtual Role RoleNavigation { get; set; }
         public virtual ICollection<History> Histories { get; set; }
-        public virtual ICollection<Order> OrderCustomers { get; set; }
-        public virtual ICollection<Order> OrderSalemen { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

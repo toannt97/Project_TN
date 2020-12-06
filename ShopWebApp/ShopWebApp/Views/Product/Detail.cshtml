@@ -7,54 +7,56 @@
 
 <link href="~/css/product.css" rel="stylesheet" type="text/css" media="all" />
 
-<div class="col-md-9 product-price1">
+<div class="product-detail col-md-9">
     <div class="col-md-4 single-top">
-        <img class="image-product" src="@Constant.URL_IMAGE/@Model.Image" alt="@Model.Name" />
+        <img src="@Constant.URL_IMAGE/@Model.Image" alt="@Model.Name" />
     </div>
-    <div class="col-md-5 single-top-in simpleCart_shelfItem">
+    <div class="col-md-5">
         <div class="single-para">
             <h4>@Model.Name</h4>
             <h5 class="item-price">Price: @Model.UnitPrice.ToString("#.#0") USD</h5>
-            <ul class="product-detail">
-                <li class="product-detail__item">
-                    <span>@Html.DisplayNameFor(model => model.SupplierName)</span>
-                        <span class="women1">@Model.SupplierName</span>
-                </li>
-            </ul>
-            <a asp-controller="GioHang" asp-action="AddToCart" asp-route-Id="@Model.Id" class="add-cart item_add">Buy</a>
-        </div>
+            <span class="product-detail__supplier-name">@Html.DisplayNameFor(model => model.SupplierName)</span>
+            <span>@Model.SupplierName</span>
+            <span class="product-detail__button-add-cart">Buy</span>
+            <span class="product-detail__id">@Model.Id</span>
+</div>
     </div>
     <div class="col-md-3">
-        <h4 style="display:block;font-weight:bold">@Model.Information</h4>
+        <h4 class="product-detail__information">@Model.Information</h4>
     </div>
 
     <div class="clearfix"> </div>
 
-    <div class="single-top-in">
+    <div class="product-detail__description">
         <h4 style="display:block;font-weight:bold">Description</h4>
-            @Model.Description
+        @Model.Description
     </div>
-    <div class=" bottom-product" style="margin-top:50px;">
+    <div class="bottom-product" style="margin-top:50px;">
         <label style="display:block;">Products related to this item</label>
         @if (ViewBag.productsRelated != null)
         {
             foreach (var item in ViewBag.productsRelated)
             {
-                <div class="col-md-3 bottom-cd simpleCart_shelfItem">
-                    <div class="product-at ">
+                <div class="col-md-3 bottom-cd">
+                    <div class="product-detail__related-product-image">
                         <a asp-action="GetDetail" asp-route-productId="@item.Id">
                             <img height="100" src="@Constant.URL_IMAGE/@item.Image" alt="@item.Name">
                         </a>
+                        
                     </div>
-                    <p class="tun">@item.Name</p>
-                    <a asp-action="GetDetail" asp-route-productId="@item.Id" class="item_add"><p class="number item_price">@item.UnitPrice.ToString("#.#0") USD</p></a>
+                    <p>@item.Name</p>
+                    <a asp-action="GetDetail" asp-route-productId="@item.Id" class="product-detail__related-product-button-add"><p class="product-detail__related-product-price">@item.UnitPrice.ToString("#.#0") USD</p></a>
                 </div>
             }
-        }else{
-           <h3 class="empty-list-product">No product found</h3>
+        }
+        else
+        {
+            <h3 class="empty-list-product">No product found</h3>
         }
     </div>
     <div class="clearfix" />
 </div>
+
+<script src="~/js/product.js"></script>
 
 

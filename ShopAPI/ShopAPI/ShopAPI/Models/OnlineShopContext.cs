@@ -35,8 +35,6 @@ namespace ShopAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=52.237.119.17;Database=OnlineShop;User Id=sa;Password=Rindutk123;");
             }
         }
 
@@ -107,16 +105,10 @@ namespace ShopAPI.Models
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.OrderCustomers)
+                    .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_order_customer");
-
-                entity.HasOne(d => d.Saleman)
-                    .WithMany(p => p.OrderSalemen)
-                    .HasForeignKey(d => d.SalemanId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_order_saleman");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -202,6 +194,8 @@ namespace ShopAPI.Models
                 entity.ToTable("shopping_cart");
 
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Quantity).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ShoppingCarts)

@@ -12,6 +12,7 @@ using ShopWebApp.Models;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
+using ShopWebApp.Models.ViewModels;
 
 namespace ShopWebApp.Controllers
 {
@@ -46,7 +47,6 @@ namespace ShopWebApp.Controllers
             try
             {
                 await Load();
-
                 var response = await _client.GetAsync($"{Constant.API_PRODUCT}/{pageNo} /{Constant.PAGE_SIZE}");
                 var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
                 await GetTotalPage();

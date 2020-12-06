@@ -1,4 +1,5 @@
 ﻿$(function () {
+
     $('#btn-login').click(() => {
         $.ajax({
             type: 'Get',
@@ -37,16 +38,18 @@
             url: '/User/SignOut',
         }).done(function (data) {
                 switch (data.statusCode) {
-                    case 500: {
-                        alert('An error occurred while performing operation');  
-                        console.log(err.responseText);
-                        break;
-                    }
                     case 200: {
+                        $('.user-name').html('');
                         $('.buttons').removeClass('closed').addClass('opened');
                         $('.account').removeClass('opened').addClass('closed');
                         break;
                     }
+                    default: {
+                        alert('An error occurred while performing operation');  
+                        console.log(err.responseText);
+                        break;
+                    }
+                    
                 }
         }).fail(function (err) {
             alert('An error occurred while performing operation');

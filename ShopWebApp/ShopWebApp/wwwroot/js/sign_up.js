@@ -28,6 +28,7 @@
         }).done(function (data) {
             if (!data.statusCode) {
                 $('.sign-up').replaceWith(data);
+                EnableTextField();
             } else {
                 switch (data.statusCode) {
                     case 200: {
@@ -71,5 +72,5 @@ function DisableTextField() {
 
 function EnableTextField() {
     $('.sign-in input').prop("disabled", false);
-    $('sign-up__button-submit').prop("disabled", false);
+    $('.sign-up__button-submit').prop("disabled", false);
 }

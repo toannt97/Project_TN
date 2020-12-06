@@ -26,6 +26,7 @@
         public const string DOMAIN_IMAGE = "https://onlineshop.blob.core.windows.net";
         public const string DOMAIN_IMAGE_LOGO = "https://onlineshop.blob.core.windows.net/logo/logo.png";
         public const string DOMAIN_IMAGE_FAVICON = "https://onlineshop.blob.core.windows.net/logo/favicon.jpg";
+        public static int INIT_QUANTITY = 1;
         public static int IS_ACTIVE = 0;
         public const int NOT_FOUND_INT = 0;
         public static int IS_DELETED = -1;

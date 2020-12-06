@@ -1,9 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using ShopAPI.Constants;
 using ShopAPI.Models;
+using ShopAPI.Models.Requests;
 using ShopAPI.Models.Responses;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,11 +34,32 @@ namespace ShopAPI.Controllers
                                               .ToListAsync();
         }
 
+        [HttpGet("GetNumOfCartItems/{userId}")]
+        public async Task<ActionResult<NumOfCartItemsDTO>> GetNumOfCartItems(int userId)
+        {
+            try
+            {
+                var numOfCartItemDTO = await _context.ShoppingCarts.Where(s => s.UserId == userId && s.Status == Constant.IS_ACTIVE)
+                                                                   .SumAsync(s => s.Quantity);
+                return new NumOfCartItemsDTO { Quantity= numOfCartItemDTO };
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR);
+            }
+        }
+        
         // GET api/<CartController>/5
         [HttpGet("{idUser}")]
         public async Task<ActionResult<IEnumerable<CartItemDTO>>> GetCartItems(int idUser)
         {
-            var result = await _context.ShoppingCarts.Where(s => s.Status != -1)
+            try
+            {
+                var result = await _context.ShoppingCarts.Where(s => s.Status != -1)
                                              .Select(i => new CartItemDTO
                                              {
                                                  ProductId = i.Product.Id,
@@ -48,13 +73,67 @@ namespace ShopAPI.Controllers
                                              })
                                              .OrderBy(s => s.ProductName)
                                              .ToListAsync();
-            return result;
+                return result;
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR);
+            }
+
         }
 
         // POST api/<CartController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Post(CartProductRequest productRequest)
         {
+            try
+            {
+                var product = await _context.Products.Where(p => p.Id == productRequest.ProductId
+                                                            && p.Quantity > 0
+                                                            && p.Status == Constant.IS_ACTIVE)
+                                                 .FirstOrDefaultAsync();
+                if (product == null)
+                {
+                    return StatusCode(Constant.NOT_FOUND);
+                }
+
+                var cartItem = await _context.ShoppingCarts.Where(s => s.ProductId == product.Id
+                                                                  && s.UserId == productRequest.UserId
+                                                                  && s.Status == Constant.IS_ACTIVE)
+                                                            .FirstOrDefaultAsync();
+
+                if (cartItem == null)
+                {
+                    var newCartItem = new ShoppingCart
+                    {
+                        ProductId = product.Id,
+                        CreateDate = DateTime.Now,
+                        UserId = productRequest.UserId,
+                        Quantity = Constant.INIT_QUANTITY,
+                    };
+                    _context.ShoppingCarts.Add(newCartItem);
+                }
+                else
+                {
+                    cartItem.Quantity += 1;
+                    cartItem.UpdateDate = DateTime.Now;
+                }
+
+                await _context.SaveChangesAsync();
+                return StatusCode(Constant.OK);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR);
+            }
         }
 
         // PUT api/<CartController>/5

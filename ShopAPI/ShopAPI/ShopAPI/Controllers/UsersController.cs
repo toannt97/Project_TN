@@ -38,7 +38,7 @@ namespace ShopAPI.Controllers
         }
 
         /// <summary>
-        /// Verify user to allow signing in or not.
+        /// Authentication
         /// </summary>
         /// <param name="userRequest"></param>
         /// <returns>
@@ -57,7 +57,9 @@ namespace ShopAPI.Controllers
                                               EmailAddress = u.EmailAddress,
                                               Role = u.Role,
                                               UserName = u.UserName,
-                                              ItemsInCart = u.ShoppingCarts.Count()
+                                              ItemsInCart = u.ShoppingCarts.Where(s => s.UserId == u.Id 
+                                                                                 && s.Status == Constant.IS_ACTIVE)
+                                                                           .Sum(s=> s.Quantity),
                                           }).FirstOrDefaultAsync();
 
             // Login information is not correct

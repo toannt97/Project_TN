@@ -3,8 +3,8 @@
     public static class Constant
     {
         /*URL API*/
-        public const string BASE_ADDRESS = @"https://projectonlineshopapi.azurewebsites.net/api/";
-        //public const string BASE_ADDRESS = @"https://localhost:44366/api/";
+        //public const string BASE_ADDRESS = @"https://projectonlineshopapi.azurewebsites.net/api/";
+        public const string BASE_ADDRESS = @"https://localhost:44366/api/";
         public const string API_PRODUCT = "products";
         public const string API_USER = "users";
         public const string API_CART = "carts";
@@ -15,11 +15,15 @@
         public const string API_RESET_PASSWORD = API_USER + "/RestoreAccount";
         public const string API_GET_PRODUCTS_RELATED = API_PRODUCT + "/GetProductsRelated";
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
-
+        public const string API_GET_NUM_OF_CART_ITEMS = API_CART + "/GetNumOfCartItems";
         /* Status code*/
+        public const int ERROR_CODE_AUTHENTICATION = 401;
+        public const string AUTHENTICATION_MESSAGE = "User have not loged in yet. Please log in user";
         public const int ERROR_CODE_NOT_FOUND = 404;
         public const string NOT_FOUND_MESSAGE = "The email address or password is incorrect.";
+        public const string ADD_ERROR_MESSAGE = "Item was added failed. This item is unavailable.";
         public const int CODE_OK = 200;
+        public const string OK_MESSAGE = "Successfully";
         public const int ERROR_CODE_DUPLICATE_DATA_EMAIL = 452;
         public const string DUPLICATE_DATA_EMAIL_MESSAGE = "Email address is already used.";
         public const int ERROR_CODE_DUPLICATE_DATA_USER_NAME = 453;
