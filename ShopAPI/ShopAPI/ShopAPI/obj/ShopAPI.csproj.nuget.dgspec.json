@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj": {}
+    "E:\\QuangTV\\OneDrive - FPT TELECOM INTERNATIONAL Co., LTD\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj": {}
   },
   "projects": {
-    "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj": {
+    "E:\\QuangTV\\OneDrive - FPT TELECOM INTERNATIONAL Co., LTD\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
+        "projectUniqueName": "E:\\QuangTV\\OneDrive - FPT TELECOM INTERNATIONAL Co., LTD\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
         "projectName": "ShopAPI",
-        "projectPath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
+        "projectPath": "E:\\QuangTV\\OneDrive - FPT TELECOM INTERNATIONAL Co., LTD\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\ShopAPI.csproj",
         "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-        "outputPath": "E:\\Project_TN_ThayTru\\Projec_TN\\ShopAPI\\ShopAPI\\ShopAPI\\obj\\",
+        "outputPath": "E:\\QuangTV\\OneDrive - FPT TELECOM INTERNATIONAL Co., LTD\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,29 +44,21 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[3.1.9, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.9, )"
-            },
-            "Microsoft.EntityFrameworkCore.Sqlite": {
-              "target": "Package",
-              "version": "[3.1.9, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.9, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.Extensions.Http": {
               "target": "Package",
-              "version": "[3.1.9, )"
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[3.1.4, )"
+              "version": "[5.0.0, )"
             }
           },
           "imports": [

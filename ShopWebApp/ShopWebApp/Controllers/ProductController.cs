@@ -35,7 +35,7 @@ namespace ShopWebApp.Controllers
         }
         #endregion
 
-        #region Public Method
+        #region Public Methods
         /// <summary>
         /// Get all products
         /// </summary>
@@ -142,7 +142,7 @@ namespace ShopWebApp.Controllers
         }
         #endregion
 
-        #region Private Method
+        #region Private Methods
         /// <summary>
         /// Get necessary datas and pass to view: Navigation menu, Suppliers part, Tags part
         /// </summary>

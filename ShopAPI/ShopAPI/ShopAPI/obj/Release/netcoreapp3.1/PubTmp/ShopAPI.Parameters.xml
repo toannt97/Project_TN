@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="ProjectOnlineShopAPI" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^E:\\QuangTV\\OneDrive\ -\ FPT\ TELECOM\ INTERNATIONAL\ Co\.,\ LTD\\TTTN\\ShopAPI\\ShopAPI\\ShopAPI\\obj\\Release\\netcoreapp3\.1\\PubTmp\\Out\\$" />
+  </parameter>
+</parameters>

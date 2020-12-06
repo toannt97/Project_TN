@@ -1,25 +1,55 @@
 ﻿$(function () {
     $('.user-reset__close-button').click(() => {
+        $(".sign-in").css("display", "block");
         $('.user-reset').remove();
-        $("#login-modal").css("display", "block");
     });
 
     $('.user-reset__button-send').click(() => {
-        $('.user-reset__validation').text('');
-        console.log($('.user-reset__user-name').val().trim());
+        ResetToDefault();
         $.ajax({
             type: 'Post',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({
-                'UserName': $('.user-reset__user-name').val().trim(),
                 'EmailAddress': $('.user-reset__email-address').val().trim(),
             }),
+            beforeSend: () => {
+                $('.user-reset__email-address').prop('disabled', true);
+                $('.user-reset__button-send').prop('disabled', true);
+            },
             url: '/User/ResetPasswordHandle',
         }).done(function (data) {
-            $('.user-reset').replaceWith(data);    
+            if (!data.statusCode)
+                $('.user-reset').replaceWith(data);
+            else {
+                console.log(data);
+                switch (data.statusCode) {
+                    case 200: {
+                        $('.user-reset_notification').text('Your request has been sent successfully! Please check your email to get new password.');
+                        $('.user-reset_notification').addClass('user-reset_notification--success');
+                        break;
+                    }
+                    default: {
+                        $('.user-reset_notification').text(data.errorMessage);
+                        $('.user-reset_notification').addClass('user-reset_notification--fail');
+                        $('.user-reset__button-send').prop('disabled', false);
+                        $('.user-reset__email-address').prop('disabled', true);
+                        break;
+                    }
+                }
+                $('.user-reset_notification').addClass('user-reset_notification--opened');
+            }
+            
         }).fail(function (err) {
             alert('An error occurred while performing operation');
             console.log(err.responseText);
         })
     });
 });
+
+function ResetToDefault() {
+    $('.user-reset_notification').removeClass('user-reset_notification--opened');
+    $('.user-reset_notification').removeClass('user-reset_notification--fail');
+    $('.user-reset_notification').removeClass('user-reset_notification--success');
+    $('.user-reset_notification').text('');
+    $('.user-reset__validation').text('');
+};

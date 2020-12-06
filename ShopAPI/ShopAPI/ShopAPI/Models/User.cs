@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace ShopAPI.Models
 {
     public partial class User
     {
         public User()
         {
-            History = new HashSet<History>();
-            OrderCustomer = new HashSet<Order>();
-            OrderSaleman = new HashSet<Order>();
-            ShoppingCart = new HashSet<ShoppingCart>();
+            Histories = new HashSet<History>();
+            OrderCustomers = new HashSet<Order>();
+            OrderSalemen = new HashSet<Order>();
+            ShoppingCarts = new HashSet<ShoppingCart>();
         }
 
         public int Id { get; set; }
@@ -25,9 +27,9 @@ namespace ShopAPI.Models
         public string PhoneNumber { get; set; }
 
         public virtual Role RoleNavigation { get; set; }
-        public virtual ICollection<History> History { get; set; }
-        public virtual ICollection<Order> OrderCustomer { get; set; }
-        public virtual ICollection<Order> OrderSaleman { get; set; }
-        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
+        public virtual ICollection<Order> OrderCustomers { get; set; }
+        public virtual ICollection<Order> OrderSalemen { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

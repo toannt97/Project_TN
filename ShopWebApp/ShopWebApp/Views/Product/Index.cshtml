@@ -6,12 +6,12 @@
 
 <link href="~/css/product.css" rel="stylesheet" type="text/css" media="all" />
 
-<div class="col-md-9">
+<div class="product col-md-9">
     @if (Model != null)
     {
         foreach (var product in Model)
         {
-            <div class="col-md-6 home-grid" style="position:relative">
+            <div class="col-md-6 product__items" style="position:relative; text-align:center;">
                 <div class="home-product-main">
                     <div class="home-product-top">
                         <a style="text-decoration:none" asp-action="GetDetail" asp-route-productId="@product.Id"><img src="@Constant.URL_IMAGE/@product.Image" style="width:60%" ;></a>

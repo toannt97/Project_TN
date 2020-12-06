@@ -5,6 +5,7 @@ using ShopWebApp.Constants;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
+using ShopWebApp.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -23,9 +24,14 @@ namespace ShopWebApp.Controllers
         public async Task<ActionResult> Index()
         {
             await Load();
-            //var response = await _client.GetAsync($"{Constant.API_PRODUCT}/{pageNo} /{Constant.PAGE_SIZE}");
-            //var products = response.Content.ReadAsAsync<IEnumerable<Product>>().Result.ToList();
-            return View();
+            if (HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER) != null)
+            {
+                var idUserCurrent = HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER).Id ;
+                var response = await _client.GetAsync($"{Constant.API_CART}/{idUserCurrent}");
+                var cartItems = response.Content.ReadAsAsync<IEnumerable<CartItemViewModel>>().Result.ToList();
+                return View("Index", cartItems);
+            }
+            return RedirectToAction(actionName: "Index", controllerName: "Product");
         }
 
         // GET: CartController/Details/5

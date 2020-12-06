@@ -4,8 +4,8 @@
     border-radius: 6px;
     top: 0;
     left: 0;
-    width: 600px;
-    margin: 10% 34%;
+    width: 600px !important;
+    margin: 10% 34% !important;
     z-index: var(--z-index-dialog);
     background: var(--color-base-white);
 }
@@ -24,16 +24,17 @@
     margin: 20px 0;
     text-align: center;
 }
+
 .user-reset__close-button {
     cursor: pointer;
     padding: 6px;
     color: black;
     font-size: 20px;
     font-weight: var(--font-weight-bold);
-    right: 0;
+    top: 20px;
+    right: 25px;
     position: absolute;
     font-style: normal;
-    top: 0;
 }
 
 .user-reset__footer{
@@ -49,4 +50,27 @@
     height: 50px;
     line-height: 50px;
     padding: 0;
+}
+
+.user-reset_notification{
+    display: none;
+    text-align: center;
+}
+
+.user-reset_notification--success {
+    color: var(--color-text-green);
+    font-size: 14px;
+}
+
+.user-reset_notification--fail {
+    color: var(--color-text-red);
+    font-size: 14px;
+}
+
+.user-reset_notification--opened{
+    display: block;
+}
+
+.user-reset__validation {
+    margin-top: 15px !important;
 }

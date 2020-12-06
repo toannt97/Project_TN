@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+
+#nullable disable
 
 namespace ShopAPI.Models
 {
@@ -8,8 +9,8 @@ namespace ShopAPI.Models
     {
         public Product()
         {
-            OrderDetail = new HashSet<OrderDetail>();
-            ShoppingCart = new HashSet<ShoppingCart>();
+            OrderDetails = new HashSet<OrderDetail>();
+            ShoppingCarts = new HashSet<ShoppingCart>();
         }
 
         public int Id { get; set; }
@@ -24,13 +25,10 @@ namespace ShopAPI.Models
         public DateTime? UpdateDate { get; set; }
         public int Quantity { get; set; }
         public int Status { get; set; }
-        [NotMapped]
-        public int TotalPage { get; set; }
-        [NotMapped]
-        public string SupplierName { get; set; }
+
         public virtual Category Category { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public virtual ICollection<OrderDetail> OrderDetail { get; set; }
-        public virtual ICollection<ShoppingCart> ShoppingCart { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<ShoppingCart> ShoppingCarts { get; set; }
     }
 }

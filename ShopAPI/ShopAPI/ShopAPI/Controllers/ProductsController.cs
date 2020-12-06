@@ -27,7 +27,7 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
         {
-            return await _context.Product.Where(p =>p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
+            return await _context.Products.Where(p =>p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
                          .ToListAsync();
         }
 
@@ -35,7 +35,7 @@ namespace ShopAPI.Controllers
         [HttpGet("{pageNo}/{pageSize}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct(int pageNo, int pageSize = 10)
         {
-            var result = await _context.Product.Where(p => p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
+            var result = await _context.Products.Where(p => p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
                                .OrderBy(p => p.UnitPrice)
                                .Skip(pageNo * pageSize)
                                .Take(pageSize)
@@ -58,7 +58,7 @@ namespace ShopAPI.Controllers
         [HttpGet("{idProduct}")]
         public async Task<ActionResult<Product>> GetProduct(int idProduct)
         {
-            var product = await _context.Product
+            var product = await _context.Products
                                 .Include(s => s.Supplier)
                                 .Where(p => p.Id == idProduct && p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
                                 .Select(r => new Product
@@ -70,7 +70,6 @@ namespace ShopAPI.Controllers
                                     Name = r.Name,
                                     UnitPrice =r.UnitPrice,
                                     SupplierId = r.SupplierId,
-                                    SupplierName = r.Supplier.Name,
                                     CategoryId = r.CategoryId,
                                     CreateDate = r.CreateDate,
                                     Quantity = r.Quantity,
@@ -95,7 +94,7 @@ namespace ShopAPI.Controllers
             //                        && p.Status == Constant.IS_ACTIVE)
             //                 .ToListAsync();
 
-            var result = await _context.Product
+            var result = await _context.Products
                              .Where(p => p.SupplierId == (idSupplier == 0 ? p.SupplierId : idSupplier)
                                     && p.CategoryId == (idCategory == 0 ? p.CategoryId : idCategory)
                                     && p.Quantity > 0
@@ -125,7 +124,7 @@ namespace ShopAPI.Controllers
         [HttpGet("GetProductsRelated/{idProduct}/{idSupplier}/{idCategory}/{quantity}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsRelated(int idProduct, int idSupplier, int idCategory, int quantity = 4)
         {
-            var productsRelated = await _context.Product.Where(p => p.SupplierId == idSupplier
+            var productsRelated = await _context.Products.Where(p => p.SupplierId == idSupplier
                                                                 && p.CategoryId == idCategory
                                                                 && p.Id != idProduct
                                                                 && p.Quantity > 0
@@ -143,7 +142,7 @@ namespace ShopAPI.Controllers
         [HttpGet("GetTotalProduct/{categoryId}/{supplierId}")]
         public async Task<ActionResult<int>> GetTotalProduct(int categoryId = 0, int supplierId = 0)
         {
-            return await _context.Product.Where(p=> p.CategoryId ==  (categoryId == 0 ? p.CategoryId: categoryId)
+            return await _context.Products.Where(p=> p.CategoryId ==  (categoryId == 0 ? p.CategoryId: categoryId)
                                                 && p.SupplierId == (supplierId == 0 ? p.SupplierId : supplierId)
                                                 && p.Status == Constant.IS_ACTIVE
                                                 && p.Quantity > 0)
@@ -188,7 +187,7 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
-            _context.Product.Add(product);
+            _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetProduct", new { id = product.Id }, product);
@@ -198,13 +197,13 @@ namespace ShopAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Product>> DeleteProduct(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            _context.Product.Remove(product);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
 
             return product;
@@ -214,7 +213,7 @@ namespace ShopAPI.Controllers
         #region Private Method
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Products.Any(e => e.Id == id);
         }
         #endregion
     }

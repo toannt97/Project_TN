@@ -34,7 +34,7 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
-            return await _context.User.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
         /// <summary>
@@ -48,16 +48,16 @@ namespace ShopAPI.Controllers
         public async Task<ActionResult<UserDTO>> PostUser(UserSignIn userRequest)
         {
 
-            var user = await _context.User.Where(u => u.Status == Constant.IS_ACTIVE && u.EmailAddress.Equals(userRequest.EmailAddress)
+            var user = await _context.Users.Where(u => u.Status == Constant.IS_ACTIVE && u.EmailAddress.Equals(userRequest.EmailAddress)
                                             && u.Password.Equals(userRequest.Password))
-                                          .Include(c => c.ShoppingCart)
+                                          .Include(c => c.ShoppingCarts)
                                           .Select(u => new UserDTO
                                           {
                                               Id = u.Id,
                                               EmailAddress = u.EmailAddress,
                                               Role = u.Role,
                                               UserName = u.UserName,
-                                              ItemsInCart = u.ShoppingCart.Count()
+                                              ItemsInCart = u.ShoppingCarts.Count()
                                           }).FirstOrDefaultAsync();
 
             // Login information is not correct
@@ -112,14 +112,11 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                var user = await _context.User.Where(us => us.EmailAddress.Equals(userRequest.EmailAddress)
-                                                       && us.UserName.Equals(userRequest.UserName)
+                var user = await _context.Users.Where(us => us.EmailAddress.Equals(userRequest.EmailAddress)
                                                        && us.Status == 0)
                                               .SingleOrDefaultAsync();
                 if (user == null)
                     return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
-                else
-                {
                     // Generate new random password
                     var newPassword = new RandomGenerator()
                                               .RandomPassword(Constant.SIZE_STRING_LETTERS_PASSWORD
@@ -127,7 +124,7 @@ namespace ShopAPI.Controllers
                                                               , Constant.MAX_VALUE_PASSWORD);
 
                     // Send new account to customer via email
-                    var bodyEmail = Constant.CONTENT_RECOVERY_ACCOUNT(userRequest.UserName, newPassword);
+                    var bodyEmail = Constant.CONTENT_RECOVERY_ACCOUNT(user.UserName, newPassword);
 
                     var fromEmailID = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Id").Value;
                     var fromEmailPassword = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Password").Value;
@@ -141,7 +138,6 @@ namespace ShopAPI.Controllers
                     _context.Entry(user).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                     return StatusCode(Constant.OK,  Constant.OK_MESSAGE);
-                }
             }
             catch (SqlException)
             {
@@ -166,9 +162,13 @@ namespace ShopAPI.Controllers
         {
             try
             {
-                if (UserExists(user.EmailAddress))
+                if (UserExistsWithEmail(user.EmailAddress))
                 {
-                    return StatusCode(Constant.DUPLICATE_DATA, Constant.DUPLICATE_DATA_MESSAGE);
+                    return StatusCode(Constant.DUPLICATE_DATA_EMAIL, Constant.DUPLICATE_DATA_EMAIL_MESSAGE);
+                }
+                else if(UserExistsWithUserName(user.UserName))
+                {
+                    return StatusCode(Constant.DUPLICATE_DATA_USER_NAME, Constant.DUPLICATE_DATA_USER_NAME_MESSAGE);
                 }
 
                 var fromEmailID = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Id").Value;
@@ -180,11 +180,11 @@ namespace ShopAPI.Controllers
                 user.Status = -1;
                 user.CreateDate = DateTime.Now;
 
-                _context.User.Add(user);
+                _context.Users.Add(user);
                 await _context.SaveChangesAsync();
 
                 // Get user id to send mail to verify user's email.
-                var newUser = _context.User.Where(us => us.EmailAddress.Equals(user.EmailAddress)).SingleOrDefault();
+                var newUser = _context.Users.Where(us => us.EmailAddress.Equals(user.EmailAddress)).SingleOrDefault();
                 var emailSMTP = new Email();
                 var bodyEmail = Constant.CONTENT_VERIFY_EMAIL(user.UserName, baseUrl, newUser.Id, user.EmailAddress);
                 emailSMTP.Send(fromEmailID, fromEmailPassword, user.EmailAddress, bodyEmail
@@ -207,31 +207,26 @@ namespace ShopAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(int id)
         {
-            var user = await _context.User.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.User.Remove(user);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
             return user;
         }
 
-        private bool UserExists(string email)
-        {
-            return _context.User.Any(e => e.EmailAddress.Equals(email));
-        }
         // GET: api/Users/
-
         [HttpGet]
         [Route("CreateUser")]
         public async Task<ActionResult> CreateUser(int id, string email)
         {
             try
             {
-                var user = _context.User.Where(us => us.Id == id && us.EmailAddress.Equals(email)).SingleOrDefault();
+                var user = _context.Users.Where(us => us.Id == id && us.EmailAddress.Equals(email)).SingleOrDefault();
                 if (user.Status == -1)
                     user.Status = 0;
                 else
@@ -254,5 +249,16 @@ namespace ShopAPI.Controllers
                 return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
             }
         }
+
+        #region Private Methods
+        private bool UserExistsWithEmail(string email)
+        {
+            return _context.Users.Any(e => e.EmailAddress.Equals(email));
+        }
+        private bool UserExistsWithUserName(string userName)
+        {
+            return _context.Users.Any(e => e.UserName.Equals(userName));
+        }
+        #endregion
     }
 }

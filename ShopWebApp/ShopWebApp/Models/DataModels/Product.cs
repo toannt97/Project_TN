@@ -12,7 +12,7 @@ namespace ShopWebApp.Models.DataModels
         public string Name { get; set; }
         [Required]
         [Display(Name = "Unit price")]
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         [MaxLength(150)]
         [Display(Name = "Description")]
         public string Description { get; set; }
@@ -21,9 +21,10 @@ namespace ShopWebApp.Models.DataModels
         public string Information { get; set; }
         [Display(Name = "Image")]
         public string Image { get; set; }
+        public int Quantity { get; set; }
+        public int CategoryID { get; set; }
         public int SupplierID { get; set; }
         [Display(Name = "Supplier: ")]
         public string SupplierName { get; set; }
-        public int CategoryID { get; set; }
     }
 }

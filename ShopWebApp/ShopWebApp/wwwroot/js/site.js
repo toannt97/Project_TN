@@ -4,16 +4,10 @@
     }
 
     // When the user clicks the button, open the modal
-    $('#btn-login').click(function () {
-        SetOverplay();
-        $("#login-modal").css("display", "block");
-    });
-
-    // When the user clicks the button, open the modal
-    $('#btn-register').click(function () {
-        SetOverplay();
-        $("#register-modal").css("display", "block");
-    });
+    //$('#btn-register').click(function () {
+    //    SetOverplay();
+    //    $("#register-modal").css("display", "block");
+    //});
 
     // When the user clicks on <span> (x), close the modal
     $('.close-modal').click(function () {
@@ -79,18 +73,7 @@ function jQueryAxjaxSignInPost(form, e) {
     return false;
 }
 
-// TODO: Consider remove else case
-function UserLogined(user) {
-    if (user.userName) {
-        $('.buttons').removeClass('opened').addClass('closed');
-        $('.account').removeClass('closed').addClass('opened');
-        $('.user-name').text(user.userName);
-        $('.cart-count').text(user.itemsInCart);
-    } else {
-        $('.buttons').removeClass('closed').addClass('opened');
-        $('.account').removeClass('opened').addClass('closed');
-    }
-}
+
 
 function RemoveOverplay() {
     $(".backdrop").removeClass("backdrop--open");

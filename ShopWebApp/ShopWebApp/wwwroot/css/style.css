@@ -303,32 +303,6 @@ a.item_add {
     padding: 1em 0;
 }
 
-/* Modal */
-.modal {
-    z-index: var(--z-index-dialog);
-    overflow: hidden;
-}
-
-.modal-content {
-    margin-top: 10%;
-    width: 600px;
-}
-
-.register-content {
-    margin-top: 10%;
-}
-
-.close-modal {
-    cursor: pointer !important;
-    padding: 6px;
-    color: black;
-    opacity: 1;
-    font-size: 20px;
-    font-weight: var(--font-weight-bold);
-    float: right;
-    cursor: default;
-}
-
 /* start menu */
 .main_menu {
     margin: 7px 50px 0px;

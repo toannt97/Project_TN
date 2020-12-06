@@ -25,7 +25,7 @@ namespace ShopAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Supplier>>> GetSupplier()
         {
-            return await _context.Supplier
+            return await _context.Suppliers
                         .Where(s => s.Status == Constant.IS_ACTIVE)
                         .OrderBy(s => s.Name)
                         .ToListAsync();
@@ -35,7 +35,7 @@ namespace ShopAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Supplier>> GetSupplier(int id)
         {
-            var supplier = await _context.Supplier.FindAsync(id);
+            var supplier = await _context.Suppliers.FindAsync(id);
 
             if (supplier == null)
             {
@@ -83,7 +83,7 @@ namespace ShopAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Supplier>> PostSupplier(Supplier supplier)
         {
-            _context.Supplier.Add(supplier);
+            _context.Suppliers.Add(supplier);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetSupplier", new { id = supplier.Id }, supplier);
@@ -93,13 +93,13 @@ namespace ShopAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Supplier>> DeleteSupplier(int id)
         {
-            var supplier = await _context.Supplier.FindAsync(id);
+            var supplier = await _context.Suppliers.FindAsync(id);
             if (supplier == null)
             {
                 return NotFound();
             }
 
-            _context.Supplier.Remove(supplier);
+            _context.Suppliers.Remove(supplier);
             await _context.SaveChangesAsync();
 
             return supplier;
@@ -107,7 +107,7 @@ namespace ShopAPI.Controllers
 
         private bool SupplierExists(int id)
         {
-            return _context.Supplier.Any(e => e.Id == id);
+            return _context.Suppliers.Any(e => e.Id == id);
         }
     }
 }

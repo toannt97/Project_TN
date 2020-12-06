@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace ShopAPI.Models
 {
     public partial class Order
     {
         public Order()
         {
-            OrderDetail = new HashSet<OrderDetail>();
+            OrderDetails = new HashSet<OrderDetail>();
         }
 
         public int Id { get; set; }
@@ -20,6 +22,6 @@ namespace ShopAPI.Models
 
         public virtual User Customer { get; set; }
         public virtual User Saleman { get; set; }
-        public virtual ICollection<OrderDetail> OrderDetail { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

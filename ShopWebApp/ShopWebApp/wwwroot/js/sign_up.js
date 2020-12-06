@@ -1,38 +1,51 @@
-﻿function jQueryAxjaxSignUpPost(form) {
-    $('.register-fail').text('');
-    $('.validation').text('');
-    $.ajax({
-        type: 'Post',
-        contentType: false,
-        processData: false,
-        url: form.action,
-        data: new FormData(form),
-        beforeSend: function () {
-            DisableTextField();
-            console.log('sended');
-        },
-    }).done(function (data) {
-        if (!data.statusCode) {
-            $('#modal-register').html(data);
-        } else {
-            switch (data.statusCode) {
-                // Email is already existed
-                case 452:
-                    $('.register-fail').text(data.messageError);
-                    EnableTextField();
-                    break;
-                case 200:
-                    $('.success-notification').css("display", "block");
-                    $('.button-submit').css('display', 'none');
-                    $('.button-ok').css('display', 'block');
-                    break;
+﻿$(function () {
+    $('.sign-up__close-button').click(() => {
+        $(".backdrop").removeClass("backdrop--open");
+        $('.sign-up').remove();
+    });
+
+    $("input[name=PhoneNumber]")[0].oninvalid = function () {
+        this.setCustomValidity("The phone number is invalid.");
+        alert(CONSTANTS.name);
+    };
+
+    $('.sign-up__button-submit').click(() => {
+        $.ajax({
+            type: 'Post',
+            contentType: 'application/json; charset=utf-8',
+            url: 'User/SignUpHandle',
+            data: JSON.stringify({
+                'UserName': $('.sign-up__user-name').val().trim(),
+                'EmailAddress': $('.sign-up__email-address').val().trim(),
+                'Password': $('.sign-up__password').val().trim(),
+                'ConfirmPassword': $('.sign-up__confirm-password').val().trim(),
+                'PhoneNumber': $('.sign-up__phone-number').val().trim(),
+                'Address': $('.sign-in__address').val().trim(),
+            }),
+            beforeSend: function () {
+                DisableTextField();
+            },
+        }).done(function (data) {
+            if (!data.statusCode) {
+                $('.sign-up').replaceWith(data);
+            } else {
+                switch (data.statusCode) {
+                    case 200: {
+                        $('.sign-up__notification--success').css("display", "block");
+                        break;
+                    }
+                    default: {
+                        $('.sign-in__register-fail').text(data.messageError);
+                        EnableTextField();
+                        break;
+                    }
+                }
             }
-        }
-    }).fail(function (err) {
-        console.log(err);
-    })
-    return false;
-}
+        }).fail(function (err) {
+            console.log(err);
+        })
+    });
+})
 
 function onlyNumberKey(evt) {
     // Only ASCII charactar in that range allowed
@@ -44,22 +57,6 @@ function onlyNumberKey(evt) {
     return true;
 }
 
-$(function () {
-    $("input[name=PhoneNumber]")[0].oninvalid = function () {
-        this.setCustomValidity("The phone number is invalid.");
-        alert(CONSTANTS.name);
-    };
-
-    $('.button-ok').click(function () {
-        RemoveOverplay();
-        $('#RegisterForm input').val('');
-        EnableTextField()
-        $('.success-notification').css("display", "none");
-        $("#register-modal").css("display", "none");
-
-    });
-});
-
 function RemoveOverplay() {
     let opacity = 1;
     $('.header').css("opacity", opacity);
@@ -68,11 +65,11 @@ function RemoveOverplay() {
 }
 
 function DisableTextField() {
-    $('#RegisterForm input').prop("disabled", true);
-    $('#RegisterForm .button-submit').prop("disabled", true);
+    $('.sign-in input').prop("disabled", true);
+    $('.sign-up__button-submit').prop("disabled", true);
 }
 
 function EnableTextField() {
-    $('#RegisterForm input').prop("disabled", false);
-    $('#RegisterForm .button-submit').prop("disabled", false);
+    $('.sign-in input').prop("disabled", false);
+    $('sign-up__button-submit').prop("disabled", false);
 }

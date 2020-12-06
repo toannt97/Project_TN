@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+#nullable disable
+
 namespace ShopAPI.Models
 {
     public partial class OnlineShopContext : DbContext
@@ -15,24 +17,26 @@ namespace ShopAPI.Models
         {
         }
 
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<District> District { get; set; }
-        public virtual DbSet<History> History { get; set; }
-        public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<OrderDetail> OrderDetail { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Province> Province { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<ShoppingCart> ShoppingCart { get; set; }
-        public virtual DbSet<Supplier> Supplier { get; set; }
-        public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Village> Village { get; set; }
-        public virtual DbSet<Ward> Ward { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Province> Provinces { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Village> Villages { get; set; }
+        public virtual DbSet<Ward> Wards { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=52.237.119.17;Database=OnlineShop;User Id=sa;Password=Rindutk123;");
             }
         }
 
@@ -49,7 +53,7 @@ namespace ShopAPI.Models
                     .HasMaxLength(50);
 
                 entity.HasOne(d => d.Role)
-                    .WithMany(p => p.Category)
+                    .WithMany(p => p.Categories)
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_category_role");
@@ -60,9 +64,9 @@ namespace ShopAPI.Models
                 entity.ToTable("district");
 
                 entity.Property(e => e.Districtid)
-                    .HasColumnName("districtid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("districtid");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -70,12 +74,12 @@ namespace ShopAPI.Models
 
                 entity.Property(e => e.Provinceid)
                     .IsRequired()
-                    .HasColumnName("provinceid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("provinceid");
 
                 entity.HasOne(d => d.Province)
-                    .WithMany(p => p.District)
+                    .WithMany(p => p.Districts)
                     .HasForeignKey(d => d.Provinceid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_district_province");
@@ -90,7 +94,7 @@ namespace ShopAPI.Models
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.History)
+                    .WithMany(p => p.Histories)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_history_user");
@@ -103,13 +107,13 @@ namespace ShopAPI.Models
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Customer)
-                    .WithMany(p => p.OrderCustomer)
+                    .WithMany(p => p.OrderCustomers)
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_order_customer");
 
                 entity.HasOne(d => d.Saleman)
-                    .WithMany(p => p.OrderSaleman)
+                    .WithMany(p => p.OrderSalemen)
                     .HasForeignKey(d => d.SalemanId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_order_saleman");
@@ -120,13 +124,13 @@ namespace ShopAPI.Models
                 entity.ToTable("order_detail");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderDetail)
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_order_detail_order");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.OrderDetail)
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_order_detail_product");
@@ -154,13 +158,13 @@ namespace ShopAPI.Models
                 entity.Property(e => e.UnitPrice).HasColumnType("numeric(13, 3)");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_product_category");
 
                 entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Product)
+                    .WithMany(p => p.Products)
                     .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_product_supplier");
@@ -171,9 +175,9 @@ namespace ShopAPI.Models
                 entity.ToTable("province");
 
                 entity.Property(e => e.Provinceid)
-                    .HasColumnName("provinceid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("provinceid");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -200,13 +204,13 @@ namespace ShopAPI.Models
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ShoppingCart)
+                    .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_shopping_cart_product");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.ShoppingCart)
+                    .WithMany(p => p.ShoppingCarts)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_shopping_cart_user");
@@ -216,7 +220,9 @@ namespace ShopAPI.Models
             {
                 entity.ToTable("supplier");
 
-                entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Image)
                     .HasMaxLength(50)
@@ -225,11 +231,16 @@ namespace ShopAPI.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("user");
+
+                entity.HasIndex(e => e.UserName, "UK_user")
+                    .IsUnique();
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -255,7 +266,7 @@ namespace ShopAPI.Models
                     .HasMaxLength(50);
 
                 entity.HasOne(d => d.RoleNavigation)
-                    .WithMany(p => p.User)
+                    .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Role)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_user_role");
@@ -266,9 +277,9 @@ namespace ShopAPI.Models
                 entity.ToTable("village");
 
                 entity.Property(e => e.Villageid)
-                    .HasColumnName("villageid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("villageid");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -276,12 +287,12 @@ namespace ShopAPI.Models
 
                 entity.Property(e => e.Wardid)
                     .IsRequired()
-                    .HasColumnName("wardid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("wardid");
 
                 entity.HasOne(d => d.Ward)
-                    .WithMany(p => p.Village)
+                    .WithMany(p => p.Villages)
                     .HasForeignKey(d => d.Wardid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_village_ward");
@@ -292,22 +303,22 @@ namespace ShopAPI.Models
                 entity.ToTable("ward");
 
                 entity.Property(e => e.Wardid)
-                    .HasColumnName("wardid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("wardid");
 
                 entity.Property(e => e.Districtid)
                     .IsRequired()
-                    .HasColumnName("districtid")
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("districtid");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name");
 
                 entity.HasOne(d => d.District)
-                    .WithMany(p => p.Ward)
+                    .WithMany(p => p.Wards)
                     .HasForeignKey(d => d.Districtid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ward_district");

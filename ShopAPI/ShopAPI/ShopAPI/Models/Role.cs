@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace ShopAPI.Models
 {
     public partial class Role
     {
         public Role()
         {
-            Category = new HashSet<Category>();
-            User = new HashSet<User>();
+            Categories = new HashSet<Category>();
+            Users = new HashSet<User>();
         }
 
         public int Id { get; set; }
@@ -17,7 +19,7 @@ namespace ShopAPI.Models
         public DateTime? UpdateDate { get; set; }
         public int? Status { get; set; }
 
-        public virtual ICollection<Category> Category { get; set; }
-        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

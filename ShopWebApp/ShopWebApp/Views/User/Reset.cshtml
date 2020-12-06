@@ -4,21 +4,17 @@
     Layout = "_EmptyLayout";
 }
 
-<link href='~/css/user_reset.css' rel='stylesheet' type='text/css'>
+<link href="~/css/user_reset.css" rel="stylesheet" type="text/css">
 
 <div class="user-reset container">
+    <em class="user-reset__close-button">X</em>
     <header class="user-reset__header">
         <h1 class="user-reset__title">Reset password</h1>
-        <em class="user-reset__close-button">X</em>
     </header>
     <main class="user-reset__body">
-        <p class="user-reset__message">Enter your username and email address. We'll email you new password.</p>
+        <p class="user-reset__message">Enter email address. We'll email you new password.</p>
+        <span class="user-reset_notification"></span>
         <div class="form-group">
-            <input class="user-reset__user-name form-control" placeholder="User name" asp-for="UserName" />
-            <span asp-validation-for="UserName" class="text-danger user-reset__validation"></span>
-        </div>
-        <div class="form-group">
-
             <input class="user-reset__email-address form-control" placeholder="Email address" asp-for="EmailAddress" />
             <span asp-validation-for="EmailAddress" class="text-danger user-reset__validation"></span>
         </div>

@@ -15,13 +15,20 @@ namespace ShopWebApp.Controllers
 {
     public class UserController : Controller
     {
+        #region Private fields
         private readonly HttpClient _client = HttpClientAccessor.HttpClient;
+        #endregion
 
+        #region Constructor
+        #endregion
+
+        #region Public methods
         // GET: UserController
         public ActionResult Index()
         {
             return View();
         }
+
 
         [HttpGet]
         // GET: UserController/GetCurrentUser
@@ -31,13 +38,25 @@ namespace ShopWebApp.Controllers
             return Json(user);
         }
 
+        [HttpGet]
+        public ActionResult SignInIndex()
+        {
+            try
+            {
+                return View("SignIn", null);
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+            }
+        }
         [HttpPost]
-        public async Task<IActionResult> SignIn(UserSignIn user)
+        public async Task<IActionResult> SignInHandle([FromBody] UserSignIn user)
         {
             try
             {
                 if (!ModelState.IsValid)
-                    return PartialView("_LoginView", user);
+                    return View("SignIn", user);
 
                 user.Password = Encrypt.SHA256Hash(user.Password);
                 var response = await _client.PostAsJsonAsync(Constant.API_USER, user);
@@ -58,24 +77,50 @@ namespace ShopWebApp.Controllers
                 return View("Error");
             }
         }
-
+        [HttpGet]
+        public ActionResult SignUpIndex()
+        {
+            try
+            {
+                return View("SignUp", null);
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+            }
+        }
         [HttpPost]
-        public async Task<IActionResult> SignUp(User user)
+        public async Task<IActionResult> SignUpHandle([FromBody] User user)
         {
             try
             {
                 if (!ModelState.IsValid)
-                    return PartialView("_RegisterView", user);
+                    return PartialView("SignUp", user);
                 user.Password = Encrypt.SHA256Hash(user.Password);
                 user.PhoneNumber = Constant.PREFIX_PHONE + user.PhoneNumber;
                 var response = await _client.PostAsJsonAsync(Constant.API_ADD_USER, user);
 
-                if ((Int32)response.StatusCode == Constant.ERROR_CODE_DUPLICATE_DATA)
+                switch ((Int32)response.StatusCode)
                 {
-                    return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA, messageError = Constant.DUPLICATE_DATA_MESSAGE });
-                }
+                    case Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL:
+                        {
+                            return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, messageError = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
+                        }
+                    case Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME:
+                        {
+                            return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, messageError = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
+                        }
+                    case Constant.CODE_OK:
+                        {
+                            return Json(new { statusCode = Constant.CODE_OK });
 
-                return Json(new { statusCode = Constant.CODE_OK });
+                        }
+                    default:
+                        {
+                            return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+                        }
+
+                }
             }
             catch (Exception)
             {
@@ -201,5 +246,6 @@ namespace ShopWebApp.Controllers
                 return View();
             }
         }
+        #endregion
     }
 }

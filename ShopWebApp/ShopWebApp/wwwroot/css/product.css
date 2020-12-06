@@ -1,3 +1,7 @@
-﻿.empty-list-product {
+﻿.product__items{
+    text-align:center;
+}
+
+.empty-list-product {
     margin-left: 20px;
 }

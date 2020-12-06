@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#nullable disable
+
 namespace ShopAPI.Models
 {
     public partial class District
     {
         public District()
         {
-            Ward = new HashSet<Ward>();
+            Wards = new HashSet<Ward>();
         }
 
         public string Districtid { get; set; }
@@ -15,6 +17,6 @@ namespace ShopAPI.Models
         public string Provinceid { get; set; }
 
         public virtual Province Province { get; set; }
-        public virtual ICollection<Ward> Ward { get; set; }
+        public virtual ICollection<Ward> Wards { get; set; }
     }
 }

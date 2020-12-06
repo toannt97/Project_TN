@@ -10,6 +10,6 @@ namespace ShopWebApp.Models.DataModels
         public int SoLuong { get; set; }
         [Display(Name = "Thành tiền")]
         //public double ThanhTien => SoLuong * HangChonMua.DonGia;  //Toan tu tra ve gia tri Get
-        public double ThanhTien => SoLuong * SanPhamChonMua.UnitPrice;
+        public decimal ThanhTien => SoLuong * SanPhamChonMua.UnitPrice;
     }
 }

@@ -2,8 +2,10 @@
 {
     public static class Constant
     {
-        public const int DUPLICATE_DATA = 452;
-        public const string DUPLICATE_DATA_MESSAGE = "Email address is already used.";
+        public const int DUPLICATE_DATA_EMAIL = 452;
+        public const string DUPLICATE_DATA_EMAIL_MESSAGE = "Email address is already used.";
+        public const int DUPLICATE_DATA_USER_NAME = 453;
+        public const string DUPLICATE_DATA_USER_NAME_MESSAGE = "User name is already used.";
         public const int NOT_FOUND = 404;
         public const string NOT_FOUND_MESSAGE = "Resource not found.";
         public const int OK = 200;
@@ -25,7 +27,8 @@
         public const string DOMAIN_IMAGE_LOGO = "https://onlineshop.blob.core.windows.net/logo/logo.png";
         public const string DOMAIN_IMAGE_FAVICON = "https://onlineshop.blob.core.windows.net/logo/favicon.jpg";
         public static int IS_ACTIVE = 0;
-
+        public const int NOT_FOUND_INT = 0;
+        public static int IS_DELETED = -1;
         public const int SIZE_STRING_LETTERS_PASSWORD = 4;
         public const int MIN_VALUE_PASSWORD = 1000;
         public const int MAX_VALUE_PASSWORD = 9999;
