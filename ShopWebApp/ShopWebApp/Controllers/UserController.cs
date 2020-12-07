@@ -33,8 +33,7 @@ namespace ShopWebApp.Controllers
         // GET: UserController/GetCurrentUser
         public ActionResult GetCurrentUser()
         {
-            var user = HttpContext.Session.Get(Constant.SESSION_USER);
-            return Json(user);
+            return Json(HttpContext.Session.Get(Constant.SESSION_USER));
         }
 
         [HttpGet]
@@ -124,6 +123,68 @@ namespace ShopWebApp.Controllers
             catch (Exception)
             {
                 return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ChangePasswordIndex()
+        {
+            try
+            {
+                return View("ChangePassword", null);
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePasswordHandle([FromBody] UserChangePassword user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return PartialView("ChangePassword", user);
+
+                if (HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER) == null)
+                {
+                    return Json(new { statusCode = Constant.ERROR_CODE_AUTHENTICATION, messageError = Constant.ERROR_CODE_AUTHENTICATION });
+                }
+
+                var userRequest = new
+                {
+                    Id = HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER).Id,
+                    CurrentPassword = Encrypt.SHA256Hash(user.CurrentPassword),
+                    NewPassword = Encrypt.SHA256Hash(user.NewPassword),
+                };
+
+                var response = await _client.PostAsJsonAsync(Constant.API_CHANGE_PASSWORD, userRequest);
+
+                switch ((Int32)response.StatusCode)
+                {
+                    case Constant.ERROR_CODE_NOT_FOUND:
+                        {
+                            return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
+                        }
+                    case Constant.ERROR_CODE_SQL_CONNECTION:
+                        {
+                            return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, messageError = Constant.SQL_CONNECTION_MESSAGE });
+                        }
+                    case Constant.CODE_OK:
+                        {
+                            return Json(new { statusCode = Constant.CODE_OK });
+
+                        }
+                    default:
+                        {
+                            return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+                        }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
             }
         }
 

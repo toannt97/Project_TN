@@ -13,7 +13,7 @@
     $("#txtSearch").keyup(function () {
         $.ajax({
             url: "/Product/Search",
-            type: "post",
+            type: "Post",
             data: { "Keyword": $(this).val() },
             success: function (data) {
                 $("#results").html(data);

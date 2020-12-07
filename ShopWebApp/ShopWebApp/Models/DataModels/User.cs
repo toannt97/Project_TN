@@ -17,7 +17,7 @@ namespace ShopWebApp.Models.DataModels
         [Required(ErrorMessage = "The password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required(ErrorMessage = "The confirm password is required")]
+        [Required(ErrorMessage = "The password confirmation is required")]
         [DataType(DataType.Password)]
         [Compare("Password")]
         [NotMapped]

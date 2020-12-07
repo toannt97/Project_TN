@@ -2,3 +2,68 @@
 {
     display: none;
 }
+
+.user {
+    margin-left: 5%;
+    display: inline-block;
+    position: relative;
+    color: var(--color-text-white);
+}
+
+    .user > i {
+        font-size: 23px;
+    }
+
+.user__text-fixed {
+    margin: 0;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    cursor: default;
+}
+
+.user__info {
+    font-size: 23px;
+    cursor: pointer;
+    padding: 0 10px;
+    display: inline-block;
+}
+
+    .user__info:hover {
+        opacity: 0.4;
+    }
+
+.user-name {
+    font-size: 14px;
+    margin: 0;
+    font-weight: var(--font-weight-medium);
+    display: inline-block;
+}
+
+.user__menu {
+    position: absolute;
+    display: none;
+    right: -105px;
+    top: 55px;
+    text-align: left;
+    font-weight: var(--font-weight-medium);
+    background: var(--color-base-black);
+    z-index: var(--z-index-dialog);
+}
+
+.user__menu--opened {
+    display: block;
+}
+
+.user__items {
+    list-style: none;
+    text-decoration: none;
+}
+
+.user__item {
+    color: var(--color-text-white) !important;
+    padding: 10px;
+    text-decoration: none !important;
+    display: block;
+    cursor: pointer;
+}

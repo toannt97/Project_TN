@@ -1,0 +1,76 @@
+﻿.user-change-password {
+    padding: 20px 60px 30px;
+    position: fixed;
+    border-radius: 6px;
+    top: 0;
+    left: 0;
+    width: 600px !important;
+    margin: 10% 34% !important;
+    z-index: var(--z-index-dialog);
+    background: var(--color-base-white);
+}
+
+.user-change-password__header {
+    text-align: center;
+    position: relative;
+}
+
+.user-change-password__body {
+    margin: 20px 0;
+}
+
+.user-change-password__close-button {
+    cursor: pointer;
+    padding: 6px;
+    color: black;
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    top: 20px;
+    right: 25px;
+    position: absolute;
+    font-style: normal;
+}
+
+.user-change-password__footer {
+    text-align: center;
+}
+
+.user-change-password__button-submit {
+    background: var(--color-base-primary-blue) none repeat scroll 0 0;
+    border-color: var(--color-line-primary-blue);
+    color: var(--color-text-white);
+    font-size: 22px;
+    width: 70%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.user-change-password__button-submit:disabled{
+    background: var(--color-base-gray);
+    outline: none;
+    border:none;
+}
+
+.user-change-password_notification {
+    display: none;
+    text-align: center;
+}
+
+.user-change-password_notification--success {
+    color: var(--color-text-green);
+    font-size: 14px;
+}
+
+.user-change-password_notification--fail {
+    color: var(--color-text-red);
+    font-size: 14px;
+}
+
+.user-change-password_notification--opened {
+    display: block;
+}
+
+.user-change-password__validation {
+    margin-top: 15px !important;
+}

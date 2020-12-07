@@ -57,9 +57,9 @@ namespace ShopAPI.Controllers
                                               EmailAddress = u.EmailAddress,
                                               Role = u.Role,
                                               UserName = u.UserName,
-                                              ItemsInCart = u.ShoppingCarts.Where(s => s.UserId == u.Id 
+                                              ItemsInCart = u.ShoppingCarts.Where(s => s.UserId == u.Id
                                                                                  && s.Status == Constant.IS_ACTIVE)
-                                                                           .Sum(s=> s.Quantity),
+                                                                           .Sum(s => s.Quantity),
                                           }).FirstOrDefaultAsync();
 
             // Login information is not correct
@@ -119,27 +119,27 @@ namespace ShopAPI.Controllers
                                               .SingleOrDefaultAsync();
                 if (user == null)
                     return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
-                    // Generate new random password
-                    var newPassword = new RandomGenerator()
-                                              .RandomPassword(Constant.SIZE_STRING_LETTERS_PASSWORD
-                                                              ,Constant.MIN_VALUE_PASSWORD
-                                                              , Constant.MAX_VALUE_PASSWORD);
+                // Generate new random password
+                var newPassword = new RandomGenerator()
+                                          .RandomPassword(Constant.SIZE_STRING_LETTERS_PASSWORD
+                                                          , Constant.MIN_VALUE_PASSWORD
+                                                          , Constant.MAX_VALUE_PASSWORD);
 
-                    // Send new account to customer via email
-                    var bodyEmail = Constant.CONTENT_RECOVERY_ACCOUNT(user.UserName, newPassword);
+                // Send new account to customer via email
+                var bodyEmail = Constant.CONTENT_RECOVERY_ACCOUNT(user.UserName, newPassword);
 
-                    var fromEmailID = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Id").Value;
-                    var fromEmailPassword = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Password").Value;
-                    var emailSMTP = new Email();
-                    emailSMTP.Send(fromEmailID, fromEmailPassword, user.EmailAddress, bodyEmail
-                                 , Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT_REGISTER_ACCOUNT);
+                var fromEmailID = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Id").Value;
+                var fromEmailPassword = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Password").Value;
+                var emailSMTP = new Email();
+                emailSMTP.Send(fromEmailID, fromEmailPassword, user.EmailAddress, bodyEmail
+                             , Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT_REGISTER_ACCOUNT);
 
-                    // Update new account's information
-                    user.Password = Encrypt.SHA256Hash(newPassword);
-                    user.UpdateDate = DateTime.Now;
-                    _context.Entry(user).State = EntityState.Modified;
-                    await _context.SaveChangesAsync();
-                    return StatusCode(Constant.OK,  Constant.OK_MESSAGE);
+                // Update new account's information
+                user.Password = Encrypt.SHA256Hash(newPassword);
+                user.UpdateDate = DateTime.Now;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return StatusCode(Constant.OK, Constant.OK_MESSAGE);
             }
             catch (SqlException)
             {
@@ -168,7 +168,7 @@ namespace ShopAPI.Controllers
                 {
                     return StatusCode(Constant.DUPLICATE_DATA_EMAIL, Constant.DUPLICATE_DATA_EMAIL_MESSAGE);
                 }
-                else if(UserExistsWithUserName(user.UserName))
+                else if (UserExistsWithUserName(user.UserName))
                 {
                     return StatusCode(Constant.DUPLICATE_DATA_USER_NAME, Constant.DUPLICATE_DATA_USER_NAME_MESSAGE);
                 }
@@ -200,6 +200,36 @@ namespace ShopAPI.Controllers
                 return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
             }
             catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
+            }
+        }
+
+        [Route("ChangePassword")]
+        [HttpPost]
+        public async Task<ActionResult> ChangePassword(UserChangePasswordRequest userRequest)
+        {
+            try
+            {
+                var user = await _context.Users.Where(u => u.Id == userRequest.Id
+                                                    && u.Password.Equals(userRequest.CurrentPassword)
+                                                    && u.Status == Constant.IS_ACTIVE)
+                                               .FirstOrDefaultAsync();
+                if (user != null)
+                {
+                    user.Password = userRequest.NewPassword;
+                    user.UpdateDate = DateTime.Now;
+                    _context.Entry(user).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    return StatusCode(Constant.OK);
+                }
+                return StatusCode(Constant.NOT_FOUND);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+            }
+            catch (Exception ex)
             {
                 return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
             }
