@@ -15,6 +15,7 @@
         public const string API_RESET_PASSWORD = API_USER + "/RestoreAccount";
         public const string API_CHANGE_PASSWORD = API_USER + "/ChangePassword";
         public const string API_GET_PRODUCTS_RELATED = API_PRODUCT + "/GetProductsRelated";
+        public const string API_SEARCH_PRODUCTS = API_PRODUCT + "/SearchProduct";
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
         public const string API_GET_NUM_OF_CART_ITEMS = API_CART + "/GetNumOfCartItems";
         /* Status code*/

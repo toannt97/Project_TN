@@ -3,12 +3,12 @@
 
 <div class="header-top">
     <div class="container">
-        <div class="search">
+        <div class="search-result">
             <form autocomplete="off">
-                <input type="text" id="txtSearch" style="position: relative;"
+                <input type="text" class="search-result__input-text" style="position: relative;"
                        placeholder="Search">
                 <input type="submit" value="Go">
-                <ul class="wrap-suggestion" id="results"></ul>
+                <ul class="search-result__items"></ul>
             </form>
         </div>
         <div class="group-btn-account">
@@ -31,7 +31,7 @@
                         <i class="far fa-user-circle"></i>
                         <p class="user-name">@(ViewBag.User == null ? "" : ViewBag.User.UserName)</p>
                     </div>
-                    <div class="user__menu" aria-labelledby="dropdownMenuLink" style="position:absolute; ">
+                    <div class="user__menu" aria-labelledby="dropdownMenuLink">
                         <ul class="user__items">
                             <li class="user__item user__item--change-password">
                                 <span class="user__item">Change password</span>

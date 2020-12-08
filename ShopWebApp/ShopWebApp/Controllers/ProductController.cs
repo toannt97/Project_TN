@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopWebApp.Common;
 using ShopWebApp.Constants;
-using ShopWebApp.Models;
 using ShopWebApp.Models.DataModels;
 using ShopWebApp.Models.DTO;
 using ShopWebApp.Models.Tool;
@@ -116,29 +115,28 @@ namespace ShopWebApp.Controllers
                 return View("Error", new ErrorViewModel { ErrorId = Constant.ERROR_CODE_INTERNAL, ErrorMessage = Constant.INTERNAL_MESSAGE });
             }
         }
-
-        public IActionResult Search(string Keyword)
+        
+        [HttpPost]
+        public async Task<IActionResult> Search(string keyword)
         {
-            // HTTP GET
-            HttpClient client = new HttpClient();
-            //client.BaseAddress = new Uri(Program.localhost);
-            //HttpResponseMessage response = client.GetAsync("api/TechnologyFirms").Result;
-            //var hangs = response.Content.ReadAsAsync<IEnumerable<Hang>>().Result;
-            //response = client.GetAsync("api/Products").Result;
-            //var sanPhams = response.Content.ReadAsAsync<IEnumerable<SanPham>>().Result;
-            //foreach (var item_Sanpham in sanPhams)
-            //{
-            //    foreach (var item_Hang in hangs)
-            //    {
-            //        if (item_Hang.Id == item_Sanpham.FirmId)
-            //            item_Sanpham.FirmName = item_Hang.FirmName;
-            //    }
-            //}
-            //if (Keyword == null)
-            //    Keyword = "";
-            //var dsSanPham = sanPhams.Where(p => p.product.Contains(Keyword)).Take(5).ToList();
-            //ViewBag.domainUrl = Program.domainUrl;
-            return PartialView("SearchPartial", null);
+            var response = await _client.GetAsync($"{Constant.API_SEARCH_PRODUCTS}/{keyword}");
+            switch ((Int32)response.StatusCode)
+            {
+                case Constant.CODE_OK:
+                    {
+                        var result = response.Content.ReadAsAsync<IEnumerable<SearchProductDTO>>().Result.ToList();
+                        if(result.Count == 0 )
+                            return PartialView("SearchPartial", null);
+                        return PartialView("SearchPartial", result);
+                    }
+                case Constant.ERROR_CODE_SQL_CONNECTION: {
+                        return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, messageError = Constant.SQL_CONNECTION_MESSAGE });
+                    }
+                default:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+                    }
+            } 
         }
         #endregion
 

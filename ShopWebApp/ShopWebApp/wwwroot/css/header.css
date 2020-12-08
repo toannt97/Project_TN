@@ -1,8 +1,4 @@
-﻿.wrap-suggestion
-{
-    display: none;
-}
-
+﻿
 .user {
     margin-left: 5%;
     display: inline-block;
@@ -66,4 +62,112 @@
     text-decoration: none !important;
     display: block;
     cursor: pointer;
+}
+
+.search-result__items {
+    max-height: 600px;
+    overflow-y: auto;
+    display: none;
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    width: 425px;
+    top: 29px;
+    z-index: 9;
+    text-decoration: none;
+}
+
+    .search-result__items :hover {
+        background: #edeaea;
+    }
+
+.search-result__image {
+    float: left;
+    width: 50px;
+    margin: 0 6px 0 0;
+}
+
+.search-result__item {
+    display: block;
+    overflow: hidden;
+    padding: 6px;
+    color: #333;
+    font-size: 12px;
+}
+
+    .search-result__item:hover {
+        text-decoration: none
+    }
+
+.search-result {
+    position: relative;
+    float: left;
+    width: 25%;
+    background-color: var(--color-base-white);
+    margin-top: 11px;
+}
+
+    .search-result input[type="text"] {
+        outline: none;
+        padding: 3px 15px;
+        background: none;
+        width: 91%;
+        border: none;
+        font-size: 1.2em;
+        color: var(--color-text-black);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .search-result input[type="submit"] {
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        outline: none;
+        top: 0px;
+        right: 0px;
+        background: var(--color-base-light-gray4);
+        font-size: 1.2em;
+        color: var(--color-text-black);
+        padding: 3px;
+        font-weight: var(--font-weight-bold);
+    }
+
+        .search-result input[type="submit"]:hover {
+            background: var(--color-base-orange-primary);
+            color: var(--color-text-white);
+            transition: 0.5s all;
+            -webkit-transition: 0.5s all;
+            -o-transition: 0.5s all;
+            -moz-transition: 0.5s all;
+        }
+
+.search-result__price {
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-red);
+    float: none;
+}
+
+.search-result__name {
+    display: block;
+    width: auto;
+    color: #333;
+    font-size: 14px;
+    font-weight: var(--font-weight-bold);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.search-result__price-block {
+    font-size: 14px/18px;
+    color: #333;
+    outline: none;
+    zoom: 1;
+}
+
+.search-result__empty{
+    padding: 10px;
+    font-weight: var(--font-weight-bold);
 }

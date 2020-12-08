@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ShopAPI.Constants;
 using ShopAPI.Models;
@@ -87,13 +89,6 @@ namespace ShopAPI.Controllers
         [HttpGet("{idSupplier}/{idCategory}/{pageNo}/{pageSize}")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProduct(int idSupplier, int idCategory, int pageNo,int pageSize = 10)
         {
-            //var query = await _context.Product
-            //                 .Where(p => p.SupplierId == (idSupplier == 0 ? p.SupplierId : idSupplier)
-            //                        && p.CategoryId == (idCategory == 0 ? p.CategoryId : idCategory)
-            //                        && p.Quantity > 0
-            //                        && p.Status == Constant.IS_ACTIVE)
-            //                 .ToListAsync();
-
             var result = await _context.Products
                              .Where(p => p.SupplierId == (idSupplier == 0 ? p.SupplierId : idSupplier)
                                     && p.CategoryId == (idCategory == 0 ? p.CategoryId : idCategory)
@@ -147,6 +142,26 @@ namespace ShopAPI.Controllers
                                                 && p.Status == Constant.IS_ACTIVE
                                                 && p.Quantity > 0)
                                          .CountAsync();
+        }
+
+        [HttpGet("SearchProduct/{keyword}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SearchProduct(string keyword)
+        {
+            try
+            {
+            return await _context.Products.Where(p => (p.Name.Contains(keyword) || p.Supplier.Name.Contains(keyword))
+                                                && p.Quantity > 0 && p.Status == Constant.IS_ACTIVE)
+                                          .OrderBy(p => p.Name)
+                                          .ToListAsync();
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR);
+            }
         }
 
         // PUT: api/Products/5

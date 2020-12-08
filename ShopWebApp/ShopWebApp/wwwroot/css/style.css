@@ -153,47 +153,7 @@ a.item_add {
     background: var(--color-base-black);
     padding: 15px 0;
 }
-.search {
-    position: relative;
-    float: left;
-    width: 25%;
-    background-color: var(--color-base-white);
-    margin-top: 11px;
-}
 
-    .search input[type="text"] {
-        outline: none;
-        padding: 3px 15px;
-        background: none;
-        width: 91%;
-        border: none;
-        font-size: 1.2em;
-        color: var(--color-text-black);
-        font-weight: var(--font-weight-bold);
-    }
-
-    .search input[type="submit"] {
-        border: none;
-        cursor: pointer;
-        position: absolute;
-        outline: none;
-        top: 0px;
-        right: 0px;
-        background: var(--color-base-light-gray4);
-        font-size: 1.2em;
-        color: var(--color-text-black);
-        padding: 3px;
-        font-weight: var(--font-weight-bold);
-    }
-
-        .search input[type="submit"]:hover {
-            background: var(--color-base-orange-primary);
-            color: var(--color-text-white);
-            transition: 0.5s all;
-            -webkit-transition: 0.5s all;
-            -o-transition: 0.5s all;
-            -moz-transition: 0.5s all;
-        }
 
 .nav-bar {
     padding: 1em 0;
