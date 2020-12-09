@@ -1,0 +1,87 @@
+﻿.card-layout {
+    padding: 20px 60px 30px;
+    position: fixed;
+    border-radius: 6px;
+    top: 0;
+    left: 0;
+    width: 600px !important;
+    margin: 10% 34% !important;
+    z-index: var(--z-index-dialog);
+    background: var(--color-base-white);
+}
+
+.card-layout__title {
+    text-align: center !important;
+}
+
+.card-layout__button-close {
+    cursor: pointer;
+    padding: 6px;
+    color: black;
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    top: 20px;
+    right: 25px;
+    position: absolute;
+    font-style: normal;
+}
+
+.card-layout__notification--success {
+    margin: 10px 0 20px;
+    text-align: center;
+}
+
+.card-layout__notification--success-image {
+    width: 50px;
+}
+
+.card-layout__notification--success-title {
+    font-size: 14px;
+    color: var(--color-text-green);
+}
+
+.card-layout__phone {
+    display: flex;
+}
+
+.card-layout__phone-prefix {
+    height: 34px;
+    margin: 0;
+    padding: 5px;
+    background: var(--color-line-light-gray2);
+    border: 1px solid var(--color-line-light-gray3);
+    border-radius: 15%;
+}
+
+.update-profile__phone-number {
+    text-align: left;
+}
+
+.card-layout__validation {
+    margin-top: 10px;
+}
+
+.card-layout__footer {
+    text-align: center;
+}
+
+.card-layout__button-submit {
+    background: var(--color-base-primary-blue) none repeat scroll 0 0;
+    border-color: var(--color-line-primary-blue);
+    color: var(--color-text-white);
+    font-size: 22px;
+    width: 70%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+}
+
+.card-layout__button-submit:disabled {
+    background: var(--color-base-gray);
+    outline: none;
+    border: none;
+}
+
+.card-layout__input-text-hidden{
+    display: none;
+}

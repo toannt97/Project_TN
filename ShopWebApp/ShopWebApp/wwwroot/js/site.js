@@ -8,9 +8,6 @@
         
         if (!container.is(e.target) && container.has(e.target).length === 0) {
             $('.user__menu').removeClass('user__menu--opened');
-        } else if (!target.is(e.target) && container.has(e.target).length === 0) {
-            $('.search-result__items').css('display','none');
-
-        }
+        } 
     });
 });

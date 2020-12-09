@@ -36,7 +36,7 @@
                         break;
                     }
                     default: {
-                        $('.sign-in__register-fail').text(data.messageError);
+                        $('.sign-up__register-fail').text(data.messageError);
                         EnableTextField();
                         break;
                     }
@@ -56,13 +56,6 @@ function onlyNumberKey(evt) {
         return false;
 
     return true;
-}
-
-function RemoveOverplay() {
-    let opacity = 1;
-    $('.header').css("opacity", opacity);
-    $('.product').css("opacity", opacity);
-    $('.footer').css("opacity", opacity);
 }
 
 function DisableTextField() {

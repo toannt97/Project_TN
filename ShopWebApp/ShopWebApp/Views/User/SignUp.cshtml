@@ -40,8 +40,7 @@
         <div class="form-group ">
             <div class="sign-up__phone">
                 <p class="sign-up__phone-prefix">+84</p>
-                <input type="text" maxlength="15" class="sign-up__phone-number form-control" onkeypress="return onlyNumberKey(event)"
-                       placeholder="Phone number" asp-for="PhoneNumber" pattern="^[1-9][0-9]+">
+                <input type="text" maxlength="15" class="sign-up__phone-number form-control" onkeypress="return onlyNumberKey(event)" placeholder="Phone number" asp-for="PhoneNumber" pattern="^[1-9][0-9]+">
             </div>
             <span asp-validation-for="PhoneNumber" class="text-danger sign-up__validation"></span>
         </div>
@@ -50,7 +49,7 @@
             <input type="text" class="sign-in__address form-control" placeholder="Address" asp-for="Address">
             <span asp-validation-for="Address" class="text-danger sign-up__validation"></span>
         </div>
-        <p class="text-danger sign-in__register-fail"></p>
+        <p class="text-danger sign-up__register-fail"></p>
     </main>
     <footer class="sign-up__footer">
         <button type="button" class="sign-up__button-submit">Sign up</button>

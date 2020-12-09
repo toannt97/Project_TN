@@ -10,7 +10,7 @@ namespace ShopWebApp.Models.DataModels
     {
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        public string EmailAddress { get; set; }
+        public string EmailAddress { get; set; } 
         [Required(ErrorMessage = "The password is required")]
         [DataType(DataType.Password)]
         public string Password { get; set; }

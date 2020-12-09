@@ -23,6 +23,7 @@
             url: '/User/SignUpIndex',
         }).done(function (data) {
             $('.backdrop').addClass("backdrop--open");
+            $('body').removeClass('sign-in');
             $('body').append(data);
         }).fail(function (err) {
             alert('An error occurred while performing operation');
@@ -37,9 +38,21 @@
             processData: false,
             url: '/User/ChangePasswordIndex',
         }).done(function (data) {
-            $('.user__menu').removeClass('user__menu--opened');
-            $('.backdrop').addClass("backdrop--open");
-            $('body').append(data);
+            loadCardLayoutWithData(data);
+        }).fail(function (err) {
+            alert('An error occurred while performing operation');
+            console.log(err.responseText);
+        })
+    });
+
+    $('.user__item--update-profile').click(() => {
+        $.ajax({
+            type: 'Get',
+            contentType: false,
+            processData: false,
+            url: '/User/UpdateProfileIndex',
+        }).done(function (data) {
+            loadCardLayoutWithData(data);
         }).fail(function (err) {
             alert('An error occurred while performing operation');
             console.log(err.responseText);
@@ -74,26 +87,12 @@
     });
 
     $('.search-result__input-text').keyup(debounce(function () {
-        const keyword = $(this).val();
-        if (keyword === '') {
-            $('.search-result__items').css('display', 'none');
-            return;
-        }
-            
-        // The following function will be executed every one and a half seconds
-        $.ajax({
-            url: "/Product/Search",
-            type: "Post",
-            data: { "Keyword": keyword },
-            success: function (data) {
-                $(".search-result__items").html(data);
-                $('.search-result__items').css('display', 'block');
-            },
-            error: function (data) {
-                alert("Error: " + data);
-            }
-        });
+        searchProductByKeyword();
     }, 1000));
+
+    $('.search-result__button-submit').click(() => {
+        searchProductByKeyword();
+    });
 
     $(document).mouseup(function (e) {
         var target = $('.search-result__items');
@@ -105,7 +104,8 @@
     
 });
 
-var debounce = function (func, wait, immediate) {
+
+var debounce = (func, wait, immediate) => {
     var timeout;
     return function () {
         var context = this, args = arguments;
@@ -119,3 +119,31 @@ var debounce = function (func, wait, immediate) {
         if (callNow) func.apply(context, args);
     };
 };
+
+const searchProductByKeyword = () => {
+    const keyword = $('.search-result__input-text').val();
+    if (keyword === '') {
+        $('.search-result__items').css('display', 'none');
+        return;
+    }
+
+    // The following function will be executed every one and a half seconds
+    $.ajax({
+        url: "/Product/Search",
+        type: "Post",
+        data: { "Keyword": keyword },
+        success: function (data) {
+            $(".search-result__items").html(data);
+            $('.search-result__items').css('display', 'block');
+        },
+        error: function (data) {
+            alert("Error: " + data);
+        }
+    });
+}
+
+function loadCardLayoutWithData(data) {
+    $('.user__menu').removeClass('user__menu--opened');
+    $('.backdrop').addClass("backdrop--open");
+    $('body').append(data);
+}

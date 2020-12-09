@@ -33,7 +33,7 @@ namespace ShopWebApp.Controllers
         // GET: UserController/GetCurrentUser
         public ActionResult GetCurrentUser()
         {
-            return Json(HttpContext.Session.Get(Constant.SESSION_USER));
+            return Json(HttpContext.Session.Get<User>(Constant.SESSION_USER));
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace ShopWebApp.Controllers
         {
             try
             {
-                return View("SignIn", null);
+                return View(Constant.SIGN_IN, null);
             }
             catch (Exception)
             {
@@ -54,7 +54,7 @@ namespace ShopWebApp.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return View("SignIn", user);
+                    return View(Constant.SIGN_IN, user);
 
                 user.Password = Encrypt.SHA256Hash(user.Password);
                 var response = await _client.PostAsJsonAsync(Constant.API_USER, user);
@@ -72,7 +72,7 @@ namespace ShopWebApp.Controllers
             }
             catch (Exception)
             {
-                return View("Error");
+                return View(Constant.ERROR);
             }
         }
         [HttpGet]
@@ -80,7 +80,7 @@ namespace ShopWebApp.Controllers
         {
             try
             {
-                return View("SignUp", null);
+                return View(Constant.SIGN_UP, null);
             }
             catch (Exception)
             {
@@ -93,36 +93,16 @@ namespace ShopWebApp.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return PartialView("SignUp", user);
+                    return PartialView(Constant.SIGN_UP, user);
                 user.Password = Encrypt.SHA256Hash(user.Password);
                 user.PhoneNumber = Constant.PREFIX_PHONE + user.PhoneNumber;
                 var response = await _client.PostAsJsonAsync(Constant.API_ADD_USER, user);
 
-                switch ((Int32)response.StatusCode)
-                {
-                    case Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL:
-                        {
-                            return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, messageError = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
-                        }
-                    case Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME:
-                        {
-                            return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, messageError = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
-                        }
-                    case Constant.CODE_OK:
-                        {
-                            return Json(new { statusCode = Constant.CODE_OK });
-
-                        }
-                    default:
-                        {
-                            return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
-                        }
-
-                }
+                return SendResponseToUI(response);
             }
             catch (Exception)
             {
-                return View("Error");
+                return View(Constant.ERROR);
             }
         }
 
@@ -131,7 +111,7 @@ namespace ShopWebApp.Controllers
         {
             try
             {
-                return View("ChangePassword", null);
+                return View(Constant.CHANGE_PASSWORD, null);
             }
             catch (Exception)
             {
@@ -145,7 +125,7 @@ namespace ShopWebApp.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return PartialView("ChangePassword", user);
+                    return PartialView(Constant.CHANGE_PASSWORD, user);
 
                 if (HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER) == null)
                 {
@@ -161,26 +141,43 @@ namespace ShopWebApp.Controllers
 
                 var response = await _client.PostAsJsonAsync(Constant.API_CHANGE_PASSWORD, userRequest);
 
-                switch ((Int32)response.StatusCode)
-                {
-                    case Constant.ERROR_CODE_NOT_FOUND:
-                        {
-                            return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
-                        }
-                    case Constant.ERROR_CODE_SQL_CONNECTION:
-                        {
-                            return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, messageError = Constant.SQL_CONNECTION_MESSAGE });
-                        }
-                    case Constant.CODE_OK:
-                        {
-                            return Json(new { statusCode = Constant.CODE_OK });
+                return SendResponseToUI(response);
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+            }
+        }
 
-                        }
-                    default:
-                        {
-                            return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
-                        }
+        [HttpGet]
+        public ActionResult UpdateProfileIndex()
+        {
+            try
+            {
+                return View(Constant.UPDATE_PROFILE, null);
+            }
+            catch (Exception)
+            {
+                return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateProfileHandle([FromBody] UserUpdateProfile user)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return PartialView(Constant.UPDATE_PROFILE, user);
+
+                if (HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER) == null)
+                {
+                    return Json(new { statusCode = Constant.ERROR_CODE_AUTHENTICATION, messageError = Constant.ERROR_CODE_AUTHENTICATION });
                 }
+
+                var response = await _client.PostAsJsonAsync(Constant.API_CHANGE_PASSWORD, user);
+
+                return SendResponseToUI(response);
             }
             catch (Exception)
             {
@@ -212,7 +209,7 @@ namespace ShopWebApp.Controllers
         {
             try
             {
-                return View("Reset", null);
+                return View(Constant.RESET, null);
             }
             catch (Exception)
             {
@@ -225,25 +222,12 @@ namespace ShopWebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Reset", userRestore);
+                return View(Constant.RESET, userRestore);
             }
             var response = await _client.PostAsJsonAsync(Constant.API_RESET_PASSWORD, userRestore);
-            switch ((Int32)response.StatusCode)
-            {
-                case Constant.CODE_OK:
-                    {
-                        return Json(new { statusCode = Constant.CODE_OK });
-                    }
-                case Constant.ERROR_CODE_NOT_FOUND:
-                    {
-                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
-                    }
-                default:
-                    {
-                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
-                    }
-            }
+            return SendResponseToUI(response);
         }
+
         // GET: UserController/Create
         public ActionResult Create()
         {
@@ -304,6 +288,44 @@ namespace ShopWebApp.Controllers
             catch
             {
                 return View();
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private ActionResult SendResponseToUI(HttpResponseMessage response)
+        {
+            switch ((Int32)response.StatusCode)
+            {
+                case Constant.ERROR_CODE_BAD_REQUEST:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_BAD_REQUEST, messageError = Constant.BAD_REQUEST_MESSAGE });
+                    }
+                case Constant.ERROR_CODE_NOT_FOUND:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
+                    }
+                case Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, messageError = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
+                    }
+                case Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, messageError = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
+                    }
+                case Constant.ERROR_CODE_SQL_CONNECTION:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, messageError = Constant.SQL_CONNECTION_MESSAGE });
+                    }
+                case Constant.CODE_OK:
+                    {
+                        return Json(new { statusCode = Constant.CODE_OK });
+
+                    }
+                default:
+                    {
+                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+                    }
             }
         }
         #endregion

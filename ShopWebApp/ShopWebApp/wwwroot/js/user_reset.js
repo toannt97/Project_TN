@@ -1,6 +1,5 @@
 ﻿$(function () {
     $('.user-reset__close-button').click(() => {
-        $(".sign-in").css("display", "block");
         $('.user-reset').remove();
     });
 

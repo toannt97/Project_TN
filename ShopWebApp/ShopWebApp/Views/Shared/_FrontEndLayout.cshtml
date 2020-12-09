@@ -38,7 +38,6 @@
                     suppliers.Add(item);
                 }
             }
-
             List<Category> categories = new List<Category>();
             if (ViewBag.Category != null)
             {
@@ -66,15 +65,6 @@
     <footer class="footer">
         @await Html.PartialAsync(Constant.FOOTER_PARTIAL_VIEW_NAME)
     </footer>
-    <!-- The Sign Up Modal -->
-    <div id="register-modal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content container register-content">
-            <div class="modal-body modal-register" id="modal-register">
-                @await Html.PartialAsync(Constant.REGISTER_VIEW_NAME, new User())
-            </div>
-        </div>
-    </div>
     <div class="backdrop"/>
     @RenderSection("Scripts", required: false)
 </body>

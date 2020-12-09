@@ -19,6 +19,8 @@
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
         public const string API_GET_NUM_OF_CART_ITEMS = API_CART + "/GetNumOfCartItems";
         /* Status code*/
+        public const int ERROR_CODE_BAD_REQUEST = 400;
+        public const string BAD_REQUEST_MESSAGE = "Data request is invalid";
         public const int ERROR_CODE_AUTHENTICATION = 401;
         public const string AUTHENTICATION_MESSAGE = "User have not loged in yet. Please log in user";
         public const int ERROR_CODE_NOT_FOUND = 404;
@@ -48,14 +50,30 @@
 
         public const int DETAILED_PRODUCT_QUANTITY = 4;
 
-        // View and partial view name
+        /* Layout name */
         public const string FOOTER_PARTIAL_VIEW_NAME= "_FooterPartialView";
         public const string HEADER_PARTIAL_VIEW_NAME = "_HeaderPartialView";
-        public const string LOGIN_VIEW_NAME = "_LoginView";
         public const string NAVIGATION_MENU_VIEW_NAME = "_NavigationMenu";
-        public const string REGISTER_VIEW_NAME = "_RegisterView";
         public const string SUPPLIER_PARTIAL_VIEW_NAME = "_SupplierPartialView";
         public const string TAG_PARTIAL_VIEW_NAME = "_TagsPartialView";
+        /* View name */
+        public const string INDEX = "Index";
+        public const string ERROR = "Error";
+        // User page
+        public const string SIGN_IN = "SignIn";
+        public const string SIGN_UP = "SignUp";
+        public const string UPDATE_PROFILE = "UpdateProfile";
+        public const string RESET = "Reset";
+        public const string CHANGE_PASSWORD = "ChangePassword";
+        // Product page
+        
+        public const string DETAIL = "Detail";
+        public const string DETAIL_WITH_CONDITION = "DetailWithCondition";
+        public const string SEARCH_PARTIAL = "SearchPartial";
+        // Cart page
+        public const string PAYMENT = "Payment";
+
+
 
     }
 }
