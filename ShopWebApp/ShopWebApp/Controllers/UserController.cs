@@ -150,11 +150,31 @@ namespace ShopWebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult UpdateProfileIndex()
+        public async Task<IActionResult> UpdateProfileIndex()
         {
             try
             {
-                return View(Constant.UPDATE_PROFILE, null);
+                var sessionUser = HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER);
+                if (sessionUser == null)
+                {
+                    return Json(new { statusCode = Constant.ERROR_CODE_AUTHENTICATION, messageError = Constant.AUTHENTICATION_MESSAGE });
+                }
+                var response = await _client.GetAsync($"{Constant.API_USER}/{sessionUser.Id}");
+                if((Int32)response.StatusCode == Constant.CODE_OK)
+                {
+                    var user = response.Content.ReadAsAsync<User>().Result;
+                    var userResponse = new UserUpdateProfile
+                    {
+                        Address = user.Address,
+                        Id = user.Id,
+                        EmailAddress = user.EmailAddress,
+                        PhoneNumber = user.PhoneNumber,
+                        UserName = user.UserName,
+                    };
+                    return View(Constant.UPDATE_PROFILE, userResponse);
+                }
+
+                return SendResponseToUI(response);
             }
             catch (Exception)
             {
@@ -168,14 +188,14 @@ namespace ShopWebApp.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return PartialView(Constant.UPDATE_PROFILE, user);
+                    return View(Constant.UPDATE_PROFILE, user);
 
                 if (HttpContext.Session.Get<UserDTO>(Constant.SESSION_USER) == null)
                 {
                     return Json(new { statusCode = Constant.ERROR_CODE_AUTHENTICATION, messageError = Constant.ERROR_CODE_AUTHENTICATION });
                 }
 
-                var response = await _client.PostAsJsonAsync(Constant.API_CHANGE_PASSWORD, user);
+                var response = await _client.PostAsJsonAsync(Constant.API_UPDATE_PROFILE, user);
 
                 return SendResponseToUI(response);
             }
@@ -299,32 +319,31 @@ namespace ShopWebApp.Controllers
             {
                 case Constant.ERROR_CODE_BAD_REQUEST:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_BAD_REQUEST, messageError = Constant.BAD_REQUEST_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_BAD_REQUEST, errorMessage = Constant.BAD_REQUEST_MESSAGE });
                     }
                 case Constant.ERROR_CODE_NOT_FOUND:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, errorMessage = Constant.NOT_FOUND_MESSAGE });
                     }
                 case Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, messageError = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, errorMessage = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
                     }
                 case Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, messageError = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, errorMessage = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
                     }
                 case Constant.ERROR_CODE_SQL_CONNECTION:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, messageError = Constant.SQL_CONNECTION_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, errorMessage = Constant.SQL_CONNECTION_MESSAGE });
                     }
                 case Constant.CODE_OK:
                     {
                         return Json(new { statusCode = Constant.CODE_OK });
-
                     }
                 default:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, errorMessage = Constant.INTERNAL_MESSAGE });
                     }
             }
         }

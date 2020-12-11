@@ -5,13 +5,13 @@ namespace ShopWebApp.Models.ViewModels
     public class UserUpdateProfile
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The password is required")]
         public string EmailAddress { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The user name is required")]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The phone number is required")]
         public string PhoneNumber { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The address is required")]
         public string Address { get; set; }
     }
 }

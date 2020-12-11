@@ -26,23 +26,37 @@
     font-style: normal;
 }
 
-.card-layout__notification--success {
+.card-layout__notification {
+    text-align: center !important;
     margin: 10px 0 20px;
-    text-align: center;
-}
-
-.card-layout__notification--success-image {
-    width: 50px;
-}
-
-.card-layout__notification--success-title {
     font-size: 14px;
+    
+}
+
+.card-layout__notification--open {
+    display: block;
+}
+
+.card-layout__notification--success {
     color: var(--color-text-green);
+}
+
+.card-layout__notification--fail {
+    color: var(--color-text-red);
 }
 
 .card-layout__phone {
     display: flex;
 }
+
+.card-layout__link {
+    color: var(--color-base-dodger-blue);
+    cursor: pointer;
+}
+
+    .card-layout__link:hover {
+        text-decoration: underline;
+    }
 
 .card-layout__phone-prefix {
     height: 34px;
@@ -76,12 +90,12 @@
     padding: 0;
 }
 
-.card-layout__button-submit:disabled {
-    background: var(--color-base-gray);
-    outline: none;
-    border: none;
-}
+    .card-layout__button-submit:disabled {
+        background: var(--color-base-gray);
+        outline: none;
+        border: none;
+    }
 
-.card-layout__input-text-hidden{
+.card-layout__input-text-hidden {
     display: none;
 }

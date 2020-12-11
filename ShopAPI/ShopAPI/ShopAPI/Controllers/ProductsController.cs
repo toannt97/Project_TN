@@ -192,7 +192,6 @@ namespace ShopAPI.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 

@@ -1,5 +1,6 @@
 ﻿$(function () {
     $('.user-reset__close-button').click(() => {
+        $(".backdrop").removeClass("backdrop--open");
         $('.user-reset').remove();
     });
 

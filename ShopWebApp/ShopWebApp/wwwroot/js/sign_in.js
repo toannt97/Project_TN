@@ -1,24 +1,4 @@
 ﻿$(function () {
-    $('.sign-in__close-button').click(() => {
-        $(".backdrop").removeClass("backdrop--open");
-        $('.sign-in').remove();
-    });
-
-    $('.sign-in__forgot-text').click(() => {
-        $.ajax({
-            type: 'Get',
-            contentType: false,
-            processData: false,
-            url: '/User/ResetPasswordIndex',
-        }).done(function (data) {
-            $('.sign-in').css('display','none');
-            $('body').append(data);
-        }).fail(function (err) {
-            alert('An error occurred while performing operation');
-            console.log(err.responseText);
-        })
-    });
-
     $('.sign-in__button-submit').click(() => {
         //ResetToDefault();
         $.ajax({
@@ -57,16 +37,3 @@
         })
     });
 });
-
-// TODO: Consider remove else case
-function UserLogined(user) {
-    if (user.userName) {
-        $('.buttons').removeClass('opened').addClass('closed');
-        $('.account').removeClass('closed').addClass('opened');
-        $('.user-name').text(user.userName);
-        $('.cart-count').text(user.itemsInCart);
-    } else {
-        $('.buttons').removeClass('closed').addClass('opened');
-        $('.account').removeClass('opened').addClass('closed');
-    }
-}

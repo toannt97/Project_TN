@@ -37,6 +37,12 @@ namespace ShopAPI.Controllers
             return await _context.Users.ToListAsync();
         }
 
+        // GET: api/Users/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id && u.Status == Constant.IS_ACTIVE);
+        }
         /// <summary>
         /// Authentication
         /// </summary>
@@ -166,11 +172,11 @@ namespace ShopAPI.Controllers
             {
                 if (UserExistsWithEmail(user.EmailAddress))
                 {
-                    return StatusCode(Constant.DUPLICATE_DATA_EMAIL, Constant.DUPLICATE_DATA_EMAIL_MESSAGE);
+                    return StatusCode(Constant.DUPLICATE_DATA_EMAIL);
                 }
                 else if (UserExistsWithUserName(user.UserName))
                 {
-                    return StatusCode(Constant.DUPLICATE_DATA_USER_NAME, Constant.DUPLICATE_DATA_USER_NAME_MESSAGE);
+                    return StatusCode(Constant.DUPLICATE_DATA_USER_NAME);
                 }
 
                 var fromEmailID = _iconfiguration.GetSection(Constant.MAIL_CONFIGURATION).GetSection("Id").Value;
@@ -192,16 +198,16 @@ namespace ShopAPI.Controllers
                 emailSMTP.Send(fromEmailID, fromEmailPassword, user.EmailAddress, bodyEmail
                                  , Constant.PORT, Constant.GMAIL_HOST, Constant.SUBJECT_REGISTER_ACCOUNT);
 
-                return StatusCode(Constant.OK, Constant.OK_MESSAGE);
+                return StatusCode(Constant.OK);
 
             }
             catch (DbUpdateConcurrencyException)
             {
-                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
             }
             catch (Exception)
             {
-                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
+                return StatusCode(Constant.INTERNAL_ERROR);
             }
         }
 
@@ -227,11 +233,52 @@ namespace ShopAPI.Controllers
             }
             catch (SqlException)
             {
-                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
+                return StatusCode(Constant.INTERNAL_ERROR);
+            }
+        }
+
+        [Route("UpdateProfile")]
+        [HttpPost]
+        public async Task<ActionResult> UpdateProfile(UserUpdateProfileRequest userRequest)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return StatusCode(Constant.BAD_REQUEST);
+                }
+
+                var user = await _context.Users.Where(u => u.Id == userRequest.Id
+                                                    && u.Status == Constant.IS_ACTIVE)
+                                               .FirstOrDefaultAsync();
+                if (user == null)
+                {
+                    return StatusCode(Constant.NOT_FOUND);
+                }
+                else if (!user.UserName.Equals(userRequest.UserName) && UserExistsWithUserName(userRequest.UserName))
+                {
+                    return StatusCode(Constant.DUPLICATE_DATA_USER_NAME);
+                }
+
+                user.Address = userRequest.Address;
+                user.PhoneNumber = userRequest.PhoneNumber;
+                user.UserName = userRequest.UserName;
+                user.UpdateDate = DateTime.Now;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return StatusCode(Constant.OK);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR);
             }
         }
 
@@ -274,11 +321,11 @@ namespace ShopAPI.Controllers
             }
             catch (SqlException)
             {
-                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
             }
             catch (Exception)
             {
-                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
+                return StatusCode(Constant.INTERNAL_ERROR);
             }
         }
 

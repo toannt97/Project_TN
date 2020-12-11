@@ -2,14 +2,16 @@
 {
     public static class Constant
     {
+        public const int OK = 200;
+        public const string OK_MESSAGE = "OK";
+        public const int BAD_REQUEST = 400;
+        public const string BAD_REQUEST_MESSAGE = "Data request is incorrect";
+        public const int NOT_FOUND = 404;
+        public const string NOT_FOUND_MESSAGE = "Resource not found.";
         public const int DUPLICATE_DATA_EMAIL = 452;
         public const string DUPLICATE_DATA_EMAIL_MESSAGE = "Email address is already used.";
         public const int DUPLICATE_DATA_USER_NAME = 453;
         public const string DUPLICATE_DATA_USER_NAME_MESSAGE = "User name is already used.";
-        public const int NOT_FOUND = 404;
-        public const string NOT_FOUND_MESSAGE = "Resource not found.";
-        public const int OK = 200;
-        public const string OK_MESSAGE = "OK";
         public const int INTERNAL_ERROR = 500;
         public const string INTERNAL_MESSAGE = "A Server Error Occurred Please Contact the Administrator.";
         public const int SQL_EXECUTION_ERROR = 512;

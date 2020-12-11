@@ -3,25 +3,19 @@
 @{
     Layout = "_EmptyLayout";
 }
+
 <link href='~/css/user.css' rel='stylesheet' type='text/css'>
 
 <div class="card-layout">
     <em class="card-layout__button-close">X</em>
-    <header class="card-layout__header ">
+    <header class="card-layout__header">
         <h1 class="card-layout__title">Update your profile</h1>
     </header>
     <main class="card-layout__body">
-        <div class="card-layout__notification--success" style="display:none;">
-            <figure>
-                <img class="card-layout__notification--success-image" src="https://onlineshop.blob.core.windows.net/image/checkmark.jpg" />
-            </figure>
-            <p class="card-layout__notification--success-title">
-                Your account has been successfully registered. Please check your email to activate your account.
-            </p>
-        </div>
-
+        <p class="card-layout__notification">
+        </p>
         <div class="form-group">
-            <input type="email" class="card-layout__input-text update-profile__email-address form-control" placeholder="Email Address" asp-for="EmailAddress">
+            <input type="email" class="card-layout__input-text card-layout__input-text--disabled update-profile__email-address form-control" placeholder="Email Address" asp-for="EmailAddress" disabled>
             <span asp-validation-for="EmailAddress" class="text-danger card-layout__validation"></span>
         </div>
 
@@ -33,7 +27,8 @@
         <div class="form-group">
             <div class="card-layout__phone">
                 <p class="card-layout__phone-prefix">+84</p>
-                <input type="text" maxlength="15" class="card-layout__input-text card-layout__phone-number update-profile__phone-number form-control" onkeypress="return onlyNumberKey(event)" placeholder="Phone number" asp-for="PhoneNumber" pattern="^[1-9][0-9]+">
+                <input type="text" maxlength="15" class="card-layout__input-text card-layout__phone-number update-profile__phone-number form-control" 
+                       onkeypress="return onlyNumberKey(event)" placeholder="Phone number" asp-for="PhoneNumber" pattern="^[1-9][0-9]+">
             </div>
             <span asp-validation-for="PhoneNumber" class="text-danger card-layout__validation"></span>
         </div>

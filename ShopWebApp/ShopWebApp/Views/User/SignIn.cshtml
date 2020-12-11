@@ -1,14 +1,18 @@
 ﻿@model ShopWebApp.Models.DataModels.UserSignIn
 
-<link href='~/css/sign_in.css' rel='stylesheet' type='text/css'>
+@{ 
+    Layout = "_EmptyLayout";
+}
+<link href='~/css/user.css' rel='stylesheet' type='text/css'>
 
-
-<div class="sign-in container">
-    <em class="sign-in__close-button">X</em>
-    <header class="sign-in__header">
-        <h1 class="sign-in__title">Login</h1>
+<div class="card-layout">
+    <em class="card-layout__button-close">X</em>
+    <header class="card-layout__header">
+        <h1 class="card-layout__title">Login</h1>
     </header>
-    <main class="sign-in__body">
+    <main class="card-layout__body">
+        <p class="card-layout__notification">
+        </p>
         <div class="form-group">
             <input type="email" class="sign-in__email-address form-control" id="email-login-js" placeholder="Email address" asp-for="EmailAddress" value="nguyenthaitoan1997@gmail.com">
             <span asp-validation-for="EmailAddress" class="text-danger validation"></span>
@@ -17,16 +21,14 @@
             <input type="password" class="sign-in__password form-control" id="password-login-js" placeholder="Password" asp-for="Password" value="123">
             <span asp-validation-for="Password" class="text-danger validation"></span>
         </div>
-        <div class="sign-in__forgot">
-            <p class="sign-in__forgot-text">Forgot password?</p>
-        </div>
-        <p class="text-danger sign-in__status"></p>
+         <p class="card-layout__link sign-in__forgot-link">Forgot password?</p>
     </main>
-    <footer class="sign-in__footer">
-        <button class="sign-in__button-submit">Sign in</button>
+    <footer class="card-layout__footer">
+        <button type="button" class="card-layout__button-submit" id="sign-in__button-submit" >Sign in</button>
     </footer>
-    
+
 </div>
 
-<script src="~/js/sign_in.js" type="text/javascript"></script>
+@*<script src="~/js/sign_in.js" type="text/javascript"></script>*@
 @*<script src="~/js/site.js" type="text/javascript"></script>*@
+<script src="~/js/user.js"></script>
