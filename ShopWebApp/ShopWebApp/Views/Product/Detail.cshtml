@@ -14,7 +14,7 @@
     <div class="col-md-5">
         <div class="single-para">
             <h4>@Model.Name</h4>
-            <h5 class="item-price">Price: @Model.UnitPrice.ToString("#.#0") USD</h5>
+            <h5 class="item-price">Price: @Model.UnitPrice.ToString("#,##0.00")$</h5>
             <span class="product-detail__supplier-name">@Html.DisplayNameFor(model => model.SupplierName)</span>
             <span>@Model.SupplierName</span>
             <span class="product-detail__button-add-cart">Buy</span>
@@ -22,6 +22,7 @@
 </div>
     </div>
     <div class="col-md-3">
+        <h3><u>Information</u>:</h3>
         <h4 class="product-detail__information">@Model.Information</h4>
     </div>
 
@@ -45,7 +46,7 @@
                         
                     </div>
                     <p>@item.Name</p>
-                    <a asp-action="GetDetail" asp-route-productId="@item.Id" class="product-detail__related-product-button-add"><p class="product-detail__related-product-price">@item.UnitPrice.ToString("#.#0") USD</p></a>
+                    <a asp-action="GetDetail" asp-route-productId="@item.Id" class="product-detail__related-product-button-add"><p class="product-detail__related-product-price">@item.UnitPrice.ToString("#.#0")$</p></a>
                 </div>
             }
         }

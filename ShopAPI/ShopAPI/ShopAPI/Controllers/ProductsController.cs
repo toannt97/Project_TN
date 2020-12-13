@@ -80,7 +80,7 @@ namespace ShopAPI.Controllers
 
             if (product == null)
             {
-                return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
+                return StatusCode(Constant.NOT_FOUND);
             }
 
             return product;
@@ -111,7 +111,7 @@ namespace ShopAPI.Controllers
                               .ToListAsync();
 
             if (result == null || result.Count == 0)
-                return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
+                return StatusCode(Constant.NOT_FOUND);
 
             return result;
         }
@@ -128,7 +128,7 @@ namespace ShopAPI.Controllers
                                                         .ToListAsync();
             if (productsRelated == null || productsRelated.Count == 0)
             {
-                return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
+                return StatusCode(Constant.NOT_FOUND);
             }
 
             return productsRelated;

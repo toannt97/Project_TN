@@ -15,7 +15,7 @@
                 <div class="product__item">
                     <a style="text-decoration:none" asp-action="GetDetail" asp-route-productId="@product.Id"><img src="@Constant.URL_IMAGE/@product.Image" style="width:60%" ;></a>
                     <h6><a style="text-decoration:none" asp-action="GetDetail" asp-route-productId="@product.Id">@product.Name</a></h6>
-                    <h5 class="product__price-label">Price:</h5> <h4 class="product__price-number"> @product.UnitPrice.ToString("#,##0.00") USD</h4>
+                    <h5 class="product__price-label">Price:</h5> <h4 class="product__price-number"> @product.UnitPrice.ToString("#,##0.00")$</h4>
                 </div>
                 <br />
             </div>

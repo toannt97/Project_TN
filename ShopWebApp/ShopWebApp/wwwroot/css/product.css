@@ -35,6 +35,8 @@
 
 .product-detail__information {
     display: block;
+    padding: 10px;
+    white-space: nowrap;
     font-weight: var(--font-weight-bold);
 }
 

@@ -11,9 +11,10 @@
 
 .supplier-item {
     padding: 5px 20px 5px;
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium) !important;
     display: block;
     color: var(--color-text-black) !important;
+    font-family: 'Roboto', sans-serif;
 }
 
     .supplier-item:hover {
@@ -28,6 +29,7 @@
     border-radius: 5px 30px 30px 5px;
     background: var(--color-base-orange);
     pointer-events: none;
+    
 }
 
     .supplier-item--selected:hover {

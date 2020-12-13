@@ -5,11 +5,11 @@
 {
     foreach (var item in Model)
     {
-        <li>
+        <li >
             <a class="search-result__item" asp-controller="Product" asp-action="GetDetail" asp-route-productId="@item.Id">
                 <img class="search-result__image" src="@Constant.URL_IMAGE/@item.Image">
                 <h3 class="search-result__name">@item.Name</h3>
-                <h4 class="search-result__price-block"><b>Price</b>: <span class="search-result__price">@item.UnitPrice.ToString("#,##0")$</span></h4>
+                <h4 class="search-result__price-block"><b>Price</b>: <span class="search-result__price">@item.UnitPrice.ToString("#,##0.00")$</span></h4>
             </a>
         </li>
     }

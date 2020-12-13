@@ -3,19 +3,14 @@
     public static class Constant
     {
         public const int OK = 200;
-        public const string OK_MESSAGE = "OK";
         public const int BAD_REQUEST = 400;
-        public const string BAD_REQUEST_MESSAGE = "Data request is incorrect";
         public const int NOT_FOUND = 404;
-        public const string NOT_FOUND_MESSAGE = "Resource not found.";
         public const int DUPLICATE_DATA_EMAIL = 452;
-        public const string DUPLICATE_DATA_EMAIL_MESSAGE = "Email address is already used.";
         public const int DUPLICATE_DATA_USER_NAME = 453;
-        public const string DUPLICATE_DATA_USER_NAME_MESSAGE = "User name is already used.";
         public const int INTERNAL_ERROR = 500;
-        public const string INTERNAL_MESSAGE = "A Server Error Occurred Please Contact the Administrator.";
         public const int SQL_EXECUTION_ERROR = 512;
-        public const string SQL_EXECUTION_MESSAGE = "SQL execution error.";
+        public const int USER_NOT_EXIST = 513;
+        public const int EMPTY_LIST = 600;
         // SMTP port
         public const int PORT = 587;
         public const string GMAIL_HOST = "smtp.gmail.com";

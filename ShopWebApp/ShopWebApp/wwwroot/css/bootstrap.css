@@ -4128,7 +4128,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #999;
 }
 .pagination {
-  display: inline-block;
+  display: block;
   padding-left: 0;
   margin: 20px 0;
   border-radius: 4px;

@@ -71,43 +71,10 @@ namespace ShopAPI.Controllers
             // Login information is not correct
             if (user == null)
             {
-                return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
+                return StatusCode(Constant.NOT_FOUND);
             }
-
             return user;
         }
-
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        // PUT: api/Users/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutUser(int id, User user)
-        //{
-        //    if (id != user.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(user).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UserExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
 
         /// <summary>
         /// Generate and send new password to customer via email
@@ -124,7 +91,7 @@ namespace ShopAPI.Controllers
                                                        && us.Status == 0)
                                               .SingleOrDefaultAsync();
                 if (user == null)
-                    return StatusCode(Constant.NOT_FOUND, Constant.NOT_FOUND_MESSAGE);
+                    return StatusCode(Constant.NOT_FOUND);
                 // Generate new random password
                 var newPassword = new RandomGenerator()
                                           .RandomPassword(Constant.SIZE_STRING_LETTERS_PASSWORD
@@ -145,15 +112,15 @@ namespace ShopAPI.Controllers
                 user.UpdateDate = DateTime.Now;
                 _context.Entry(user).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
-                return StatusCode(Constant.OK, Constant.OK_MESSAGE);
+                return StatusCode(Constant.OK);
             }
             catch (SqlException)
             {
-                return StatusCode(Constant.SQL_EXECUTION_ERROR, Constant.SQL_EXECUTION_MESSAGE);
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
             }
             catch (Exception)
             {
-                return StatusCode(Constant.INTERNAL_ERROR, Constant.INTERNAL_MESSAGE);
+                return StatusCode(Constant.INTERNAL_ERROR);
             }
         }
 

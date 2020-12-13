@@ -87,6 +87,7 @@ namespace ShopWebApp.Controllers
                 return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
             }
         }
+
         [HttpPost]
         public async Task<IActionResult> SignUpHandle([FromBody] User user)
         {
@@ -319,23 +320,23 @@ namespace ShopWebApp.Controllers
             {
                 case Constant.ERROR_CODE_BAD_REQUEST:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_BAD_REQUEST, errorMessage = Constant.BAD_REQUEST_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_BAD_REQUEST, messageError = Constant.BAD_REQUEST_MESSAGE });
                     }
                 case Constant.ERROR_CODE_NOT_FOUND:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, errorMessage = Constant.NOT_FOUND_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_NOT_FOUND, messageError = Constant.NOT_FOUND_MESSAGE });
                     }
                 case Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, errorMessage = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_EMAIL, messageError = Constant.DUPLICATE_DATA_EMAIL_MESSAGE });
                     }
                 case Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, errorMessage = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_DUPLICATE_DATA_USER_NAME, messageError = Constant.DUPLICATE_DATA_USER_NAME_MESSAGE });
                     }
                 case Constant.ERROR_CODE_SQL_CONNECTION:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, errorMessage = Constant.SQL_CONNECTION_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_SQL_CONNECTION, messageError = Constant.SQL_CONNECTION_MESSAGE });
                     }
                 case Constant.CODE_OK:
                     {
@@ -343,7 +344,7 @@ namespace ShopWebApp.Controllers
                     }
                 default:
                     {
-                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, errorMessage = Constant.INTERNAL_MESSAGE });
+                        return Json(new { statusCode = Constant.ERROR_CODE_INTERNAL, messageError = Constant.INTERNAL_MESSAGE });
                     }
             }
         }

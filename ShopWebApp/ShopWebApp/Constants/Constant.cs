@@ -19,7 +19,12 @@
         public const string API_SEARCH_PRODUCTS = API_PRODUCT + "/SearchProduct";
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
         public const string API_GET_NUM_OF_CART_ITEMS = API_CART + "/GetNumOfCartItems";
+        public const string API_CART_CHECK_OUT = API_CART + "/CheckOut";
         /* Status code*/
+        public const int USER_NOT_EXIST = 513;
+        public const int EMPTY_LIST = 600;
+        public const int ERROR_CODE_CART_ITEM_INVALID = 606;
+        public const string CART_ITEM_INVALID_MESSAGE = "Your purchase was canceled.";
         public const int ERROR_CODE_BAD_REQUEST = 400;
         public const string BAD_REQUEST_MESSAGE = "Data request is invalid";
         public const int ERROR_CODE_AUTHENTICATION = 401;
@@ -37,6 +42,7 @@
         public const string INTERNAL_MESSAGE = "something went wrong please try again or contact to administrator to get more information.";
         public const int ERROR_CODE_SQL_CONNECTION = 503;
         public const string SQL_CONNECTION_MESSAGE = "Can not connect to database.";
+        public const string REQUEST_RELOAD_MESSAGE = "Can not connect to database.";
 
         public const string PREFIX_PHONE = "+84"; 
         public const int PAGE_SIZE = 10;
@@ -67,12 +73,13 @@
         public const string RESET = "Reset";
         public const string CHANGE_PASSWORD = "ChangePassword";
         // Product page
-        
         public const string DETAIL = "Detail";
         public const string DETAIL_WITH_CONDITION = "DetailWithCondition";
         public const string SEARCH_PARTIAL = "SearchPartial";
         // Cart page
         public const string PAYMENT = "Payment";
+        // Paypal
+        public const string CLIENT_ID_PAYPAL = "AZyfjEW5oOePcqf4VBrIzZ_rE95Jhx7Xffbw6-pSx-sUjUmPXuQuRnigTyM8za-wrcACzvGHQilIMiS1";
 
 
 

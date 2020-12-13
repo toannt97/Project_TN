@@ -1,32 +1,19 @@
-﻿@model ShopWebApp.Models.DataModels.User
+﻿@model ShopWebApp.Models.ViewModels.ShippingInfoViewModel
 
+@{
+    Layout = "~/Views/Shared/_EmptyLayout.cshtml";
+}
 <link href='~/css/user.css' rel='stylesheet' type='text/css'>
 
-<div class="card-layout">
-    <em class="card-layout__button-close">X</em>
+<div class="container">
     <header class="card-layout__header">
-        <h1 class="card-layout__title">Register</h1>
+        <h1 class="card-layout__title">Shipping information</h1>
     </header>
     <main class="card-layout__body">
-            <p class="card-layout__notification"></p>
+        <p class="card-layout__notification"></p>
         <div class="form-group">
             <input type="text" class="card-layout__input-text sign-up__user-name form-control" placeholder="User name" asp-for="UserName">
             <span asp-validation-for="UserName" class="text-danger card-layout__validation"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="email" class="card-layout__input-text sign-up__email-address form-control" placeholder="Email Address" asp-for="EmailAddress">
-            <span asp-validation-for="EmailAddress" class="text-danger card-layout__validation"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="password" class="card-layout__input-text sign-up__password form-control" placeholder="Password" asp-for="Password">
-            <span asp-validation-for="Password" class="text-danger card-layout__validation"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="password" class="card-layout__input-text sign-up__confirm-password form-control" placeholder="Confirm password" asp-for="ConfirmPassword">
-            <span asp-validation-for="ConfirmPassword" class="text-danger card-layout__validation"></span>
         </div>
 
         <div class="form-group ">
@@ -41,11 +28,15 @@
             <input type="text" class="card-layout__input-text sign-in__address form-control" placeholder="Address" asp-for="Address">
             <span asp-validation-for="Address" class="text-danger card-layout__validation"></span>
         </div>
+
+        <div class="form-group">
+            <input type="text" class="card-layout__input-text sign-in__address form-control" placeholder="ShippingDate" asp-for="ShippingDate">
+            <span asp-validation-for="ShippingDate" class="text-danger card-layout__validation"></span>
+        </div>
     </main>
     <footer class="card-layout__footer">
-        <button type="button" class="card-layout__button-submit" id="sign-up__button-submit">Sign up</button>
+        
     </footer>
 </div>
 
-<!--Script-->
-<script src="~/js/user.js"></script>
+<script src="~/js/check_out.js"></script>

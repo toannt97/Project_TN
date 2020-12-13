@@ -41,7 +41,7 @@ namespace ShopAPI.Controllers
             {
                 var numOfCartItemDTO = await _context.ShoppingCarts.Where(s => s.UserId == userId && s.Status == Constant.IS_ACTIVE)
                                                                    .SumAsync(s => s.Quantity);
-                return new NumOfCartItemsDTO { Quantity= numOfCartItemDTO };
+                return new NumOfCartItemsDTO { Quantity = numOfCartItemDTO };
             }
             catch (SqlException)
             {
@@ -52,14 +52,14 @@ namespace ShopAPI.Controllers
                 return StatusCode(Constant.INTERNAL_ERROR);
             }
         }
-        
+
         // GET api/<CartController>/5
         [HttpGet("{idUser}")]
         public async Task<ActionResult<IEnumerable<CartItemDTO>>> GetCartItems(int idUser)
         {
             try
             {
-                var result = await _context.ShoppingCarts.Where(s => s.Status != -1)
+                var result = await _context.ShoppingCarts.Where(s => s.Status == Constant.IS_ACTIVE && s.UserId == idUser)
                                              .Select(i => new CartItemDTO
                                              {
                                                  ProductId = i.Product.Id,
@@ -136,16 +136,55 @@ namespace ShopAPI.Controllers
             }
         }
 
-        // PUT api/<CartController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("CheckOut/{id}")]
+        public async Task<ActionResult<IEnumerable<CartItemInvalidDTO>>> CheckOut(int id)
         {
+            var user = await _context.Users.Where(u => u.Id == id && u.Status == Constant.IS_ACTIVE).FirstOrDefaultAsync();
+            if(user == null)
+                return StatusCode(Constant.USER_NOT_EXIST);
+            var cartItems = await _context.ShoppingCarts.Where(c => c.UserId == id && c.Status == Constant.IS_ACTIVE    
+                                                               && (c.Quantity > c.Product.Quantity || c.Product.Status == Constant.IS_DELETED))
+                                                        .Select(r => new CartItemInvalidDTO
+                                                        {
+                                                            ProductId = r.ProductId,
+                                                            ProductName = r.Product.Name,
+                                                            QuantityAvailable = r.Product.Quantity,
+                                                            QuantityRequest = r.Quantity,
+                                                            Status = r.Status,
+                                                        })
+                                                        .ToListAsync();
+            if(cartItems.Count==0)
+                return StatusCode(Constant.EMPTY_LIST);
+            return cartItems;
         }
 
-        // DELETE api/<CartController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut]
+        public async Task<ActionResult<IEnumerable<CartItemDTO>>> UpdateItem(CartItemUpdateRequest cartItemRequest)
         {
+            try
+            {
+                var cartItem = _context.ShoppingCarts.Where(c => c.ProductId == cartItemRequest.ProductId
+                                                            && c.UserId == cartItemRequest.UserId && c.Status == Constant.IS_ACTIVE)
+                                                     .FirstOrDefault();
+                if (cartItem != null)
+                {
+                    cartItem.Status = cartItemRequest.Status;
+                    cartItem.Quantity = cartItemRequest.Quantity;
+                    _context.Entry(cartItem).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
+                    var items = await GetCartItems(cartItemRequest.UserId);
+                    return items;
+                }
+                return StatusCode(Constant.NOT_FOUND);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(Constant.SQL_EXECUTION_ERROR);
+            }
+            catch (Exception)
+            {
+                return StatusCode(Constant.INTERNAL_ERROR);
+            }
         }
     }
 }

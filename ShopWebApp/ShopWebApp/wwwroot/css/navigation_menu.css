@@ -1,4 +1,7 @@
-﻿.category-item:hover {
+﻿.category-item {
+    font-family: 'Roboto', sans-serif;
+}
+.category-item:hover {
     background-color: #01b5d0 !important;
     color: white !important;
 }
