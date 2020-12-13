@@ -10,22 +10,22 @@
     <main class="card-layout__body">
             <p class="card-layout__notification"></p>
         <div class="form-group">
-            <input type="text" class="card-layout__input-text sign-up__user-name form-control" placeholder="User name" asp-for="UserName">
+            <input type="text" class="card-layout__input-text sign-up__user-name form-control" placeholder="User name" asp-for="UserName" maxlength="50">
             <span asp-validation-for="UserName" class="text-danger card-layout__validation"></span>
         </div>
 
         <div class="form-group">
-            <input type="email" class="card-layout__input-text sign-up__email-address form-control" placeholder="Email Address" asp-for="EmailAddress">
+            <input type="email" class="card-layout__input-text sign-up__email-address form-control" placeholder="Email Address" asp-for="EmailAddress" maxlength="50">
             <span asp-validation-for="EmailAddress" class="text-danger card-layout__validation"></span>
         </div>
 
         <div class="form-group">
-            <input type="password" class="card-layout__input-text sign-up__password form-control" placeholder="Password" asp-for="Password">
+            <input type="password" class="card-layout__input-text sign-up__password form-control" placeholder="Password" asp-for="Password" maxlength="50">
             <span asp-validation-for="Password" class="text-danger card-layout__validation"></span>
         </div>
 
         <div class="form-group">
-            <input type="password" class="card-layout__input-text sign-up__confirm-password form-control" placeholder="Confirm password" asp-for="ConfirmPassword">
+            <input type="password" class="card-layout__input-text sign-up__confirm-password form-control" placeholder="Confirm password" asp-for="ConfirmPassword" maxlength="50">
             <span asp-validation-for="ConfirmPassword" class="text-danger card-layout__validation"></span>
         </div>
 

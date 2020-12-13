@@ -16,7 +16,7 @@ namespace ShopAPI.Models
         public int CustomerId { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? UpdateDate { get; set; }
-        public DateTime DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
         public int Status { get; set; }
 
         public virtual User Customer { get; set; }

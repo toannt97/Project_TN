@@ -1,0 +1,17 @@
+﻿.order-container
+{
+    margin-top: 30px !important;
+}
+
+.top-level-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-title {
+    margin-bottom: 30px !important;
+}
+
+.order__continue-shopping{
+    font-size:18px;
+}

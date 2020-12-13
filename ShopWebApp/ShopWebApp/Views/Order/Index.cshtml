@@ -1,63 +1,46 @@
-﻿@model ShopWebApp.Models.ViewModels.ShippingInfoViewModel
+﻿@model List<ShopWebApp.Models.DataModels.Order>
 
-@using ShopWebApp.Constants
-
-<link type="text/css" rel="stylesheet" href="~/css/cart.css" />
-
+<link type="text/css" rel="stylesheet" href="~/css/order.css" />
 
 @{
     Layout = "~/Views/Shared/_EmptyLayout.cshtml";
 }
 
-<section class="container order-container">
+<section class="order-container container">
     <div class="wrapper-content">
         <div class="top-level-header">
-            <h3 class="title-order">Your order</h3>
+            <h3 class="order-title">Your order</h3>
+            <a href="/" class="order__continue-shopping">Continue shopping</a>
         </div>
         @if (Model.Count > 0)
         {
-            <ul class="item-list">
-                @foreach (var item in Model)
-                {
-                    <li class="item">
-                        <div class="left">
-                            <div class="photo">
-                                <img src="@Constant.URL_IMAGE/@item.ProductImage" alt="@item.ProductName" />
-                            </div>
-                            <div class="item-content">
-                                <div class="item-name">@item.ProductName</div>
-                                <div class="item-information">@item.ProductInformation</div>
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="quantity-order form-group">
-                                <button class="cart__decrement-button" onclick="decrement(@item.ProductId, @item.UnitPrice)">-</button>
-                                <input type="number" id="@item.ProductId" min="1" class="cart_quantity" value="@item.Quantity" />
-                                <button class="cart__increment-button" onclick="increment(@item.ProductId, @item.UnitPrice)">+</button>
-                            </div>
-                            <div class="price" id="price">@item.UnitPrice.ToString("#,##0.00")$</div>
-                            <button class="button-remove" onclick="removeCart(@item.ProductId)">X</button>
-                        </div>
-                    </li>
-                    totalPrice += item.TotalPrice;
-                }
-            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Create date</th>
+                        <th scope="col">Update date</th>
+                        <th scope="col">Delivery date</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row"><a asp-action="GetOrderDetailsByOrderId" asp-controller="Order" asp-route-orderId="@item.Id">@item.Id</a></th>
+                            <td>@item.CreateDate</td>
+                            <td>@item.UpdateDate</td>
+                            <td>@item.DeliveryDate</td>
+                            <td>@(item.Status == 0 ? "Pending" : @item.Status == 1 ? "Paid by Paypal" : @item.Status == 2 ? "Pending (COD)" : "Complete")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
         else
         {
-            <p>Your order list is empty</p>
+            <p>Your list order is empty</p>
         }
-        <input type="number" style="display:none;" class="total-price" value="@totalPrice" />
-    </div>
-    <div class="total pay-item">
-        Total price: <span class="amount">@totalPrice.ToString("#,##0.00")$</span>
-    </div>
-
-
-    <div id="group-button-payment" style="display: none;">
-        <div id="paypal-button-container"></div>
     </div>
 </section>
-
-<script src="~/js/cart.js"></script>
-<script src="https://www.paypal.com/sdk/js?client-id=AZyfjEW5oOePcqf4VBrIzZ_rE95Jhx7Xffbw6-pSx-sUjUmPXuQuRnigTyM8za-wrcACzvGHQilIMiS1&currency=USD" data-sdk-integration-source="button-factory"></script>

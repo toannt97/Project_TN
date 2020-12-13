@@ -7,5 +7,12 @@
 <link href="~/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <script src="~/js/common.js"></script>
 <link rel="shortcut icon" type="image/x-icon" href="@(Constant.URL_FAVICON)" />
+<script src="~/js/site.js"></script>
+<link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
 
-@RenderBody()
+<main>
+    @RenderBody()
+</main>
+<footer class="footer">
+    @await Html.PartialAsync(Constant.FOOTER_PARTIAL_VIEW_NAME)
+</footer>

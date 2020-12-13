@@ -64,7 +64,7 @@
             type: 'Get',
             contentType: false,
             processData: false,
-            url: '/User/UpdateProfileIndex',
+            url: '/Order/Index',
         }).done(function (data) {
             loadCardLayoutWithData(data);
         }).fail(function (err) {

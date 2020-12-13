@@ -20,6 +20,7 @@ namespace ShopAPI.Models
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<District> Districts { get; set; }
         public virtual DbSet<History> Histories { get; set; }
+        public virtual DbSet<Infor> Infors { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -87,8 +88,6 @@ namespace ShopAPI.Models
             {
                 entity.ToTable("history");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.CreateDate).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.User)
@@ -96,6 +95,25 @@ namespace ShopAPI.Models
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_history_user");
+            });
+
+            modelBuilder.Entity<Infor>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("infor");
+
+                entity.Property(e => e.Address).IsUnicode(false);
+
+                entity.Property(e => e.Email).IsUnicode(false);
+
+                entity.Property(e => e.Fax)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Seller).IsUnicode(false);
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -137,10 +155,13 @@ namespace ShopAPI.Models
                 entity.Property(e => e.Description).IsUnicode(false);
 
                 entity.Property(e => e.Image)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Information).IsUnicode(false);
+                entity.Property(e => e.Information)
+                    .IsRequired()
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Name)
                     .IsRequired()

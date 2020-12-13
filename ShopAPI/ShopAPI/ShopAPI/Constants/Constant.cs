@@ -27,6 +27,7 @@
         public static int IS_ACTIVE = 0;
         public const int NOT_FOUND_INT = 0;
         public static int IS_DELETED = -1;
+        public static int IS_DELETED_ORDER = -1;
         public const int SIZE_STRING_LETTERS_PASSWORD = 4;
         public const int MIN_VALUE_PASSWORD = 1000;
         public const int MAX_VALUE_PASSWORD = 9999;
