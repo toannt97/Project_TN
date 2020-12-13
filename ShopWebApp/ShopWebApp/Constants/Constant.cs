@@ -10,6 +10,7 @@
         public const string API_CART = "carts";
         public const string API_SUPPLIER = "suppliers";
         public const string API_CATEGORY = "categories";
+        public const string API_ORDER = "orders";
         /*Method*/
         public const string API_ADD_USER = API_USER + "/AddUser";
         public const string API_RESET_PASSWORD = API_USER + "/RestoreAccount";
@@ -20,6 +21,8 @@
         public const string API_TOTAL_PRODUCT = API_PRODUCT + "/GetTotalProduct";
         public const string API_GET_NUM_OF_CART_ITEMS = API_CART + "/GetNumOfCartItems";
         public const string API_CART_CHECK_OUT = API_CART + "/CheckOut";
+        public const string API_GET_ODER_BY_USER = API_CART + "/DetailsWithUserId";
+        
         /* Status code*/
         public const int USER_NOT_EXIST = 513;
         public const int EMPTY_LIST = 600;

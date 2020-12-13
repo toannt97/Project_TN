@@ -59,6 +59,20 @@
         })
     });
 
+    $('.user__item--view-order').click(() => {
+        $.ajax({
+            type: 'Get',
+            contentType: false,
+            processData: false,
+            url: '/User/UpdateProfileIndex',
+        }).done(function (data) {
+            loadCardLayoutWithData(data);
+        }).fail(function (err) {
+            alert('An error occurred while performing operation');
+            console.log(err.responseText);
+        })
+    });
+
     $('.user__item--sign-out').click(() => {
         $.ajax({
             type: 'Post',

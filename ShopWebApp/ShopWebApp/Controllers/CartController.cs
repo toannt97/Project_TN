@@ -117,6 +117,7 @@ namespace ShopWebApp.Controllers
                 case Constant.CODE_OK:
                     {
                         var result = response.Content.ReadAsAsync<IEnumerable<CartItemInvalidDTO>>().Result;
+
                         HttpContext.Session.Set<UserDTO>(Constant.SESSION_USER, sessionUser);
                         return Json(new { statusCode = Constant.ERROR_CODE_CART_ITEM_INVALID, messageError = Constant.CART_ITEM_INVALID_MESSAGE, data = result });
                     }
